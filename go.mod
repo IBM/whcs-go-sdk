@@ -1,4 +1,4 @@
-module github/IBM/whcs-go-sdk
+module github.com/IBM/whcs-go-sdk
 
 go 1.13
 
