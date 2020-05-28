@@ -122,7 +122,7 @@ func (insightsForMedicalLiteratureService *InsightsForMedicalLiteratureServiceV1
 // GetDocuments : Retrieves information about the documents in this corpus
 // The response returns the following information: <ul><li>number of documents in the corpus</li><li>corpus
 // provider</li></ul>.
-func (insightsForMedicalLiteratureService *InsightsForMedicalLiteratureServiceV1) GetDocuments(getDocumentsOptions *GetDocumentsOptions) (result *CorpusModel, response *core.DetailedResponse, err error) {
+func (insightsForMedicalLiteratureService *InsightsForMedicalLiteratureServiceV1) GetDocuments(getDocumentsOptions *GetDocumentsOptions) (result *CorpusInfoModel, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(getDocumentsOptions, "getDocumentsOptions cannot be nil")
 	if err != nil {
 		return
@@ -163,7 +163,7 @@ func (insightsForMedicalLiteratureService *InsightsForMedicalLiteratureServiceV1
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalCorpusModel)
+	err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalCorpusInfoModel)
 	if err != nil {
 		return
 	}
@@ -255,7 +255,7 @@ func (insightsForMedicalLiteratureService *InsightsForMedicalLiteratureServiceV1
 // ID)</li><li>title</li><li>abstract</li><li>body</li><li>pdfUrl</li><li>referenceUrl</li><li>other
 // metadata</li></ul>Note, some documents may not have an abstract, or only the abstract may be available without the
 // body text.
-func (insightsForMedicalLiteratureService *InsightsForMedicalLiteratureServiceV1) GetDocumentInfo(getDocumentInfoOptions *GetDocumentInfoOptions) (result *GetDocumentInfoResponse, response *core.DetailedResponse, err error) {
+func (insightsForMedicalLiteratureService *InsightsForMedicalLiteratureServiceV1) GetDocumentInfo(getDocumentInfoOptions *GetDocumentInfoOptions) (result *CorpusInfoModel, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(getDocumentInfoOptions, "getDocumentInfoOptions cannot be nil")
 	if err != nil {
 		return
@@ -295,11 +295,12 @@ func (insightsForMedicalLiteratureService *InsightsForMedicalLiteratureServiceV1
 	}
 
 	var rawResponse map[string]json.RawMessage
+	print(rawResponse)
 	response, err = insightsForMedicalLiteratureService.Service.Request(request, &rawResponse)
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalGetDocumentInfoResponse)
+	err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalCorpusInfoModel)
 	if err != nil {
 		return
 	}
@@ -504,8 +505,8 @@ func (insightsForMedicalLiteratureService *InsightsForMedicalLiteratureServiceV1
 	}
 
 	body := make(map[string]interface{})
-	if getDocumentMultipleCategoriesOptions.Body != nil {
-		body["categories"] = getDocumentMultipleCategoriesOptions.Body
+	if getDocumentMultipleCategoriesOptions.Categories != nil {
+		body["categories"] = getDocumentMultipleCategoriesOptions.Categories
 	}
 	_, err = builder.SetBodyContentJSON(body)
 	if err != nil {
@@ -1907,6 +1908,78 @@ func UnmarshalBoolOperand(m map[string]json.RawMessage, result interface{}) (err
 	return
 }
 
+// Category : Category struct
+type Category struct {
+	// Category return name
+	Name *string `json:"name,omitempty"`
+
+	// Category Label
+	Category *string `json:"category,omitempty"`
+
+	// Semantic types of category
+	Types []string `json:"types,omitempty"`
+}
+
+func (*InsightsForMedicalLiteratureServiceV1) NewCategory(name string) *Category {
+	return &Category{
+		Name: core.StringPtr(name),
+	}
+}
+
+func (options *Category) SetCategory(category string) *Category {
+	options.Category = core.StringPtr(category)
+	return options
+}
+
+func (options *Category) SetTypes(types []string) *Category {
+	options.Types = types
+	return options
+}
+
+
+// UnmarshalCategory unmarshals an instance of Category from the specified map of raw messages.
+func UnmarshalCategory(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(Category)
+	err = core.UnmarshalPrimitive(m, "name", &obj.Name)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "category", &obj.Category)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "types", &obj.Types)
+	if err != nil {
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// CategoriesEntry : Categories struct
+type CategoriesEntry struct {
+	// List of categories
+	Categories []Category `json:"categories,omitempty"`
+}
+
+func (*InsightsForMedicalLiteratureServiceV1) NewCategoriesEntry(categories []Category) *CategoriesEntry {
+	return &CategoriesEntry{
+		Categories: categories,
+	}
+}
+
+
+// UnmarshalCategoriesEntry unmarshals an instance of CategoriesEntry from the specified map of raw messages.
+func UnmarshalCategoriesEntry(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(CategoriesEntry)
+	err = core.UnmarshalModel(m, "categories", &obj.Categories, UnmarshalCategory)
+	if err != nil {
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
 // DeleteCorpusSchemaOptions : The DeleteCorpusSchema options.
 type DeleteCorpusSchemaOptions struct {
 	// corpus schema.
@@ -2561,8 +2634,8 @@ type GetDocumentMultipleCategoriesOptions struct {
 	// Document ID.
 	DocumentID *string `json:"document_id" validate:"required"`
 
-	// Categories
-	Categories Body *string `json:"body" validate:"required"`
+	// Categories.
+	Categories []Category `json:"categories" validate:"required"`
 
 	// HTML tag used to highlight concepts found in the text.  Default is '&ltb&gt'.
 	HighlightTagBegin *string `json:"highlight_tag_begin,omitempty"`
@@ -2582,10 +2655,11 @@ type GetDocumentMultipleCategoriesOptions struct {
 }
 
 // NewGetDocumentMultipleCategoriesOptions : Instantiate GetDocumentMultipleCategoriesOptions
-func (*InsightsForMedicalLiteratureServiceV1) NewGetDocumentMultipleCategoriesOptions(corpus string, documentID string) *GetDocumentMultipleCategoriesOptions {
+func (*InsightsForMedicalLiteratureServiceV1) NewGetDocumentMultipleCategoriesOptions(corpus string, documentID string, categories []Category) *GetDocumentMultipleCategoriesOptions {
 	return &GetDocumentMultipleCategoriesOptions{
 		Corpus: core.StringPtr(corpus),
 		DocumentID: core.StringPtr(documentID),
+		Categories: categories,
 	}
 }
 
@@ -2602,8 +2676,8 @@ func (options *GetDocumentMultipleCategoriesOptions) SetDocumentID(documentID st
 }
 
 // SetBody : Allow user to set Body
-func (options *GetDocumentMultipleCategoriesOptions) SetBody(body string) *GetDocumentMultipleCategoriesOptions {
-	options.Body = core.StringPtr(body)
+func (options *GetDocumentMultipleCategoriesOptions) SetCategories(categories []Category) *GetDocumentMultipleCategoriesOptions {
+	options.Categories = categories
 	return options
 }
 
@@ -2924,7 +2998,7 @@ type GetSearchMatchesOptions struct {
 	DocumentID *string `json:"document_id" validate:"required"`
 
 	// Minimum score .0 to 1.0.
-	MinScore *float32 `json:"min_score" validate:"required"`
+	MinScore *float64 `json:"min_score" validate:"required"`
 
 	// cui[,rank,[type]] - Example: "C0030567,10". The rank is an optional value from 0 to 10 (defalut is 10). Special rank
 	// values: 0=omit, 10=require. Related concepts can also be included by appending, '-PAR' (parents), '-CHD' (children),
@@ -2975,11 +3049,11 @@ type GetSearchMatchesOptions struct {
 }
 
 // NewGetSearchMatchesOptions : Instantiate GetSearchMatchesOptions
-func (*InsightsForMedicalLiteratureServiceV1) NewGetSearchMatchesOptions(corpus string, documentID string, minScore float32) *GetSearchMatchesOptions {
+func (*InsightsForMedicalLiteratureServiceV1) NewGetSearchMatchesOptions(corpus string, documentID string, minScore float64) *GetSearchMatchesOptions {
 	return &GetSearchMatchesOptions{
 		Corpus: core.StringPtr(corpus),
 		DocumentID: core.StringPtr(documentID),
-		MinScore: core.Float32Ptr(minScore),
+		MinScore: core.Float64Ptr(minScore),
 	}
 }
 
@@ -2996,8 +3070,8 @@ func (options *GetSearchMatchesOptions) SetDocumentID(documentID string) *GetSea
 }
 
 // SetMinScore : Allow user to set MinScore
-func (options *GetSearchMatchesOptions) SetMinScore(minScore float32) *GetSearchMatchesOptions {
-	options.MinScore = core.Float32Ptr(minScore)
+func (options *GetSearchMatchesOptions) SetMinScore(minScore float64) *GetSearchMatchesOptions {
+	options.MinScore = core.Float64Ptr(minScore)
 	return options
 }
 
@@ -3370,7 +3444,10 @@ type SearchOptions struct {
 	// onclick='setSearchApiBody(event, "dateRange.json")'><a>Date Range</a></span></li><li><span style='text-decoration:
 	// underline; cursor: pointer;' onclick='setSearchApiBody(event, "advancedSearch.json")'><a>Advanced
 	// Search</a></span></li></ul>.
-	Body *string `json:"body" validate:"required"`
+	Returns *ReturnsModel `json:"returns" validate:"required"`
+
+	// Query model
+	Query *QueryModel `json:"query,omitempty"`
 
 	// Verbose output.
 	Verbose *bool `json:"verbose,omitempty"`
@@ -3380,10 +3457,11 @@ type SearchOptions struct {
 }
 
 // NewSearchOptions : Instantiate SearchOptions
-func (*InsightsForMedicalLiteratureServiceV1) NewSearchOptions(corpus string, body string) *SearchOptions {
+func (*InsightsForMedicalLiteratureServiceV1) NewSearchOptions(corpus string, returns *ReturnsModel) *SearchOptions {
 	return &SearchOptions{
 		Corpus: core.StringPtr(corpus),
-		Body: core.StringPtr(body),
+		Returns: returns,
+//		Body: core.StringPtr(body),
 	}
 }
 
@@ -3393,9 +3471,15 @@ func (options *SearchOptions) SetCorpus(corpus string) *SearchOptions {
 	return options
 }
 
-// SetBody : Allow user to set Body
-func (options *SearchOptions) SetBody(body string) *SearchOptions {
-	options.Body = core.StringPtr(body)
+// SetQuery : Allow user to set Query model
+func (options *SearchOptions) SetQuery(query *QueryModel) *SearchOptions {
+	options.Query = query
+	return options
+}
+
+// SetReturns : Allow user to set Returns model
+func (options *SearchOptions) SetReturns(returns *ReturnsModel) *SearchOptions {
+	options.Returns = returns
 	return options
 }
 
@@ -4017,17 +4101,17 @@ type CategoriesModel struct {
 	// License for corpus.
 	ModelLicense *string `json:"modelLicense,omitempty"`
 
-	HighlightedTitle *StringBuilder `json:"highlightedTitle,omitempty"`
+	HighlightedTitle *string`json:"highlightedTitle,omitempty"`
 
-	HighlightedAbstract *StringBuilder `json:"highlightedAbstract,omitempty"`
+	HighlightedAbstract *string `json:"highlightedAbstract,omitempty"`
 
-	HighlightedBody *StringBuilder `json:"highlightedBody,omitempty"`
+	HighlightedBody *string `json:"highlightedBody,omitempty"`
 
 	// Document sections with annotation tags.
-	HighlightedSections map[string]StringBuilder `json:"highlightedSections,omitempty"`
+	HighlightedSections map[string]string `json:"highlightedSections,omitempty"`
 
 	// Document passages with annotation tags.
-	Passages map[string]map[string]EntryModel `json:"passages,omitempty"`
+	Passages map[string]MatchingPassages `json:"passages,omitempty"`
 
 	// List of document annotations.
 	Annotations map[string]AnnotationModel `json:"annotations,omitempty"`
@@ -4041,23 +4125,23 @@ func UnmarshalCategoriesModel(m map[string]json.RawMessage, result interface{}) 
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalModel(m, "highlightedTitle", &obj.HighlightedTitle, UnmarshalStringBuilder)
+	err = core.UnmarshalPrimitive(m, "highlightedTitle", &obj.HighlightedTitle)
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalModel(m, "highlightedAbstract", &obj.HighlightedAbstract, UnmarshalStringBuilder)
+	err = core.UnmarshalPrimitive(m, "highlightedAbstract", &obj.HighlightedAbstract)
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalModel(m, "highlightedBody", &obj.HighlightedBody, UnmarshalStringBuilder)
+	err = core.UnmarshalPrimitive(m, "highlightedBody", &obj.HighlightedBody)
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalModel(m, "highlightedSections", &obj.HighlightedSections, UnmarshalStringBuilder)
+	err = core.UnmarshalPrimitive(m, "highlightedSections", &obj.HighlightedSections)
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalModel(m, "passages", &obj.Passages, UnmarshalEntryModel)
+	err = core.UnmarshalModel(m, "passages", &obj.Passages, UnmarshalMatchingPassages)
 	if err != nil {
 		return
 	}
@@ -4555,6 +4639,31 @@ func UnmarshalCorporaConfig(m map[string]json.RawMessage, result interface{}) (e
 	return
 }
 
+// CorpusInfoModel : Object representing a configured corpus document count.
+type CorpusInfoModel struct {
+	// Number of documents.
+	DocumentCount *int64 `json:"documentCount,omitempty"`
+
+	// Ontologies found in the corpus.
+	Providers []CorpusProvider `json:"providers,omitempty"`
+}
+
+
+// UnmarshalCorpusInfoModel unmarshals an instance of CorpusInfoModel from the specified map of raw messages.
+func UnmarshalCorpusInfoModel(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(CorpusInfoModel)
+	err = core.UnmarshalPrimitive(m, "documentCount", &obj.DocumentCount)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalModel(m, "providers", &obj.Providers, UnmarshalCorpusProvider)
+	if err != nil {
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
 // CorpusModel : Object representing a configured corpus.
 type CorpusModel struct {
 	// Name of the corpus.
@@ -4600,6 +4709,31 @@ func UnmarshalCorpusModel(m map[string]json.RawMessage, result interface{}) (err
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
 	return
 }
+
+// CorpusProvider: Object representing a corpus provider.
+type CorpusProvider struct {
+	// Name of the corpus.
+	DocumentCount *int64 `json:"documentCount,omitempty"`
+
+	// Ontologies found in the corpus.
+	Name *string `json:"name,omitempty"`
+}
+
+// UnmarshalCorpusProvider unmarshals an instance of CorpusProvider from the specified map of raw messages.
+func UnmarshalCorpusProvider(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(CorpusProvider)
+	err = core.UnmarshalPrimitive(m, "documentCount", &obj.DocumentCount)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "name", &obj.Name)
+	if err != nil {
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
 
 // Count : Corpus frequency count.
 type Count struct {
@@ -4802,6 +4936,44 @@ func UnmarshalMatchEntry(m map[string]json.RawMessage, result interface{}) (err 
 	return
 }
 
+// MatchingPassages : Model for matching passages of search criteria.
+type MatchingPassages struct {
+	// identifier.
+	Cui *string `json:"cui,omitempty"`
+
+	// Whether passages is negatedc.
+	Negated *bool `json:"negated,omitempty"`
+
+	// Match score
+	Score *float64 `json:"score,omitempty"`
+
+	// Matching sentences.
+	Sentences []SentenceModel `json:"sentences,omitempty"`
+}
+
+// UnmarshalMatchingPassages unmarshal an isntance of MatchingPassages from the raw result.
+func UnmarshalMatchingPassages(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(MatchingPassages)
+	err = core.UnmarshalPrimitive(m, "cui", &obj.Cui)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "negated", &obj.Cui)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "score", &obj.Cui)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalModel(m, "sentences", &obj.Sentences, UnmarshalSentenceModel)
+	if err != nil {
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
 // MetadataModel : Model for document metadata.
 type MetadataModel struct {
 	// List of document fields in the corpus.
@@ -4892,6 +5064,20 @@ func UnmarshalPassage(m map[string]json.RawMessage, result interface{}) (err err
 	return
 }
 
+// PassagesModel: Object represnting document passages.
+//type PassagesModel struct {
+	// Passage entry.
+//	Entry Entry `json:"entry,omitempty`
+//}
+
+// UnmarshalPassagesModel unmarshals an instance of PassagesModel from the specified map of raw messages.
+//func UnmarshalPassagesModel(m map[string]json.RawMessage, result interface{}) (err error) {
+//	obj := new(PassagesModel)/
+//	err = core.UnmarshalModel(m, "entry", &obj.Text, UnmarshalEntry)
+//	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+//	return
+//}
+
 // Qualifer : Object representing an artifact qualifier.
 type Qualifer struct {
 	// Unique identifier for attribute qualifier.
@@ -4910,6 +5096,251 @@ func UnmarshalQualifer(m map[string]json.RawMessage, result interface{}) (err er
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "name", &obj.Name)
+	if err != nil {
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// QueryConcept : Objecy representing a concept query condition.
+type QueryConcept struct {
+	// BoolOperand portion of the expression for this condition.
+	BoolOperand *string `json:"boolOperand,omitempty"`
+
+	// concept identifier.
+	Cui *string `json:"cui,omitempty"`
+
+	// List of related concepts to include
+	IncludeRelated []string `json:"includeRelated,omitempty"`
+
+	// Whether to target negated instances of the concept
+	Negated *bool `json:"negated,omitempty"`
+
+	// Ontology for concept
+	Ontology *string `json:"ontology,omitempty"`
+
+	// Rank of concept
+	Rank *string `json:"rank,omitempty"`
+
+	// Sections to search for concept
+	Sections []string `json:"section,omitempty"`
+
+	// Semantic type for concept
+	SemanticType *string `json:"semanticType,omitempty"`
+
+	// Text for text-based search
+	Text *string `json:"text,omitempty"`
+}
+
+// NewQueryModel instantiates new instance of QueryModel
+func (*InsightsForMedicalLiteratureServiceV1) NewQueryConcept() *QueryConcept {
+	return &QueryConcept{}
+}
+
+// Sets the search expression
+func (query *QueryConcept) SetBoolOperand(operand string) *QueryConcept {
+	query.BoolOperand = core.StringPtr(operand)
+	return query
+}
+
+// Sets the concept identifier
+func (query *QueryConcept) SetCui(cuii string) *QueryConcept {
+	query.Cui = core.StringPtr(cui)
+	return query
+}
+
+// Sets the included relations
+func (query *QueryConcept) SetInludeRelation(relations []string) *QueryConcept {
+	query.IncludeRelated = relations
+	return query
+}
+
+// Sets the negated flag
+func (query *QueryConcept) SetNegated(negated bool) *QueryConcept {
+	query.Negated = core.BoolPtr(negated)
+	return query
+}
+
+// Sets the source ontology
+func (query *QueryConcept) SetOntology(ontology string) *QueryConcept {
+	query.Ontology = core.StringPtr(ontology)
+	return query
+}
+
+// Sets the section list
+func (query *QueryConcept) SetSections(sections []string) *QueryConcept {
+	query.Sections = sections
+	return query
+}
+
+// Sets the semantic type
+func (query *QueryConcept) SetSemanticType(semType string) *QueryConcept {
+	query.SemanticType = core.StringPtr(semType)
+	return query
+}
+
+// Sets the text search
+func (query *QueryConcept) SetText(text string) *QueryConcept {
+	query.Text = core.StringPtr(text)
+	return query
+}
+
+
+
+// QueryModel : Object representing a query condition.
+type QueryModel struct {
+	// BoolExpression representing the entrire query.
+	BoolExpression *string `json:"boolExpression,omitempty"`
+
+	// BoolRegexp a boolean regular expression.
+	BoolRegexp map[string]string `json:"boolRegexp,omitempty"`
+
+	// BoolTerm qeury condition.
+	BoolTerm map[string]string `json:"boolTerm,omitempty"`
+
+	// Concepts list of ontology based query conditions.
+	Concepts []QueryConcept `json:"concepts,omitempty"`
+
+	// Scrolling cursor identifier.
+	CursorId *string `json:"cursordId,omitempty"`
+
+	// Date range query condition.
+	DateRange map[string]Range `json:"dateRange,omitempty"`
+
+	// Regular expression for value condition.
+	Regexp []map[string]string `json:"regexp,omitempty"`
+
+	// Boost factofr for title search emphasis.
+	Tille *TitleBoost `json;"title,omitempty"`
+}
+
+// NewQueryModel instantiates new instance of QueryModel
+func (*InsightsForMedicalLiteratureServiceV1) NewQueryModel() *QueryModel {
+	return &QueryModel{}
+}
+
+// Sets the search expression
+func (query *QueryModel) SetBoolExpression(expression string) *QueryModel {
+	query.BoolExpression = core.StringPtr(expression)
+	return query
+}
+
+// Sets the boolean regular expression condition.
+func (query *QueryModel) SetBoolRegexp(regexp []map[string]string) *QueryModel {
+	query.BoolRegexp = regexp
+	return query
+}
+
+// Sets the booleam term condition.
+func (query *QueryModel) SetBoolTerm(term map[string]string) *QueryModel {
+	query.BoolTerm = term
+	return query
+}
+
+// Sets the scrolling cursor identifier.
+func (query *QueryModel) SetCursorId(cursor string) *QueryModel {
+	query.CursorId = core.StringPtr(cursor)
+	return query
+}
+
+// Sets the concept conditions.
+func (query *QueryModel) SetConcepts(concepts []Concepts) *QueryModel {
+	query.Concepts = concepts
+	return query
+}
+
+// Sets the date range
+func (query *QueryModel) SetDateRange(ranges []map[string]Range) *QueryModel {
+	query.DateRange = ranges
+	return query
+}
+
+// Sets the booleam term condition.
+func (query *QueryModel) SetRegexp(exp string) *QueryModel {
+	query.Regexp = core.StringPtr(exp)
+	return query
+}
+
+// Sets the booleam term condition.
+func (query *QueryModel) SetTitleBoost(booster *Title) *QueryModel {
+	query.Title = booster
+	return query
+}
+
+// UnmarshalQueryModel unmarshals a QueryModel instance from the raw mwessage.
+func UnmarshalQueryModel(m map[string]json.RawMessage, result interface{}} (err error) {
+	obj := new(QueryModel)
+	err = core.UnmarshalPrimitive(m, "boolExpression", &obj.BoolExpression)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "boolRegexp", &obj.BoolRegexp)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "boolTerm", &obj.BoolTerm)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalModel(m, "concepts", &obj.Concepts, UnmarshalQueryConcept)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "cursorId", &obj.CursorId)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalModel(m, "dateRange", &obj.DateRange, UnmarshalRange)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "regexp", &obj.Regexp)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalModel(m, "title", &obj.Title, UnmarshalTitle)
+	if err != nil {
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// Range : object representing a date range.
+type Range struct {
+	// Begging of range.
+	Begin *string `json:"begin,omitempty"`
+
+	// Ending of range.
+	End *string `json:"end,omitempty"`
+}
+
+// NewRange instantiates new instance of QueryModel.
+func (*InsightsForMedicalLiteratureServiceV1) NewRange() *Range {
+	return &Range{}
+}
+.
+// Sets the range beginning value
+func (options *Range) SetBegin(begin string) *Range {
+	options.Begin = core.StringPtr(begin)
+	return options
+}
+
+// Sets the range ending value.
+func (options *Range) SetBEnd(end string) *Range {
+	options.End = core.StringPtr(end)
+	return options
+}
+
+// UnmarshalRange unmarshals a Range instance from the raw mwessage.
+func UnmarshalRange(m map[string]json.RawMessage, result interface{}} (err error) {
+	obj := new(Range)
+	err = core.UnmarshalPrimitive(m, "begin", &obj.Begin)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "end", &obj.End)
 	if err != nil {
 		return
 	}
@@ -5208,17 +5639,17 @@ type SearchMatchesModel struct {
 	// Link to sourc origin for matched document in corpus.
 	ReferenceURL *string `json:"referenceUrl,omitempty"`
 
-	HighlightedTitle *StringBuilder `json:"highlightedTitle,omitempty"`
+	HighlightedTitle *string `json:"highlightedTitle,omitempty"`
 
-	HighlightedAbstract *StringBuilder `json:"highlightedAbstract,omitempty"`
+	HighlightedAbstract *string `json:"highlightedAbstract,omitempty"`
 
-	HighlightedBody *StringBuilder `json:"highlightedBody,omitempty"`
+	HighlightedBody *string `json:"highlightedBody,omitempty"`
 
 	// Matched document sections with annotation tags.
-	HighlightedSections map[string]StringBuilder `json:"highlightedSections,omitempty"`
+	HighlightedSections map[string]string `json:"highlightedSections,omitempty"`
 
 	// Matched document passages with annotation tags.
-	Passages map[string]map[string]MatchEntry `json:"passages,omitempty"`
+	Passages map[string]MatchingPassages `json:"passages,omitempty"`
 
 	// Matched document annotations.
 	Annotations map[string]AnnotationModel `json:"annotations,omitempty"`
@@ -5284,23 +5715,23 @@ func UnmarshalSearchMatchesModel(m map[string]json.RawMessage, result interface{
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalModel(m, "highlightedTitle", &obj.HighlightedTitle, UnmarshalStringBuilder)
+	err = core.UnmarshalPrimitive(m, "highlightedTitle", &obj.HighlightedTitle)
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalModel(m, "highlightedAbstract", &obj.HighlightedAbstract, UnmarshalStringBuilder)
+	err = core.UnmarshalPrimitive(m, "highlightedAbstract", &obj.HighlightedAbstract)
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalModel(m, "highlightedBody", &obj.HighlightedBody, UnmarshalStringBuilder)
+	err = core.UnmarshalPrimitive(m, "highlightedBody", &obj.HighlightedBody)
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalModel(m, "highlightedSections", &obj.HighlightedSections, UnmarshalStringBuilder)
+	err = core.UnmarshalPrimitive(m, "highlightedSections", &obj.HighlightedSections)
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalModel(m, "passages", &obj.Passages, UnmarshalMatchEntry)
+	err = core.UnmarshalModel(m, "passages", &obj.Passages, UnmarshalMatchingPassages)
 	if err != nil {
 		return
 	}
@@ -5485,7 +5916,7 @@ type SentenceModel struct {
 	// Document section for sentence.
 	DocumentSection *string `json:"documentSection,omitempty"`
 
-	Text *StringBuilder `json:"text,omitempty"`
+	Text *string `json:"text,omitempty"`
 
 	// Starting sentence offset.
 	Begin *int64 `json:"begin,omitempty"`
@@ -5505,7 +5936,7 @@ func UnmarshalSentenceModel(m map[string]json.RawMessage, result interface{}) (e
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalModel(m, "text", &obj.Text, UnmarshalStringBuilder)
+	err = core.UnmarshalPrimitive(m, "text", &obj.Text)
 	if err != nil {
 		return
 	}
@@ -5604,6 +6035,23 @@ func UnmarshalTextSpan(m map[string]json.RawMessage, result interface{}) (err er
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "type", &obj.Type)
+	if err != nil {
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// Title : Model for setting title boost factor.
+type Title struct {
+	// Boost factor
+	Boost *int64 `json:"boost,omitempty"`
+}
+
+// UnmarshalTitle unmarshals an instance of Title from the specified map of raw messages.
+func UnmarshalTitle(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(Title)
+	err = core.UnmarshalPrimitive(m, "boost", &obj.Boost)
 	if err != nil {
 		return
 	}

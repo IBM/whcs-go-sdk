@@ -207,7 +207,7 @@ var _ = Describe(`InsightsForMedicalLiteratureServiceV1`, func() {
 
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, `{"corpusName": "CorpusName", "ontologies": ["Ontologies"], "descriptiveName": "DescriptiveName", "bvt": false, "elasticsearchIndex": "ElasticsearchIndex"}`)
+					fmt.Fprintf(res, `{"documentCount": 10, "providers": [{"documentCount": 5, "name": "testString"}]}`)
 				}))
 			})
 			It(`Invoke GetDocuments successfully`, func() {
@@ -661,7 +661,7 @@ var _ = Describe(`InsightsForMedicalLiteratureServiceV1`, func() {
 
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, `{"modelLicense": "ModelLicense", "highlightedTitle": {}, "highlightedAbstract": {}, "highlightedBody": {}, "highlightedSections": {"mapKey": {}}, "passages": {"mapKey": {"mapKey": {"id": "ID", "negated": false, "sentences": [{"documentSection": "DocumentSection", "text": {}, "begin": 5, "end": 3, "timestamp": 9}]}}}, "annotations": {"mapKey": {"uniqueId": 8, "stickyIds": [9], "ontology": "Ontology", "section": "Section", "preferredName": "PreferredName", "cui": "Cui", "attributeId": "AttributeID", "qualifiers": ["Qualifiers"], "type": "Type", "negated": false, "hypothetical": true, "unit": "Unit", "minValue": "MinValue", "maxValue": "MaxValue", "operator": "Operator", "nluSourceType": "NluSourceType", "nluRelation": "NluRelation", "nluTargetType": "NluTargetType", "nluEntityIndex": "NluEntityIndex", "nluMentionIndex": "NluMentionIndex", "nluRelationId": "NluRelationID", "nluSide": "NluSide", "begin": 5, "end": 3, "score": 5, "timestamp": 9, "features": {"mapKey": "Inner"}, "hits": 4}}}`)
+					fmt.Fprintf(res, `{"modelLicense": "ModelLicense", "highlightedTitle": "testString", "highlightedAbstract": "testString", "highlightedBody": "testString", "highlightedSections": {"mapKey": "testString"}, "passages": {"mapKey": {"mapKey": {"id": "ID", "negated": false, "sentences": [{"documentSection": "DocumentSection", "text": {}, "begin": 5, "end": 3, "timestamp": 9}]}}}, "annotations": {"mapKey": {"uniqueId": 8, "stickyIds": [9], "ontology": "Ontology", "section": "Section", "preferredName": "PreferredName", "cui": "Cui", "attributeId": "AttributeID", "qualifiers": ["Qualifiers"], "type": "Type", "negated": false, "hypothetical": true, "unit": "Unit", "minValue": "MinValue", "maxValue": "MaxValue", "operator": "Operator", "nluSourceType": "NluSourceType", "nluRelation": "NluRelation", "nluTargetType": "NluTargetType", "nluEntityIndex": "NluEntityIndex", "nluMentionIndex": "NluMentionIndex", "nluRelationId": "NluRelationID", "nluSide": "NluSide", "begin": 5, "end": 3, "score": 5, "timestamp": 9, "features": {"mapKey": "Inner"}, "hits": 4}}}`)
 				}))
 			})
 			It(`Invoke GetDocumentCategories successfully`, func() {
@@ -806,24 +806,15 @@ var _ = Describe(`InsightsForMedicalLiteratureServiceV1`, func() {
 				annotationModelModel.Features = make(map[string]string)
 				annotationModelModel.Hits = core.Int64Ptr(int64(38))
 
-				// Construct an instance of the StringBuilder model
-				stringBuilderModel := new(insightsformedicalliteratureservicev1.StringBuilder)
-
 				// Construct an instance of the GetDocumentMultipleCategoriesOptions model
 				getDocumentMultipleCategoriesOptionsModel := new(insightsformedicalliteratureservicev1.GetDocumentMultipleCategoriesOptions)
 				getDocumentMultipleCategoriesOptionsModel.Corpus = core.StringPtr("testString")
 				getDocumentMultipleCategoriesOptionsModel.DocumentID = core.StringPtr("testString")
-				getDocumentMultipleCategoriesOptionsModel.ModelLicense = core.StringPtr("testString")
-				getDocumentMultipleCategoriesOptionsModel.HighlightedTitle = stringBuilderModel
-				getDocumentMultipleCategoriesOptionsModel.HighlightedAbstract = stringBuilderModel
-				getDocumentMultipleCategoriesOptionsModel.HighlightedBody = stringBuilderModel
-				getDocumentMultipleCategoriesOptionsModel.HighlightedSections = make(map[string]insightsformedicalliteratureservicev1.StringBuilder)
-				getDocumentMultipleCategoriesOptionsModel.Passages = make(map[string]map[string]EntryModel)
-				getDocumentMultipleCategoriesOptionsModel.Annotations = make(map[string]insightsformedicalliteratureservicev1.AnnotationModel)
 				getDocumentMultipleCategoriesOptionsModel.HighlightTagBegin = core.StringPtr("testString")
 				getDocumentMultipleCategoriesOptionsModel.HighlightTagEnd = core.StringPtr("testString")
 				getDocumentMultipleCategoriesOptionsModel.Fields = core.StringPtr("testString")
 				getDocumentMultipleCategoriesOptionsModel.Limit = core.Int64Ptr(int64(38))
+				getDocumentMultipleCategoriesOptionsModel.Categories = []insightsformedicalliteratureservicev1.Category{}
 				getDocumentMultipleCategoriesOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Expect response parsing to fail since we are receiving a text/plain response
 				result, response, operationErr := testService.GetDocumentMultipleCategories(getDocumentMultipleCategoriesOptionsModel)
@@ -860,7 +851,7 @@ var _ = Describe(`InsightsForMedicalLiteratureServiceV1`, func() {
 
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, `{"modelLicense": "ModelLicense", "highlightedTitle": {}, "highlightedAbstract": {}, "highlightedBody": {}, "highlightedSections": {"mapKey": {}}, "passages": {"mapKey": {"mapKey": {"id": "ID", "negated": false, "sentences": [{"documentSection": "DocumentSection", "text": {}, "begin": 5, "end": 3, "timestamp": 9}]}}}, "annotations": {"mapKey": {"uniqueId": 8, "stickyIds": [9], "ontology": "Ontology", "section": "Section", "preferredName": "PreferredName", "cui": "Cui", "attributeId": "AttributeID", "qualifiers": ["Qualifiers"], "type": "Type", "negated": false, "hypothetical": true, "unit": "Unit", "minValue": "MinValue", "maxValue": "MaxValue", "operator": "Operator", "nluSourceType": "NluSourceType", "nluRelation": "NluRelation", "nluTargetType": "NluTargetType", "nluEntityIndex": "NluEntityIndex", "nluMentionIndex": "NluMentionIndex", "nluRelationId": "NluRelationID", "nluSide": "NluSide", "begin": 5, "end": 3, "score": 5, "timestamp": 9, "features": {"mapKey": "Inner"}, "hits": 4}}}`)
+					fmt.Fprintf(res, `{"modelLicense": "ModelLicense", "highlightedTitle": "testString", "highlightedAbstract": "testString", "highlightedBody": "testString", "highlightedSections": {"mapKey": "testString"}, "passages": {"mapKey": {"mapKey": {"id": "ID", "negated": false, "sentences": [{"documentSection": "DocumentSection", "text": {}, "begin": 5, "end": 3, "timestamp": 9}]}}}, "annotations": {"mapKey": {"uniqueId": 8, "stickyIds": [9], "ontology": "Ontology", "section": "Section", "preferredName": "PreferredName", "cui": "Cui", "attributeId": "AttributeID", "qualifiers": ["Qualifiers"], "type": "Type", "negated": false, "hypothetical": true, "unit": "Unit", "minValue": "MinValue", "maxValue": "MaxValue", "operator": "Operator", "nluSourceType": "NluSourceType", "nluRelation": "NluRelation", "nluTargetType": "NluTargetType", "nluEntityIndex": "NluEntityIndex", "nluMentionIndex": "NluMentionIndex", "nluRelationId": "NluRelationID", "nluSide": "NluSide", "begin": 5, "end": 3, "score": 5, "timestamp": 9, "features": {"mapKey": "Inner"}, "hits": 4}}}`)
 				}))
 			})
 			It(`Invoke GetDocumentMultipleCategories successfully`, func() {
@@ -909,24 +900,15 @@ var _ = Describe(`InsightsForMedicalLiteratureServiceV1`, func() {
 				annotationModelModel.Features = make(map[string]string)
 				annotationModelModel.Hits = core.Int64Ptr(int64(38))
 
-				// Construct an instance of the StringBuilder model
-				stringBuilderModel := new(insightsformedicalliteratureservicev1.StringBuilder)
-
 				// Construct an instance of the GetDocumentMultipleCategoriesOptions model
 				getDocumentMultipleCategoriesOptionsModel := new(insightsformedicalliteratureservicev1.GetDocumentMultipleCategoriesOptions)
 				getDocumentMultipleCategoriesOptionsModel.Corpus = core.StringPtr("testString")
 				getDocumentMultipleCategoriesOptionsModel.DocumentID = core.StringPtr("testString")
-				getDocumentMultipleCategoriesOptionsModel.ModelLicense = core.StringPtr("testString")
-				getDocumentMultipleCategoriesOptionsModel.HighlightedTitle = stringBuilderModel
-				getDocumentMultipleCategoriesOptionsModel.HighlightedAbstract = stringBuilderModel
-				getDocumentMultipleCategoriesOptionsModel.HighlightedBody = stringBuilderModel
-				getDocumentMultipleCategoriesOptionsModel.HighlightedSections = make(map[string]insightsformedicalliteratureservicev1.StringBuilder)
-				getDocumentMultipleCategoriesOptionsModel.Passages = make(map[string]map[string]EntryModel)
-				getDocumentMultipleCategoriesOptionsModel.Annotations = make(map[string]insightsformedicalliteratureservicev1.AnnotationModel)
 				getDocumentMultipleCategoriesOptionsModel.HighlightTagBegin = core.StringPtr("testString")
 				getDocumentMultipleCategoriesOptionsModel.HighlightTagEnd = core.StringPtr("testString")
 				getDocumentMultipleCategoriesOptionsModel.Fields = core.StringPtr("testString")
 				getDocumentMultipleCategoriesOptionsModel.Limit = core.Int64Ptr(int64(38))
+				getDocumentMultipleCategoriesOptionsModel.Categories = []insightsformedicalliteratureservicev1.Category{}
 				getDocumentMultipleCategoriesOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
@@ -975,24 +957,15 @@ var _ = Describe(`InsightsForMedicalLiteratureServiceV1`, func() {
 				annotationModelModel.Features = make(map[string]string)
 				annotationModelModel.Hits = core.Int64Ptr(int64(38))
 
-				// Construct an instance of the StringBuilder model
-				stringBuilderModel := new(insightsformedicalliteratureservicev1.StringBuilder)
-
 				// Construct an instance of the GetDocumentMultipleCategoriesOptions model
 				getDocumentMultipleCategoriesOptionsModel := new(insightsformedicalliteratureservicev1.GetDocumentMultipleCategoriesOptions)
 				getDocumentMultipleCategoriesOptionsModel.Corpus = core.StringPtr("testString")
 				getDocumentMultipleCategoriesOptionsModel.DocumentID = core.StringPtr("testString")
-				getDocumentMultipleCategoriesOptionsModel.ModelLicense = core.StringPtr("testString")
-				getDocumentMultipleCategoriesOptionsModel.HighlightedTitle = stringBuilderModel
-				getDocumentMultipleCategoriesOptionsModel.HighlightedAbstract = stringBuilderModel
-				getDocumentMultipleCategoriesOptionsModel.HighlightedBody = stringBuilderModel
-				getDocumentMultipleCategoriesOptionsModel.HighlightedSections = make(map[string]insightsformedicalliteratureservicev1.StringBuilder)
-				getDocumentMultipleCategoriesOptionsModel.Passages = make(map[string]map[string]EntryModel)
-				getDocumentMultipleCategoriesOptionsModel.Annotations = make(map[string]insightsformedicalliteratureservicev1.AnnotationModel)
 				getDocumentMultipleCategoriesOptionsModel.HighlightTagBegin = core.StringPtr("testString")
 				getDocumentMultipleCategoriesOptionsModel.HighlightTagEnd = core.StringPtr("testString")
 				getDocumentMultipleCategoriesOptionsModel.Fields = core.StringPtr("testString")
 				getDocumentMultipleCategoriesOptionsModel.Limit = core.Int64Ptr(int64(38))
+				getDocumentMultipleCategoriesOptionsModel.Categories = []insightsformedicalliteratureservicev1.Category{}
 				getDocumentMultipleCategoriesOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
 				err := testService.SetServiceURL("")
@@ -1060,7 +1033,7 @@ var _ = Describe(`InsightsForMedicalLiteratureServiceV1`, func() {
 				getSearchMatchesOptionsModel := new(insightsformedicalliteratureservicev1.GetSearchMatchesOptions)
 				getSearchMatchesOptionsModel.Corpus = core.StringPtr("testString")
 				getSearchMatchesOptionsModel.DocumentID = core.StringPtr("testString")
-				getSearchMatchesOptionsModel.MinScore = core.Float32Ptr(36.0)
+				getSearchMatchesOptionsModel.MinScore = core.Float64Ptr(36.0)
 				getSearchMatchesOptionsModel.Cuis = []string{"testString"}
 				getSearchMatchesOptionsModel.Text = []string{"testString"}
 				getSearchMatchesOptionsModel.Types = []string{"testString"}
@@ -1115,7 +1088,7 @@ var _ = Describe(`InsightsForMedicalLiteratureServiceV1`, func() {
 
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, `{"externalId": "ExternalID", "documentId": "DocumentID", "parentDocumentId": "ParentDocumentID", "publicationName": "PublicationName", "publicationDate": "PublicationDate", "publicationURL": "PublicationURL", "authors": ["Authors"], "title": "Title", "medlineLicense": "MedlineLicense", "hrefPubMed": "HrefPubMed", "hrefPmc": "HrefPmc", "hrefDoi": "HrefDoi", "pdfUrl": "PdfURL", "referenceUrl": "ReferenceURL", "highlightedTitle": {}, "highlightedAbstract": {}, "highlightedBody": {}, "highlightedSections": {"mapKey": {}}, "passages": {"mapKey": {"mapKey": {"negated": false, "score": 5, "sentences": [{"documentSection": "DocumentSection", "text": {}, "begin": 5, "end": 3, "timestamp": 9}], "id": "ID"}}}, "annotations": {"mapKey": {"uniqueId": 8, "stickyIds": [9], "ontology": "Ontology", "section": "Section", "preferredName": "PreferredName", "cui": "Cui", "attributeId": "AttributeID", "qualifiers": ["Qualifiers"], "type": "Type", "negated": false, "hypothetical": true, "unit": "Unit", "minValue": "MinValue", "maxValue": "MaxValue", "operator": "Operator", "nluSourceType": "NluSourceType", "nluRelation": "NluRelation", "nluTargetType": "NluTargetType", "nluEntityIndex": "NluEntityIndex", "nluMentionIndex": "NluMentionIndex", "nluRelationId": "NluRelationID", "nluSide": "NluSide", "begin": 5, "end": 3, "score": 5, "timestamp": 9, "features": {"mapKey": "Inner"}, "hits": 4}}}`)
+					fmt.Fprintf(res, `{"externalId": "ExternalID", "documentId": "DocumentID", "parentDocumentId": "ParentDocumentID", "publicationName": "PublicationName", "publicationDate": "PublicationDate", "publicationURL": "PublicationURL", "authors": ["Authors"], "title": "Title", "medlineLicense": "MedlineLicense", "hrefPubMed": "HrefPubMed", "hrefPmc": "HrefPmc", "hrefDoi": "HrefDoi", "pdfUrl": "PdfURL", "referenceUrl": "ReferenceURL", "highlightedTitle": "testString", "highlightedAbstract": "testString", "highlightedBody": "testString", "highlightedSections": {"mapKey": "testString"}, "passages": {"mapKey": {"mapKey": {"negated": false, "score": 5, "sentences": [{"documentSection": "DocumentSection", "text": {}, "begin": 5, "end": 3, "timestamp": 9}], "id": "ID"}}}, "annotations": {"mapKey": {"uniqueId": 8, "stickyIds": [9], "ontology": "Ontology", "section": "Section", "preferredName": "PreferredName", "cui": "Cui", "attributeId": "AttributeID", "qualifiers": ["Qualifiers"], "type": "Type", "negated": false, "hypothetical": true, "unit": "Unit", "minValue": "MinValue", "maxValue": "MaxValue", "operator": "Operator", "nluSourceType": "NluSourceType", "nluRelation": "NluRelation", "nluTargetType": "NluTargetType", "nluEntityIndex": "NluEntityIndex", "nluMentionIndex": "NluMentionIndex", "nluRelationId": "NluRelationID", "nluSide": "NluSide", "begin": 5, "end": 3, "score": 5, "timestamp": 9, "features": {"mapKey": "Inner"}, "hits": 4}}}`)
 				}))
 			})
 			It(`Invoke GetSearchMatches successfully`, func() {
@@ -1137,7 +1110,7 @@ var _ = Describe(`InsightsForMedicalLiteratureServiceV1`, func() {
 				getSearchMatchesOptionsModel := new(insightsformedicalliteratureservicev1.GetSearchMatchesOptions)
 				getSearchMatchesOptionsModel.Corpus = core.StringPtr("testString")
 				getSearchMatchesOptionsModel.DocumentID = core.StringPtr("testString")
-				getSearchMatchesOptionsModel.MinScore = core.Float32Ptr(36.0)
+				getSearchMatchesOptionsModel.MinScore = core.Float64Ptr(36.0)
 				getSearchMatchesOptionsModel.Cuis = []string{"testString"}
 				getSearchMatchesOptionsModel.Text = []string{"testString"}
 				getSearchMatchesOptionsModel.Types = []string{"testString"}
@@ -1171,7 +1144,7 @@ var _ = Describe(`InsightsForMedicalLiteratureServiceV1`, func() {
 				getSearchMatchesOptionsModel := new(insightsformedicalliteratureservicev1.GetSearchMatchesOptions)
 				getSearchMatchesOptionsModel.Corpus = core.StringPtr("testString")
 				getSearchMatchesOptionsModel.DocumentID = core.StringPtr("testString")
-				getSearchMatchesOptionsModel.MinScore = core.Float32Ptr(36.0)
+				getSearchMatchesOptionsModel.MinScore = core.Float64Ptr(36.0)
 				getSearchMatchesOptionsModel.Cuis = []string{"testString"}
 				getSearchMatchesOptionsModel.Text = []string{"testString"}
 				getSearchMatchesOptionsModel.Types = []string{"testString"}
@@ -4178,16 +4151,10 @@ var _ = Describe(`InsightsForMedicalLiteratureServiceV1`, func() {
 				// Construct an instance of the GetDocumentMultipleCategoriesOptions model
 				corpus := "testString"
 				documentID := "testString"
-				getDocumentMultipleCategoriesOptionsModel := testService.NewGetDocumentMultipleCategoriesOptions(corpus, documentID)
+				body := []insightsformedicalliteratureservicev1.Category{}
+				getDocumentMultipleCategoriesOptionsModel := testService.NewGetDocumentMultipleCategoriesOptions(corpus, documentID, body)
 				getDocumentMultipleCategoriesOptionsModel.SetCorpus("testString")
 				getDocumentMultipleCategoriesOptionsModel.SetDocumentID("testString")
-				getDocumentMultipleCategoriesOptionsModel.SetModelLicense("testString")
-				getDocumentMultipleCategoriesOptionsModel.SetHighlightedTitle(stringBuilderModel)
-				getDocumentMultipleCategoriesOptionsModel.SetHighlightedAbstract(stringBuilderModel)
-				getDocumentMultipleCategoriesOptionsModel.SetHighlightedBody(stringBuilderModel)
-				getDocumentMultipleCategoriesOptionsModel.SetHighlightedSections(make(map[string]insightsformedicalliteratureservicev1.StringBuilder))
-				getDocumentMultipleCategoriesOptionsModel.SetPassages(make(map[string]map[string]EntryModel))
-				getDocumentMultipleCategoriesOptionsModel.SetAnnotations(make(map[string]insightsformedicalliteratureservicev1.AnnotationModel))
 				getDocumentMultipleCategoriesOptionsModel.SetHighlightTagBegin("testString")
 				getDocumentMultipleCategoriesOptionsModel.SetHighlightTagEnd("testString")
 				getDocumentMultipleCategoriesOptionsModel.SetFields("testString")
@@ -4196,13 +4163,6 @@ var _ = Describe(`InsightsForMedicalLiteratureServiceV1`, func() {
 				Expect(getDocumentMultipleCategoriesOptionsModel).ToNot(BeNil())
 				Expect(getDocumentMultipleCategoriesOptionsModel.Corpus).To(Equal(core.StringPtr("testString")))
 				Expect(getDocumentMultipleCategoriesOptionsModel.DocumentID).To(Equal(core.StringPtr("testString")))
-				Expect(getDocumentMultipleCategoriesOptionsModel.ModelLicense).To(Equal(core.StringPtr("testString")))
-				Expect(getDocumentMultipleCategoriesOptionsModel.HighlightedTitle).To(Equal(stringBuilderModel))
-				Expect(getDocumentMultipleCategoriesOptionsModel.HighlightedAbstract).To(Equal(stringBuilderModel))
-				Expect(getDocumentMultipleCategoriesOptionsModel.HighlightedBody).To(Equal(stringBuilderModel))
-				Expect(getDocumentMultipleCategoriesOptionsModel.HighlightedSections).To(Equal(make(map[string]insightsformedicalliteratureservicev1.StringBuilder)))
-				Expect(getDocumentMultipleCategoriesOptionsModel.Passages).To(Equal(make(map[string]map[string]EntryModel)))
-				Expect(getDocumentMultipleCategoriesOptionsModel.Annotations).To(Equal(make(map[string]insightsformedicalliteratureservicev1.AnnotationModel)))
 				Expect(getDocumentMultipleCategoriesOptionsModel.HighlightTagBegin).To(Equal(core.StringPtr("testString")))
 				Expect(getDocumentMultipleCategoriesOptionsModel.HighlightTagEnd).To(Equal(core.StringPtr("testString")))
 				Expect(getDocumentMultipleCategoriesOptionsModel.Fields).To(Equal(core.StringPtr("testString")))
@@ -4308,7 +4268,7 @@ var _ = Describe(`InsightsForMedicalLiteratureServiceV1`, func() {
 				Expect(getSearchMatchesOptionsModel).ToNot(BeNil())
 				Expect(getSearchMatchesOptionsModel.Corpus).To(Equal(core.StringPtr("testString")))
 				Expect(getSearchMatchesOptionsModel.DocumentID).To(Equal(core.StringPtr("testString")))
-				Expect(getSearchMatchesOptionsModel.MinScore).To(Equal(core.Float32Ptr(36.0)))
+				Expect(getSearchMatchesOptionsModel.MinScore).To(Equal(core.Float64Ptr(36.0)))
 				Expect(getSearchMatchesOptionsModel.Cuis).To(Equal([]string{"testString"}))
 				Expect(getSearchMatchesOptionsModel.Text).To(Equal([]string{"testString"}))
 				Expect(getSearchMatchesOptionsModel.Types).To(Equal([]string{"testString"}))

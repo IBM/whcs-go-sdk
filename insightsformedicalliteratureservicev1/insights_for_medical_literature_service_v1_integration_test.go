@@ -1,8 +1,23 @@
+/**
+ * (C) Copyright IBM Corp. 2020.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package insightsformedicalliteratureservicev1_test
 
 import (
-	"github.com/IBM/go-sdk-core/v3/core"
-	insightsformedicalliteratureservicev1 "github.com/IBM/whcs-go-sdk/insights-for-medical-literature"
+	"github.com/IBM/go-sdk-core/v4/core"
+	insightsformedicalliteratureservicev1 "github.com/IBM/whcs-go-sdk/insightsformedicalliteratureservicev1"
 	"github.com/joho/godotenv"
 	"os"
 	. "github.com/onsi/ginkgo"
@@ -28,7 +43,7 @@ func shouldSkipTest() {
 	}
 }
 
-var _ = Describe(`InsightsForMedicalLiteratureV1`, func() {
+var _ = Describe(`InsightsForMedicalLiteratureServiceV1`, func() {
 	It("Successfully load the configuration", func() {
 		err = godotenv.Load(configFile)
 		if err == nil {
@@ -46,14 +61,14 @@ var _ = Describe(`InsightsForMedicalLiteratureV1`, func() {
 	It("Successfully create the client instance", func() {
 		shouldSkipTest()
 
-		if apikey is nil {
+		if apikey == "" {
 			IML, err = insightsformedicalliteratureservicev1.NewInsightsForMedicalLiteratureServiceV1(&insightsformedicalliteratureservicev1.InsightsForMedicalLiteratureServiceV1Options{
 				URL:    serviceUrl,
 				Version: core.StringPtr(version),
-				Authenticator: &core.NoauthAuthenticator{
+				Authenticator: &core.NoAuthAuthenticator{
 				},
 			})
-			IML.DisableSSLVerification(true)
+			IML.Service.DisableSSLVerification();
 		} else {
 			IML, err = insightsformedicalliteratureservicev1.NewInsightsForMedicalLiteratureServiceV1(&insightsformedicalliteratureservicev1.InsightsForMedicalLiteratureServiceV1Options{
 				URL:    serviceUrl,
@@ -276,95 +291,92 @@ var _ = Describe(`InsightsForMedicalLiteratureV1`, func() {
 //				}
 //			}
 		})
+	})
 
-		Describe(`GetDocumentCategories(getDocumentCategoriesOptions *GetDocumentCategoriesOptions`, func() {
-			It(`Successfully retrieve document annotations for category`, func() {
-				getDocumentCategoriesOptions := IML.NewGetDocumentCategoriesOptions("ctgov", "NCT00796159")
-				result, detailedResponse, err := IML.GetDocumentCategories(getDocumentCategoriesOptions)
-				Expect(err).To(BeNil())
-				Expect(detailedResponse).ToNot(BeNil())
-				Expect(detailedResponse.StatusCode).To(Equal(200))
-				Expect(result).ToNot(BeNil())
-				Expect(*result.HighlightedTitle).ToNot(BeNil())
-				Expect(*result.HighlightedAbstract).ToNot(BeNil())
-				Expect(*result.HighlightedBody).ToNot(BeNil())
-			})
+	Describe(`GetDocumentCategories(getDocumentCategoriesOptions *GetDocumentCategoriesOptions`, func() {
+		It(`Successfully retrieve document annotations for category`, func() {
+			getDocumentCategoriesOptions := IML.NewGetDocumentCategoriesOptions("ctgov", "NCT00796159")
+			result, detailedResponse, err := IML.GetDocumentCategories(getDocumentCategoriesOptions)
+			Expect(err).To(BeNil())
+			Expect(detailedResponse).ToNot(BeNil())
+			Expect(detailedResponse.StatusCode).To(Equal(200))
+			Expect(result).ToNot(BeNil())
+			Expect(*result.HighlightedTitle).ToNot(BeNil())
+			Expect(*result.HighlightedAbstract).ToNot(BeNil())
+			Expect(*result.HighlightedBody).ToNot(BeNil())
 		})
+	})
 
-		Describe(`GetDocumentMultipleCategories(getDocumentMultipleCategoriesOptions *GetDocumentMultipleCategoriesOptions)`, func() {
-			It(`Successfully retrieve annotations for multiple categories`, func() {
-				category := insightsformedicalliteratureservicev1.Category{}
-				category.Name = core.StringPtr(insightsformedicalliteratureservicev1.GetDocumentCategoriesOptions_Category_Drugs)
-				category.Category = core.StringPtr(insightsformedicalliteratureservicev1.GetDocumentCategoriesOptions_Category_Drugs)
-				categories := []insightsformedicalliteratureservicev1.Category{category}
-
-				getDocuemntMultipeCategoriesOptions := IML.NewGetDocumentMultipleCategoriesOptions("ctgov", "NCT00796159", categories)
-				getDocuemntMultipeCategoriesOptions.SetCategories(categories)
-				result, detailedResponse, err := IML.GetDocumentMultipleCategories(getDocuemntMultipeCategoriesOptions)
-				Expect(err).To(BeNil())
-				Expect(detailedResponse).ToNot(BeNil())
-				Expect(detailedResponse.StatusCode).To(Equal(200))
-				Expect(result).ToNot(BeNil())
-			})
+	Describe(`GetDocumentMultipleCategories(getDocumentMultipleCategoriesOptions *GetDocumentMultipleCategoriesOptions)`, func() {
+		It(`Successfully retrieve annotations for multiple categories`, func() {
+			category := IML.NewCategory("disorders")
+			category.SetCategory("disorders")
+			categories := []insightsformedicalliteratureservicev1.Category{*category}
+			getDocuemntMultipeCategoriesOptions := IML.NewGetDocumentMultipleCategoriesOptions("ctgov", "NCT00796159", categories)
+			result, detailedResponse, err := IML.GetDocumentMultipleCategories(getDocuemntMultipeCategoriesOptions)
+			Expect(err).To(BeNil())
+			Expect(detailedResponse).ToNot(BeNil())
+			Expect(detailedResponse.StatusCode).To(Equal(200))
+			Expect(result).ToNot(BeNil())
 		})
+	})
 
-		Describe(`GetSearchMatches(getSearchMatchesOptions *GetSearchMatchesOptions)`, func() {
-			It(`Successfully retrieve search matches`, func() {
-				getSearchMatchesOptions := IML.NewGetSearchMatchesOptions("ctgov", "NCT00796159", .5)
-				getSearchMatchesOptions.SetCuis([]string{"C0018787"})
-				result, detailedResponse, err := IML.GetSearchMatches(getSearchMatchesOptions)
-				Expect(err).To(BeNil())
-				Expect(detailedResponse).ToNot(BeNil())
-				Expect(detailedResponse.StatusCode).To(Equal(200))
-				Expect(result).ToNot(BeNil())
-				Expect(*result.DocumentID).To(Equal("NCT00796159"))
-			})
+	Describe(`GetSearchMatches(getSearchMatchesOptions *GetSearchMatchesOptions)`, func() {
+		It(`Successfully retrieve search matches`, func() {
+			getSearchMatchesOptions := IML.NewGetSearchMatchesOptions("ctgov", "NCT00796159", .5)
+			getSearchMatchesOptions.SetCuis([]string{"C0018787"})
+			result, detailedResponse, err := IML.GetSearchMatches(getSearchMatchesOptions)
+			Expect(err).To(BeNil())
+			Expect(detailedResponse).ToNot(BeNil())
+			Expect(detailedResponse.StatusCode).To(Equal(200))
+			Expect(result).ToNot(BeNil())
+			Expect(*result.DocumentID).To(Equal("NCT00796159"))
 		})
+	})
 
-		Describe(`Search(searchOptions *SearchOptions)`, func() {
-			It(`Successfully search the corpus`, func() {
-				body := `{"query": { "concepts": [{ "ontology": "concepts", "cui": "C0018787", "rank": "10"}]}, "returns": { "documents": { "limit": "10", "offset": 0}}}`
-				getSearchOptions := IML.NewSearchOptions("ctgov", body)
-				result, detailedResponse, err := IML.Search(getSearchOptions)
-				Expect(err).To(BeNil())
-				Expect(detailedResponse).ToNot(BeNil())
-				Expect(detailedResponse.StatusCode).To(Equal(200))
-				Expect(result).ToNot(BeNil())
-				Expect(*result.TotalDocumentCount).ToNot(BeZero())
-			})
+	Describe(`Search(searchOptions *SearchOptions)`, func() {
+		It(`Successfully search the corpus`, func() {
+			body := `{"query": { "concepts": [{ "ontology": "concepts", "cui": "C0018787", "rank": "10"}]}, "returns": { "documents": { "limit": "10", "offset": 0}}}`
+			getSearchOptions := IML.NewSearchOptions("ctgov", body)
+			result, detailedResponse, err := IML.Search(getSearchOptions)
+			Expect(err).To(BeNil())
+			Expect(detailedResponse).ToNot(BeNil())
+			Expect(detailedResponse.StatusCode).To(Equal(200))
+			Expect(result).ToNot(BeNil())
+			Expect(*result.TotalDocumentCount).ToNot(BeZero())
 		})
+	})
 
-		Describe(`GetFields(getFieldsOptions *GetFieldsOptions)`, func() {
-			It(`Successfully retrieve corpus fields`, func() {
-				getFieldsOptions := IML.NewGetFieldsOptions("ctgov")
-				result, detailedResponse, err := IML.GetFields(getFieldsOptions)
-				Expect(err).To(BeNil())
-				Expect(detailedResponse).ToNot(BeNil())
-				Expect(detailedResponse.StatusCode).To(Equal(200))
-				Expect(result).ToNot(BeNil())
-				Expect(result.Fields).ToNot(BeNil())
-			})
+	Describe(`GetFields(getFieldsOptions *GetFieldsOptions)`, func() {
+		It(`Successfully retrieve corpus fields`, func() {
+			getFieldsOptions := IML.NewGetFieldsOptions("ctgov")
+			result, detailedResponse, err := IML.GetFields(getFieldsOptions)
+			Expect(err).To(BeNil())
+			Expect(detailedResponse).ToNot(BeNil())
+			Expect(detailedResponse.StatusCode).To(Equal(200))
+			Expect(result).ToNot(BeNil())
+			Expect(result.Fields).ToNot(BeNil())
 		})
+	})
 
-		Describe(`Typeahead(typeaheadOptions *TypeaheadOptions)`, func() {
-			It(`Successfully retrieve mathcing suggestions`, func() {
-				getTypeaheadOptions := IML.NewTypeaheadOptions("ctgov", "hear")
-				result, detailedResponse, err := IML.Typeahead(getTypeaheadOptions)
-				Expect(err).To(BeNil())
-				Expect(detailedResponse).ToNot(BeNil())
-				Expect(detailedResponse.StatusCode).To(Equal(200))
-				Expect(result).ToNot(BeNil())
-				count := len(result.Concepts)
-				counter := 0
-				for counter < count {
-					artifact := result.Concepts[counter]
-					Expect(*artifact.Cui).ToNot(BeNil())
-					Expect(*artifact.PreferredName).ToNot(BeNil())
-					Expect(*artifact.SemanticType).ToNot(BeNil())
-					Expect(*artifact.HitCount).ToNot(BeNil())
-					counter++
-				}
-			})
+	Describe(`Typeahead(typeaheadOptions *TypeaheadOptions)`, func() {
+		It(`Successfully retrieve mathcing suggestions`, func() {
+			getTypeaheadOptions := IML.NewTypeaheadOptions("ctgov", "hear")
+			result, detailedResponse, err := IML.Typeahead(getTypeaheadOptions)
+			Expect(err).To(BeNil())
+			Expect(detailedResponse).ToNot(BeNil())
+			Expect(detailedResponse.StatusCode).To(Equal(200))
+			Expect(result).ToNot(BeNil())
+			count := len(result.Concepts)
+			counter := 0
+			for counter < count {
+				artifact := result.Concepts[counter]
+				Expect(*artifact.Cui).ToNot(BeNil())
+				Expect(*artifact.PreferredName).ToNot(BeNil())
+				Expect(*artifact.SemanticType).ToNot(BeNil())
+				Expect(*artifact.HitCount).ToNot(BeNil())
+				counter++
+			}
 		})
 	})
 })

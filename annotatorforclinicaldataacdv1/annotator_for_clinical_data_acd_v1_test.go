@@ -19,7 +19,7 @@ package annotatorforclinicaldataacdv1_test
 import (
 	"bytes"
 	"fmt"
-	"github.com/IBM/cloud-go-sdk/annotatorforclinicaldataacdv1"
+	"github.com/IBM/whcs-go-sdk/annotatorforclinicaldataacdv1"
 	"github.com/IBM/go-sdk-core/v4/core"
 	"github.com/go-openapi/strfmt"
 	. "github.com/onsi/ginkgo"
@@ -34,19 +34,19 @@ import (
 
 var _ = Describe(`AnnotatorForClinicalDataAcdV1`, func() {
 	var testServer *httptest.Server
-    Describe(`Service constructor tests`, func() {
+	Describe(`Service constructor tests`, func() {
 		version := "testString"
 		It(`Instantiate service client`, func() {
 			testService, testServiceErr := annotatorforclinicaldataacdv1.NewAnnotatorForClinicalDataAcdV1(&annotatorforclinicaldataacdv1.AnnotatorForClinicalDataAcdV1Options{
 				Authenticator: &core.NoAuthAuthenticator{},
-				Version: core.StringPtr(version),
+				Version:       core.StringPtr(version),
 			})
 			Expect(testService).ToNot(BeNil())
 			Expect(testServiceErr).To(BeNil())
 		})
 		It(`Instantiate service client with error: Invalid URL`, func() {
 			testService, testServiceErr := annotatorforclinicaldataacdv1.NewAnnotatorForClinicalDataAcdV1(&annotatorforclinicaldataacdv1.AnnotatorForClinicalDataAcdV1Options{
-				URL: "{BAD_URL_STRING",
+				URL:     "{BAD_URL_STRING",
 				Version: core.StringPtr(version),
 			})
 			Expect(testService).To(BeNil())
@@ -54,7 +54,7 @@ var _ = Describe(`AnnotatorForClinicalDataAcdV1`, func() {
 		})
 		It(`Instantiate service client with error: Invalid Auth`, func() {
 			testService, testServiceErr := annotatorforclinicaldataacdv1.NewAnnotatorForClinicalDataAcdV1(&annotatorforclinicaldataacdv1.AnnotatorForClinicalDataAcdV1Options{
-				URL: "https://annotatorforclinicaldataacdv1/api",
+				URL:     "https://annotatorforclinicaldataacdv1/api",
 				Version: core.StringPtr(version),
 				Authenticator: &core.BasicAuthenticator{
 					Username: "",
@@ -75,7 +75,7 @@ var _ = Describe(`AnnotatorForClinicalDataAcdV1`, func() {
 		Context(`Using external config, construct service client instances`, func() {
 			// Map containing environment variables used in testing.
 			var testEnvironment = map[string]string{
-				"ANNOTATOR_FOR_CLINICAL_DATA_ACD_URL": "https://annotatorforclinicaldataacdv1/api",
+				"ANNOTATOR_FOR_CLINICAL_DATA_ACD_URL":       "https://annotatorforclinicaldataacdv1/api",
 				"ANNOTATOR_FOR_CLINICAL_DATA_ACD_AUTH_TYPE": "noauth",
 			}
 
@@ -91,7 +91,7 @@ var _ = Describe(`AnnotatorForClinicalDataAcdV1`, func() {
 			It(`Create service client using external config and set url from constructor successfully`, func() {
 				SetTestEnvironment(testEnvironment)
 				testService, testServiceErr := annotatorforclinicaldataacdv1.NewAnnotatorForClinicalDataAcdV1UsingExternalConfig(&annotatorforclinicaldataacdv1.AnnotatorForClinicalDataAcdV1Options{
-					URL: "https://testService/api",
+					URL:     "https://testService/api",
 					Version: core.StringPtr(version),
 				})
 				Expect(testService).ToNot(BeNil())
@@ -115,7 +115,7 @@ var _ = Describe(`AnnotatorForClinicalDataAcdV1`, func() {
 		Context(`Using external config, construct service client instances with error: Invalid Auth`, func() {
 			// Map containing environment variables used in testing.
 			var testEnvironment = map[string]string{
-				"ANNOTATOR_FOR_CLINICAL_DATA_ACD_URL": "https://annotatorforclinicaldataacdv1/api",
+				"ANNOTATOR_FOR_CLINICAL_DATA_ACD_URL":       "https://annotatorforclinicaldataacdv1/api",
 				"ANNOTATOR_FOR_CLINICAL_DATA_ACD_AUTH_TYPE": "someOtherAuth",
 			}
 
@@ -133,12 +133,12 @@ var _ = Describe(`AnnotatorForClinicalDataAcdV1`, func() {
 		Context(`Using external config, construct service client instances with error: Invalid URL`, func() {
 			// Map containing environment variables used in testing.
 			var testEnvironment = map[string]string{
-				"ANNOTATOR_FOR_CLINICAL_DATA_ACD_AUTH_TYPE":   "NOAuth",
+				"ANNOTATOR_FOR_CLINICAL_DATA_ACD_AUTH_TYPE": "NOAuth",
 			}
 
 			SetTestEnvironment(testEnvironment)
 			testService, testServiceErr := annotatorforclinicaldataacdv1.NewAnnotatorForClinicalDataAcdV1UsingExternalConfig(&annotatorforclinicaldataacdv1.AnnotatorForClinicalDataAcdV1Options{
-				URL: "{BAD_URL_STRING",
+				URL:     "{BAD_URL_STRING",
 				Version: core.StringPtr(version),
 			})
 
@@ -155,7 +155,7 @@ var _ = Describe(`AnnotatorForClinicalDataAcdV1`, func() {
 		Context(`Using mock server endpoint`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-			 		defer GinkgoRecover()
+					defer GinkgoRecover()
 
 					// Verify the contents of the request
 					Expect(req.URL.Path).To(Equal(getProfilesPath))
@@ -171,7 +171,7 @@ var _ = Describe(`AnnotatorForClinicalDataAcdV1`, func() {
 				testService, testServiceErr := annotatorforclinicaldataacdv1.NewAnnotatorForClinicalDataAcdV1(&annotatorforclinicaldataacdv1.AnnotatorForClinicalDataAcdV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
-					Version: core.StringPtr(version),
+					Version:       core.StringPtr(version),
 				})
 				Expect(testServiceErr).To(BeNil())
 				Expect(testService).ToNot(BeNil())
@@ -213,7 +213,7 @@ var _ = Describe(`AnnotatorForClinicalDataAcdV1`, func() {
 				testService, testServiceErr := annotatorforclinicaldataacdv1.NewAnnotatorForClinicalDataAcdV1(&annotatorforclinicaldataacdv1.AnnotatorForClinicalDataAcdV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
-					Version: core.StringPtr(version),
+					Version:       core.StringPtr(version),
 				})
 				Expect(testServiceErr).To(BeNil())
 				Expect(testService).ToNot(BeNil())
@@ -226,7 +226,7 @@ var _ = Describe(`AnnotatorForClinicalDataAcdV1`, func() {
 
 				// Construct an instance of the GetProfilesOptions model
 				getProfilesOptionsModel := new(annotatorforclinicaldataacdv1.GetProfilesOptions)
- 				getProfilesOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				getProfilesOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
 				result, response, operationErr = testService.GetProfiles(getProfilesOptionsModel)
@@ -238,7 +238,7 @@ var _ = Describe(`AnnotatorForClinicalDataAcdV1`, func() {
 				testService, testServiceErr := annotatorforclinicaldataacdv1.NewAnnotatorForClinicalDataAcdV1(&annotatorforclinicaldataacdv1.AnnotatorForClinicalDataAcdV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
-					Version: core.StringPtr(version),
+					Version:       core.StringPtr(version),
 				})
 				Expect(testServiceErr).To(BeNil())
 				Expect(testService).ToNot(BeNil())
@@ -281,7 +281,7 @@ var _ = Describe(`AnnotatorForClinicalDataAcdV1`, func() {
 				testService, testServiceErr := annotatorforclinicaldataacdv1.NewAnnotatorForClinicalDataAcdV1(&annotatorforclinicaldataacdv1.AnnotatorForClinicalDataAcdV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
-					Version: core.StringPtr(version),
+					Version:       core.StringPtr(version),
 				})
 				Expect(testServiceErr).To(BeNil())
 				Expect(testService).ToNot(BeNil())
@@ -314,7 +314,7 @@ var _ = Describe(`AnnotatorForClinicalDataAcdV1`, func() {
 				createProfileOptionsModel.Version = core.StringPtr("testString")
 				createProfileOptionsModel.CartridgeID = core.StringPtr("testString")
 				createProfileOptionsModel.Annotators = []annotatorforclinicaldataacdv1.Annotator{*annotatorModel}
- 				createProfileOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				createProfileOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
 				response, operationErr = testService.CreateProfile(createProfileOptionsModel)
@@ -325,7 +325,7 @@ var _ = Describe(`AnnotatorForClinicalDataAcdV1`, func() {
 				testService, testServiceErr := annotatorforclinicaldataacdv1.NewAnnotatorForClinicalDataAcdV1(&annotatorforclinicaldataacdv1.AnnotatorForClinicalDataAcdV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
-					Version: core.StringPtr(version),
+					Version:       core.StringPtr(version),
 				})
 				Expect(testServiceErr).To(BeNil())
 				Expect(testService).ToNot(BeNil())
@@ -373,7 +373,7 @@ var _ = Describe(`AnnotatorForClinicalDataAcdV1`, func() {
 		Context(`Using mock server endpoint`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-			 		defer GinkgoRecover()
+					defer GinkgoRecover()
 
 					// Verify the contents of the request
 					Expect(req.URL.Path).To(Equal(getProfilePath))
@@ -389,7 +389,7 @@ var _ = Describe(`AnnotatorForClinicalDataAcdV1`, func() {
 				testService, testServiceErr := annotatorforclinicaldataacdv1.NewAnnotatorForClinicalDataAcdV1(&annotatorforclinicaldataacdv1.AnnotatorForClinicalDataAcdV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
-					Version: core.StringPtr(version),
+					Version:       core.StringPtr(version),
 				})
 				Expect(testServiceErr).To(BeNil())
 				Expect(testService).ToNot(BeNil())
@@ -399,7 +399,7 @@ var _ = Describe(`AnnotatorForClinicalDataAcdV1`, func() {
 				getProfilesByIdOptionsModel.ID = core.StringPtr("testString")
 				getProfilesByIdOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Expect response parsing to fail since we are receiving a text/plain response
-				result, response, operationErr := testService.GetProfilesById(getProfilesByIdOptionsModel)
+				result, response, operationErr := testService.GetProfilesByID(getProfilesByIdOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).To(BeNil())
@@ -432,13 +432,13 @@ var _ = Describe(`AnnotatorForClinicalDataAcdV1`, func() {
 				testService, testServiceErr := annotatorforclinicaldataacdv1.NewAnnotatorForClinicalDataAcdV1(&annotatorforclinicaldataacdv1.AnnotatorForClinicalDataAcdV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
-					Version: core.StringPtr(version),
+					Version:       core.StringPtr(version),
 				})
 				Expect(testServiceErr).To(BeNil())
 				Expect(testService).ToNot(BeNil())
 
 				// Invoke operation with nil options model (negative test)
-				result, response, operationErr := testService.GetProfilesById(nil)
+				result, response, operationErr := testService.GetProfilesByID(nil)
 				Expect(operationErr).NotTo(BeNil())
 				Expect(response).To(BeNil())
 				Expect(result).To(BeNil())
@@ -446,10 +446,10 @@ var _ = Describe(`AnnotatorForClinicalDataAcdV1`, func() {
 				// Construct an instance of the GetProfileOptions model
 				getProfilesByIdOptionsModel := new(annotatorforclinicaldataacdv1.GetProfilesByIdOptions)
 				getProfilesByIdOptionsModel.ID = core.StringPtr("testString")
- 				getProfilesByIdOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				getProfilesByIdOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
-				result, response, operationErr = testService.GetProfile(getProfilesByIdOptionsModel)
+				result, response, operationErr = testService.GetProfilesByID(getProfilesByIdOptionsModel)
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).ToNot(BeNil())
@@ -458,7 +458,7 @@ var _ = Describe(`AnnotatorForClinicalDataAcdV1`, func() {
 				testService, testServiceErr := annotatorforclinicaldataacdv1.NewAnnotatorForClinicalDataAcdV1(&annotatorforclinicaldataacdv1.AnnotatorForClinicalDataAcdV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
-					Version: core.StringPtr(version),
+					Version:       core.StringPtr(version),
 				})
 				Expect(testServiceErr).To(BeNil())
 				Expect(testService).ToNot(BeNil())
@@ -470,7 +470,7 @@ var _ = Describe(`AnnotatorForClinicalDataAcdV1`, func() {
 				// Invoke operation with empty URL (negative test)
 				err := testService.SetServiceURL("")
 				Expect(err).To(BeNil())
-				result, response, operationErr := testService.GetProfile(getProfilesByIdOptionsModel)
+				result, response, operationErr := testService.GetProfilesByID(getProfilesByIdOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
 				Expect(response).To(BeNil())
@@ -478,7 +478,7 @@ var _ = Describe(`AnnotatorForClinicalDataAcdV1`, func() {
 				// Construct a second instance of the GetProfileOptions model with no property values
 				getProfilesByIdOptionsModelNew := new(annotatorforclinicaldataacdv1.GetProfilesByIdOptions)
 				// Invoke operation with invalid model (negative test)
-				result, response, operationErr = testService.GetProfile(getProfilesByIdOptionsModelNew)
+				result, response, operationErr = testService.GetProfilesByID(getProfilesByIdOptionsModelNew)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).To(BeNil())
 				Expect(result).To(BeNil())
@@ -509,7 +509,7 @@ var _ = Describe(`AnnotatorForClinicalDataAcdV1`, func() {
 				testService, testServiceErr := annotatorforclinicaldataacdv1.NewAnnotatorForClinicalDataAcdV1(&annotatorforclinicaldataacdv1.AnnotatorForClinicalDataAcdV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
-					Version: core.StringPtr(version),
+					Version:       core.StringPtr(version),
 				})
 				Expect(testServiceErr).To(BeNil())
 				Expect(testService).ToNot(BeNil())
@@ -543,7 +543,7 @@ var _ = Describe(`AnnotatorForClinicalDataAcdV1`, func() {
 				updateProfileOptionsModel.NewVersion = core.StringPtr("testString")
 				updateProfileOptionsModel.NewCartridgeID = core.StringPtr("testString")
 				updateProfileOptionsModel.NewAnnotators = []annotatorforclinicaldataacdv1.Annotator{*annotatorModel}
- 				updateProfileOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				updateProfileOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
 				response, operationErr = testService.UpdateProfile(updateProfileOptionsModel)
@@ -554,7 +554,7 @@ var _ = Describe(`AnnotatorForClinicalDataAcdV1`, func() {
 				testService, testServiceErr := annotatorforclinicaldataacdv1.NewAnnotatorForClinicalDataAcdV1(&annotatorforclinicaldataacdv1.AnnotatorForClinicalDataAcdV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
-					Version: core.StringPtr(version),
+					Version:       core.StringPtr(version),
 				})
 				Expect(testServiceErr).To(BeNil())
 				Expect(testService).ToNot(BeNil())
@@ -624,7 +624,7 @@ var _ = Describe(`AnnotatorForClinicalDataAcdV1`, func() {
 				testService, testServiceErr := annotatorforclinicaldataacdv1.NewAnnotatorForClinicalDataAcdV1(&annotatorforclinicaldataacdv1.AnnotatorForClinicalDataAcdV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
-					Version: core.StringPtr(version),
+					Version:       core.StringPtr(version),
 				})
 				Expect(testServiceErr).To(BeNil())
 				Expect(testService).ToNot(BeNil())
@@ -637,7 +637,7 @@ var _ = Describe(`AnnotatorForClinicalDataAcdV1`, func() {
 				// Construct an instance of the DeleteProfileOptions model
 				deleteProfileOptionsModel := new(annotatorforclinicaldataacdv1.DeleteProfileOptions)
 				deleteProfileOptionsModel.ID = core.StringPtr("testString")
- 				deleteProfileOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				deleteProfileOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
 				response, operationErr = testService.DeleteProfile(deleteProfileOptionsModel)
@@ -648,7 +648,7 @@ var _ = Describe(`AnnotatorForClinicalDataAcdV1`, func() {
 				testService, testServiceErr := annotatorforclinicaldataacdv1.NewAnnotatorForClinicalDataAcdV1(&annotatorforclinicaldataacdv1.AnnotatorForClinicalDataAcdV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
-					Version: core.StringPtr(version),
+					Version:       core.StringPtr(version),
 				})
 				Expect(testServiceErr).To(BeNil())
 				Expect(testService).ToNot(BeNil())
@@ -676,19 +676,19 @@ var _ = Describe(`AnnotatorForClinicalDataAcdV1`, func() {
 			})
 		})
 	})
-    Describe(`Service constructor tests`, func() {
+	Describe(`Service constructor tests`, func() {
 		version := "testString"
 		It(`Instantiate service client`, func() {
 			testService, testServiceErr := annotatorforclinicaldataacdv1.NewAnnotatorForClinicalDataAcdV1(&annotatorforclinicaldataacdv1.AnnotatorForClinicalDataAcdV1Options{
 				Authenticator: &core.NoAuthAuthenticator{},
-				Version: core.StringPtr(version),
+				Version:       core.StringPtr(version),
 			})
 			Expect(testService).ToNot(BeNil())
 			Expect(testServiceErr).To(BeNil())
 		})
 		It(`Instantiate service client with error: Invalid URL`, func() {
 			testService, testServiceErr := annotatorforclinicaldataacdv1.NewAnnotatorForClinicalDataAcdV1(&annotatorforclinicaldataacdv1.AnnotatorForClinicalDataAcdV1Options{
-				URL: "{BAD_URL_STRING",
+				URL:     "{BAD_URL_STRING",
 				Version: core.StringPtr(version),
 			})
 			Expect(testService).To(BeNil())
@@ -696,7 +696,7 @@ var _ = Describe(`AnnotatorForClinicalDataAcdV1`, func() {
 		})
 		It(`Instantiate service client with error: Invalid Auth`, func() {
 			testService, testServiceErr := annotatorforclinicaldataacdv1.NewAnnotatorForClinicalDataAcdV1(&annotatorforclinicaldataacdv1.AnnotatorForClinicalDataAcdV1Options{
-				URL: "https://annotatorforclinicaldataacdv1/api",
+				URL:     "https://annotatorforclinicaldataacdv1/api",
 				Version: core.StringPtr(version),
 				Authenticator: &core.BasicAuthenticator{
 					Username: "",
@@ -717,7 +717,7 @@ var _ = Describe(`AnnotatorForClinicalDataAcdV1`, func() {
 		Context(`Using external config, construct service client instances`, func() {
 			// Map containing environment variables used in testing.
 			var testEnvironment = map[string]string{
-				"ANNOTATOR_FOR_CLINICAL_DATA_ACD_URL": "https://annotatorforclinicaldataacdv1/api",
+				"ANNOTATOR_FOR_CLINICAL_DATA_ACD_URL":       "https://annotatorforclinicaldataacdv1/api",
 				"ANNOTATOR_FOR_CLINICAL_DATA_ACD_AUTH_TYPE": "noauth",
 			}
 
@@ -733,7 +733,7 @@ var _ = Describe(`AnnotatorForClinicalDataAcdV1`, func() {
 			It(`Create service client using external config and set url from constructor successfully`, func() {
 				SetTestEnvironment(testEnvironment)
 				testService, testServiceErr := annotatorforclinicaldataacdv1.NewAnnotatorForClinicalDataAcdV1UsingExternalConfig(&annotatorforclinicaldataacdv1.AnnotatorForClinicalDataAcdV1Options{
-					URL: "https://testService/api",
+					URL:     "https://testService/api",
 					Version: core.StringPtr(version),
 				})
 				Expect(testService).ToNot(BeNil())
@@ -757,7 +757,7 @@ var _ = Describe(`AnnotatorForClinicalDataAcdV1`, func() {
 		Context(`Using external config, construct service client instances with error: Invalid Auth`, func() {
 			// Map containing environment variables used in testing.
 			var testEnvironment = map[string]string{
-				"ANNOTATOR_FOR_CLINICAL_DATA_ACD_URL": "https://annotatorforclinicaldataacdv1/api",
+				"ANNOTATOR_FOR_CLINICAL_DATA_ACD_URL":       "https://annotatorforclinicaldataacdv1/api",
 				"ANNOTATOR_FOR_CLINICAL_DATA_ACD_AUTH_TYPE": "someOtherAuth",
 			}
 
@@ -775,12 +775,12 @@ var _ = Describe(`AnnotatorForClinicalDataAcdV1`, func() {
 		Context(`Using external config, construct service client instances with error: Invalid URL`, func() {
 			// Map containing environment variables used in testing.
 			var testEnvironment = map[string]string{
-				"ANNOTATOR_FOR_CLINICAL_DATA_ACD_AUTH_TYPE":   "NOAuth",
+				"ANNOTATOR_FOR_CLINICAL_DATA_ACD_AUTH_TYPE": "NOAuth",
 			}
 
 			SetTestEnvironment(testEnvironment)
 			testService, testServiceErr := annotatorforclinicaldataacdv1.NewAnnotatorForClinicalDataAcdV1UsingExternalConfig(&annotatorforclinicaldataacdv1.AnnotatorForClinicalDataAcdV1Options{
-				URL: "{BAD_URL_STRING",
+				URL:     "{BAD_URL_STRING",
 				Version: core.StringPtr(version),
 			})
 
@@ -797,7 +797,7 @@ var _ = Describe(`AnnotatorForClinicalDataAcdV1`, func() {
 		Context(`Using mock server endpoint`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-			 		defer GinkgoRecover()
+					defer GinkgoRecover()
 
 					// Verify the contents of the request
 					Expect(req.URL.Path).To(Equal(getFlowsPath))
@@ -813,7 +813,7 @@ var _ = Describe(`AnnotatorForClinicalDataAcdV1`, func() {
 				testService, testServiceErr := annotatorforclinicaldataacdv1.NewAnnotatorForClinicalDataAcdV1(&annotatorforclinicaldataacdv1.AnnotatorForClinicalDataAcdV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
-					Version: core.StringPtr(version),
+					Version:       core.StringPtr(version),
 				})
 				Expect(testServiceErr).To(BeNil())
 				Expect(testService).ToNot(BeNil())
@@ -855,7 +855,7 @@ var _ = Describe(`AnnotatorForClinicalDataAcdV1`, func() {
 				testService, testServiceErr := annotatorforclinicaldataacdv1.NewAnnotatorForClinicalDataAcdV1(&annotatorforclinicaldataacdv1.AnnotatorForClinicalDataAcdV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
-					Version: core.StringPtr(version),
+					Version:       core.StringPtr(version),
 				})
 				Expect(testServiceErr).To(BeNil())
 				Expect(testService).ToNot(BeNil())
@@ -868,7 +868,7 @@ var _ = Describe(`AnnotatorForClinicalDataAcdV1`, func() {
 
 				// Construct an instance of the GetFlowsOptions model
 				getFlowsOptionsModel := new(annotatorforclinicaldataacdv1.GetFlowsOptions)
- 				getFlowsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				getFlowsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
 				result, response, operationErr = testService.GetFlows(getFlowsOptionsModel)
@@ -880,7 +880,7 @@ var _ = Describe(`AnnotatorForClinicalDataAcdV1`, func() {
 				testService, testServiceErr := annotatorforclinicaldataacdv1.NewAnnotatorForClinicalDataAcdV1(&annotatorforclinicaldataacdv1.AnnotatorForClinicalDataAcdV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
-					Version: core.StringPtr(version),
+					Version:       core.StringPtr(version),
 				})
 				Expect(testServiceErr).To(BeNil())
 				Expect(testService).ToNot(BeNil())
@@ -923,7 +923,7 @@ var _ = Describe(`AnnotatorForClinicalDataAcdV1`, func() {
 				testService, testServiceErr := annotatorforclinicaldataacdv1.NewAnnotatorForClinicalDataAcdV1(&annotatorforclinicaldataacdv1.AnnotatorForClinicalDataAcdV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
-					Version: core.StringPtr(version),
+					Version:       core.StringPtr(version),
 				})
 				Expect(testServiceErr).To(BeNil())
 				Expect(testService).ToNot(BeNil())
@@ -954,7 +954,7 @@ var _ = Describe(`AnnotatorForClinicalDataAcdV1`, func() {
 				annotatorFlowModel.Flow = flowModel
 				annotatorFlowModel.ID = core.StringPtr("testString")
 				annotatorFlowModel.Type = core.StringPtr("testString")
-				annotatorFlowModel.Data = make(map[string][]Entity)
+				annotatorFlowModel.Data = make(map[string][]annotatorforclinicaldataacdv1.Entity)
 				annotatorFlowModel.Metadata = make(map[string]interface{})
 				annotatorFlowModel.GlobalConfigurations = []annotatorforclinicaldataacdv1.ConfigurationEntity{*configurationEntityModel}
 				annotatorFlowModel.Uid = core.Int64Ptr(int64(26))
@@ -969,7 +969,7 @@ var _ = Describe(`AnnotatorForClinicalDataAcdV1`, func() {
 				createFlowsOptionsModel.Version = core.StringPtr("testString")
 				createFlowsOptionsModel.CartridgeID = core.StringPtr("testString")
 				createFlowsOptionsModel.AnnotatorFlows = []annotatorforclinicaldataacdv1.AnnotatorFlow{*annotatorFlowModel}
- 				createFlowsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				createFlowsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
 				response, operationErr = testService.CreateFlows(createFlowsOptionsModel)
@@ -980,7 +980,7 @@ var _ = Describe(`AnnotatorForClinicalDataAcdV1`, func() {
 				testService, testServiceErr := annotatorforclinicaldataacdv1.NewAnnotatorForClinicalDataAcdV1(&annotatorforclinicaldataacdv1.AnnotatorForClinicalDataAcdV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
-					Version: core.StringPtr(version),
+					Version:       core.StringPtr(version),
 				})
 				Expect(testServiceErr).To(BeNil())
 				Expect(testService).ToNot(BeNil())
@@ -1006,7 +1006,7 @@ var _ = Describe(`AnnotatorForClinicalDataAcdV1`, func() {
 				annotatorFlowModel.Flow = flowModel
 				annotatorFlowModel.ID = core.StringPtr("testString")
 				annotatorFlowModel.Type = core.StringPtr("testString")
-				annotatorFlowModel.Data = make(map[string][]Entity)
+				annotatorFlowModel.Data = make(map[string][]annotatorforclinicaldataacdv1.Entity)
 				annotatorFlowModel.Metadata = make(map[string]interface{})
 				annotatorFlowModel.GlobalConfigurations = []annotatorforclinicaldataacdv1.ConfigurationEntity{*configurationEntityModel}
 				annotatorFlowModel.Uid = core.Int64Ptr(int64(26))
@@ -1041,7 +1041,7 @@ var _ = Describe(`AnnotatorForClinicalDataAcdV1`, func() {
 		Context(`Using mock server endpoint`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-			 		defer GinkgoRecover()
+					defer GinkgoRecover()
 
 					// Verify the contents of the request
 					Expect(req.URL.Path).To(Equal(getFlowsByIDPath))
@@ -1057,7 +1057,7 @@ var _ = Describe(`AnnotatorForClinicalDataAcdV1`, func() {
 				testService, testServiceErr := annotatorforclinicaldataacdv1.NewAnnotatorForClinicalDataAcdV1(&annotatorforclinicaldataacdv1.AnnotatorForClinicalDataAcdV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
-					Version: core.StringPtr(version),
+					Version:       core.StringPtr(version),
 				})
 				Expect(testServiceErr).To(BeNil())
 				Expect(testService).ToNot(BeNil())
@@ -1100,7 +1100,7 @@ var _ = Describe(`AnnotatorForClinicalDataAcdV1`, func() {
 				testService, testServiceErr := annotatorforclinicaldataacdv1.NewAnnotatorForClinicalDataAcdV1(&annotatorforclinicaldataacdv1.AnnotatorForClinicalDataAcdV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
-					Version: core.StringPtr(version),
+					Version:       core.StringPtr(version),
 				})
 				Expect(testServiceErr).To(BeNil())
 				Expect(testService).ToNot(BeNil())
@@ -1114,7 +1114,7 @@ var _ = Describe(`AnnotatorForClinicalDataAcdV1`, func() {
 				// Construct an instance of the GetFlowsByIdOptions model
 				getFlowsByIdOptionsModel := new(annotatorforclinicaldataacdv1.GetFlowsByIdOptions)
 				getFlowsByIdOptionsModel.ID = core.StringPtr("testString")
- 				getFlowsByIdOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				getFlowsByIdOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
 				result, response, operationErr = testService.GetFlowsByID(getFlowsByIdOptionsModel)
@@ -1126,7 +1126,7 @@ var _ = Describe(`AnnotatorForClinicalDataAcdV1`, func() {
 				testService, testServiceErr := annotatorforclinicaldataacdv1.NewAnnotatorForClinicalDataAcdV1(&annotatorforclinicaldataacdv1.AnnotatorForClinicalDataAcdV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
-					Version: core.StringPtr(version),
+					Version:       core.StringPtr(version),
 				})
 				Expect(testServiceErr).To(BeNil())
 				Expect(testService).ToNot(BeNil())
@@ -1177,7 +1177,7 @@ var _ = Describe(`AnnotatorForClinicalDataAcdV1`, func() {
 				testService, testServiceErr := annotatorforclinicaldataacdv1.NewAnnotatorForClinicalDataAcdV1(&annotatorforclinicaldataacdv1.AnnotatorForClinicalDataAcdV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
-					Version: core.StringPtr(version),
+					Version:       core.StringPtr(version),
 				})
 				Expect(testServiceErr).To(BeNil())
 				Expect(testService).ToNot(BeNil())
@@ -1208,7 +1208,7 @@ var _ = Describe(`AnnotatorForClinicalDataAcdV1`, func() {
 				annotatorFlowModel.Flow = flowModel
 				annotatorFlowModel.ID = core.StringPtr("testString")
 				annotatorFlowModel.Type = core.StringPtr("testString")
-				annotatorFlowModel.Data = make(map[string][]Entity)
+				annotatorFlowModel.Data = make(map[string][]annotatorforclinicaldataacdv1.Entity)
 				annotatorFlowModel.Metadata = make(map[string]interface{})
 				annotatorFlowModel.GlobalConfigurations = []annotatorforclinicaldataacdv1.ConfigurationEntity{*configurationEntityModel}
 				annotatorFlowModel.Uid = core.Int64Ptr(int64(26))
@@ -1224,7 +1224,7 @@ var _ = Describe(`AnnotatorForClinicalDataAcdV1`, func() {
 				updateFlowsOptionsModel.NewVersion = core.StringPtr("testString")
 				updateFlowsOptionsModel.NewCartridgeID = core.StringPtr("testString")
 				updateFlowsOptionsModel.NewAnnotatorFlows = []annotatorforclinicaldataacdv1.AnnotatorFlow{*annotatorFlowModel}
- 				updateFlowsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				updateFlowsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
 				response, operationErr = testService.UpdateFlows(updateFlowsOptionsModel)
@@ -1235,7 +1235,7 @@ var _ = Describe(`AnnotatorForClinicalDataAcdV1`, func() {
 				testService, testServiceErr := annotatorforclinicaldataacdv1.NewAnnotatorForClinicalDataAcdV1(&annotatorforclinicaldataacdv1.AnnotatorForClinicalDataAcdV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
-					Version: core.StringPtr(version),
+					Version:       core.StringPtr(version),
 				})
 				Expect(testServiceErr).To(BeNil())
 				Expect(testService).ToNot(BeNil())
@@ -1261,7 +1261,7 @@ var _ = Describe(`AnnotatorForClinicalDataAcdV1`, func() {
 				annotatorFlowModel.Flow = flowModel
 				annotatorFlowModel.ID = core.StringPtr("testString")
 				annotatorFlowModel.Type = core.StringPtr("testString")
-				annotatorFlowModel.Data = make(map[string][]Entity)
+				annotatorFlowModel.Data = make(map[string][]annotatorforclinicaldataacdv1.Entity)
 				annotatorFlowModel.Metadata = make(map[string]interface{})
 				annotatorFlowModel.GlobalConfigurations = []annotatorforclinicaldataacdv1.ConfigurationEntity{*configurationEntityModel}
 				annotatorFlowModel.Uid = core.Int64Ptr(int64(26))
@@ -1318,7 +1318,7 @@ var _ = Describe(`AnnotatorForClinicalDataAcdV1`, func() {
 				testService, testServiceErr := annotatorforclinicaldataacdv1.NewAnnotatorForClinicalDataAcdV1(&annotatorforclinicaldataacdv1.AnnotatorForClinicalDataAcdV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
-					Version: core.StringPtr(version),
+					Version:       core.StringPtr(version),
 				})
 				Expect(testServiceErr).To(BeNil())
 				Expect(testService).ToNot(BeNil())
@@ -1331,7 +1331,7 @@ var _ = Describe(`AnnotatorForClinicalDataAcdV1`, func() {
 				// Construct an instance of the DeleteFlowsOptions model
 				deleteFlowsOptionsModel := new(annotatorforclinicaldataacdv1.DeleteFlowsOptions)
 				deleteFlowsOptionsModel.ID = core.StringPtr("testString")
- 				deleteFlowsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				deleteFlowsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
 				response, operationErr = testService.DeleteFlows(deleteFlowsOptionsModel)
@@ -1342,7 +1342,7 @@ var _ = Describe(`AnnotatorForClinicalDataAcdV1`, func() {
 				testService, testServiceErr := annotatorforclinicaldataacdv1.NewAnnotatorForClinicalDataAcdV1(&annotatorforclinicaldataacdv1.AnnotatorForClinicalDataAcdV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
-					Version: core.StringPtr(version),
+					Version:       core.StringPtr(version),
 				})
 				Expect(testServiceErr).To(BeNil())
 				Expect(testService).ToNot(BeNil())
@@ -1370,19 +1370,19 @@ var _ = Describe(`AnnotatorForClinicalDataAcdV1`, func() {
 			})
 		})
 	})
-    Describe(`Service constructor tests`, func() {
+	Describe(`Service constructor tests`, func() {
 		version := "testString"
 		It(`Instantiate service client`, func() {
 			testService, testServiceErr := annotatorforclinicaldataacdv1.NewAnnotatorForClinicalDataAcdV1(&annotatorforclinicaldataacdv1.AnnotatorForClinicalDataAcdV1Options{
 				Authenticator: &core.NoAuthAuthenticator{},
-				Version: core.StringPtr(version),
+				Version:       core.StringPtr(version),
 			})
 			Expect(testService).ToNot(BeNil())
 			Expect(testServiceErr).To(BeNil())
 		})
 		It(`Instantiate service client with error: Invalid URL`, func() {
 			testService, testServiceErr := annotatorforclinicaldataacdv1.NewAnnotatorForClinicalDataAcdV1(&annotatorforclinicaldataacdv1.AnnotatorForClinicalDataAcdV1Options{
-				URL: "{BAD_URL_STRING",
+				URL:     "{BAD_URL_STRING",
 				Version: core.StringPtr(version),
 			})
 			Expect(testService).To(BeNil())
@@ -1390,7 +1390,7 @@ var _ = Describe(`AnnotatorForClinicalDataAcdV1`, func() {
 		})
 		It(`Instantiate service client with error: Invalid Auth`, func() {
 			testService, testServiceErr := annotatorforclinicaldataacdv1.NewAnnotatorForClinicalDataAcdV1(&annotatorforclinicaldataacdv1.AnnotatorForClinicalDataAcdV1Options{
-				URL: "https://annotatorforclinicaldataacdv1/api",
+				URL:     "https://annotatorforclinicaldataacdv1/api",
 				Version: core.StringPtr(version),
 				Authenticator: &core.BasicAuthenticator{
 					Username: "",
@@ -1411,7 +1411,7 @@ var _ = Describe(`AnnotatorForClinicalDataAcdV1`, func() {
 		Context(`Using external config, construct service client instances`, func() {
 			// Map containing environment variables used in testing.
 			var testEnvironment = map[string]string{
-				"ANNOTATOR_FOR_CLINICAL_DATA_ACD_URL": "https://annotatorforclinicaldataacdv1/api",
+				"ANNOTATOR_FOR_CLINICAL_DATA_ACD_URL":       "https://annotatorforclinicaldataacdv1/api",
 				"ANNOTATOR_FOR_CLINICAL_DATA_ACD_AUTH_TYPE": "noauth",
 			}
 
@@ -1427,7 +1427,7 @@ var _ = Describe(`AnnotatorForClinicalDataAcdV1`, func() {
 			It(`Create service client using external config and set url from constructor successfully`, func() {
 				SetTestEnvironment(testEnvironment)
 				testService, testServiceErr := annotatorforclinicaldataacdv1.NewAnnotatorForClinicalDataAcdV1UsingExternalConfig(&annotatorforclinicaldataacdv1.AnnotatorForClinicalDataAcdV1Options{
-					URL: "https://testService/api",
+					URL:     "https://testService/api",
 					Version: core.StringPtr(version),
 				})
 				Expect(testService).ToNot(BeNil())
@@ -1451,7 +1451,7 @@ var _ = Describe(`AnnotatorForClinicalDataAcdV1`, func() {
 		Context(`Using external config, construct service client instances with error: Invalid Auth`, func() {
 			// Map containing environment variables used in testing.
 			var testEnvironment = map[string]string{
-				"ANNOTATOR_FOR_CLINICAL_DATA_ACD_URL": "https://annotatorforclinicaldataacdv1/api",
+				"ANNOTATOR_FOR_CLINICAL_DATA_ACD_URL":       "https://annotatorforclinicaldataacdv1/api",
 				"ANNOTATOR_FOR_CLINICAL_DATA_ACD_AUTH_TYPE": "someOtherAuth",
 			}
 
@@ -1469,12 +1469,12 @@ var _ = Describe(`AnnotatorForClinicalDataAcdV1`, func() {
 		Context(`Using external config, construct service client instances with error: Invalid URL`, func() {
 			// Map containing environment variables used in testing.
 			var testEnvironment = map[string]string{
-				"ANNOTATOR_FOR_CLINICAL_DATA_ACD_AUTH_TYPE":   "NOAuth",
+				"ANNOTATOR_FOR_CLINICAL_DATA_ACD_AUTH_TYPE": "NOAuth",
 			}
 
 			SetTestEnvironment(testEnvironment)
 			testService, testServiceErr := annotatorforclinicaldataacdv1.NewAnnotatorForClinicalDataAcdV1UsingExternalConfig(&annotatorforclinicaldataacdv1.AnnotatorForClinicalDataAcdV1Options{
-				URL: "{BAD_URL_STRING",
+				URL:     "{BAD_URL_STRING",
 				Version: core.StringPtr(version),
 			})
 
@@ -1499,9 +1499,7 @@ var _ = Describe(`AnnotatorForClinicalDataAcdV1`, func() {
 					Expect(req.Method).To(Equal("POST"))
 					Expect(req.URL.Query()["version"]).To(Equal([]string{"testString"}))
 
-
 					// TODO: Add check for debug_text_restore query parameter
-
 
 					// TODO: Add check for return_analyzed_text query parameter
 
@@ -1512,13 +1510,13 @@ var _ = Describe(`AnnotatorForClinicalDataAcdV1`, func() {
 				testService, testServiceErr := annotatorforclinicaldataacdv1.NewAnnotatorForClinicalDataAcdV1(&annotatorforclinicaldataacdv1.AnnotatorForClinicalDataAcdV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
-					Version: core.StringPtr(version),
+					Version:       core.StringPtr(version),
 				})
 				Expect(testServiceErr).To(BeNil())
 				Expect(testService).ToNot(BeNil())
 
 				// Invoke operation with nil options model (negative test)
-				response, operationErr := testService.RunPipeline(nil)
+				result, response, operationErr := testService.RunPipeline(nil)
 				Expect(operationErr).NotTo(BeNil())
 				Expect(response).To(BeNil())
 
@@ -1543,7 +1541,7 @@ var _ = Describe(`AnnotatorForClinicalDataAcdV1`, func() {
 				annotatorFlowModel.Flow = flowModel
 				annotatorFlowModel.ID = core.StringPtr("testString")
 				annotatorFlowModel.Type = core.StringPtr("testString")
-				annotatorFlowModel.Data = make(map[string][]Entity)
+				annotatorFlowModel.Data = make(map[string][]annotatorforclinicaldataacdv1.Entity)
 				annotatorFlowModel.Metadata = make(map[string]interface{})
 				annotatorFlowModel.GlobalConfigurations = []annotatorforclinicaldataacdv1.ConfigurationEntity{*configurationEntityModel}
 				annotatorFlowModel.Uid = core.Int64Ptr(int64(26))
@@ -1553,7 +1551,7 @@ var _ = Describe(`AnnotatorForClinicalDataAcdV1`, func() {
 				unstructuredContainerModel.Text = core.StringPtr("testString")
 				unstructuredContainerModel.ID = core.StringPtr("testString")
 				unstructuredContainerModel.Type = core.StringPtr("testString")
-				unstructuredContainerModel.Data = make(map[string][]Entity)
+				unstructuredContainerModel.Data = make(map[string][]annotatorforclinicaldataacdv1.Entity)
 				unstructuredContainerModel.Metadata = make(map[string]interface{})
 				unstructuredContainerModel.Uid = core.Int64Ptr(int64(26))
 
@@ -1563,18 +1561,19 @@ var _ = Describe(`AnnotatorForClinicalDataAcdV1`, func() {
 				runPipelineOptionsModel.AnnotatorFlows = []annotatorforclinicaldataacdv1.AnnotatorFlow{*annotatorFlowModel}
 				runPipelineOptionsModel.DebugTextRestore = core.BoolPtr(true)
 				runPipelineOptionsModel.ReturnAnalyzedText = core.BoolPtr(true)
- 				runPipelineOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				runPipelineOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
-				response, operationErr = testService.RunPipeline(runPipelineOptionsModel)
+				result, response, operationErr = testService.RunPipeline(runPipelineOptionsModel)
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
 			})
 			It(`Invoke RunPipeline with error: Operation request error`, func() {
 				testService, testServiceErr := annotatorforclinicaldataacdv1.NewAnnotatorForClinicalDataAcdV1(&annotatorforclinicaldataacdv1.AnnotatorForClinicalDataAcdV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
-					Version: core.StringPtr(version),
+					Version:       core.StringPtr(version),
 				})
 				Expect(testServiceErr).To(BeNil())
 				Expect(testService).ToNot(BeNil())
@@ -1600,7 +1599,7 @@ var _ = Describe(`AnnotatorForClinicalDataAcdV1`, func() {
 				annotatorFlowModel.Flow = flowModel
 				annotatorFlowModel.ID = core.StringPtr("testString")
 				annotatorFlowModel.Type = core.StringPtr("testString")
-				annotatorFlowModel.Data = make(map[string][]Entity)
+				annotatorFlowModel.Data = make(map[string][]annotatorforclinicaldataacdv1.Entity)
 				annotatorFlowModel.Metadata = make(map[string]interface{})
 				annotatorFlowModel.GlobalConfigurations = []annotatorforclinicaldataacdv1.ConfigurationEntity{*configurationEntityModel}
 				annotatorFlowModel.Uid = core.Int64Ptr(int64(26))
@@ -1610,7 +1609,7 @@ var _ = Describe(`AnnotatorForClinicalDataAcdV1`, func() {
 				unstructuredContainerModel.Text = core.StringPtr("testString")
 				unstructuredContainerModel.ID = core.StringPtr("testString")
 				unstructuredContainerModel.Type = core.StringPtr("testString")
-				unstructuredContainerModel.Data = make(map[string][]Entity)
+				unstructuredContainerModel.Data = make(map[string][]annotatorforclinicaldataacdv1.Entity)
 				unstructuredContainerModel.Metadata = make(map[string]interface{})
 				unstructuredContainerModel.Uid = core.Int64Ptr(int64(26))
 
@@ -1624,10 +1623,11 @@ var _ = Describe(`AnnotatorForClinicalDataAcdV1`, func() {
 				// Invoke operation with empty URL (negative test)
 				err := testService.SetServiceURL("")
 				Expect(err).To(BeNil())
-				response, operationErr := testService.RunPipeline(runPipelineOptionsModel)
+				result, response, operationErr := testService.RunPipeline(runPipelineOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
 				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
 			})
 			AfterEach(func() {
 				testServer.Close()
@@ -1650,9 +1650,7 @@ var _ = Describe(`AnnotatorForClinicalDataAcdV1`, func() {
 					Expect(req.Header["Content-Type"][0]).To(Equal(fmt.Sprintf("%v", "application/json")))
 					Expect(req.URL.Query()["version"]).To(Equal([]string{"testString"}))
 
-
 					// TODO: Add check for return_analyzed_text query parameter
-
 
 					// TODO: Add check for debug_text_restore query parameter
 
@@ -1663,15 +1661,16 @@ var _ = Describe(`AnnotatorForClinicalDataAcdV1`, func() {
 				testService, testServiceErr := annotatorforclinicaldataacdv1.NewAnnotatorForClinicalDataAcdV1(&annotatorforclinicaldataacdv1.AnnotatorForClinicalDataAcdV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
-					Version: core.StringPtr(version),
+					Version:       core.StringPtr(version),
 				})
 				Expect(testServiceErr).To(BeNil())
 				Expect(testService).ToNot(BeNil())
 
 				// Invoke operation with nil options model (negative test)
-				response, operationErr := testService.RunPipelineWithFlow(nil)
+				result, response, operationErr := testService.RunPipelineWithFlow(nil)
 				Expect(operationErr).NotTo(BeNil())
 				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
 
 				// Construct an instance of the FlowEntry model
 				flowEntryModel := new(annotatorforclinicaldataacdv1.FlowEntry)
@@ -1694,7 +1693,7 @@ var _ = Describe(`AnnotatorForClinicalDataAcdV1`, func() {
 				annotatorFlowModel.Flow = flowModel
 				annotatorFlowModel.ID = core.StringPtr("testString")
 				annotatorFlowModel.Type = core.StringPtr("testString")
-				annotatorFlowModel.Data = make(map[string][]Entity)
+				annotatorFlowModel.Data = make(map[string][]annotatorforclinicaldataacdv1.Entity)
 				annotatorFlowModel.Metadata = make(map[string]interface{})
 				annotatorFlowModel.GlobalConfigurations = []annotatorforclinicaldataacdv1.ConfigurationEntity{*configurationEntityModel}
 				annotatorFlowModel.Uid = core.Int64Ptr(int64(26))
@@ -1704,7 +1703,7 @@ var _ = Describe(`AnnotatorForClinicalDataAcdV1`, func() {
 				unstructuredContainerModel.Text = core.StringPtr("testString")
 				unstructuredContainerModel.ID = core.StringPtr("testString")
 				unstructuredContainerModel.Type = core.StringPtr("testString")
-				unstructuredContainerModel.Data = make(map[string][]Entity)
+				unstructuredContainerModel.Data = make(map[string][]annotatorforclinicaldataacdv1.Entity)
 				unstructuredContainerModel.Metadata = make(map[string]interface{})
 				unstructuredContainerModel.Uid = core.Int64Ptr(int64(26))
 
@@ -1721,18 +1720,19 @@ var _ = Describe(`AnnotatorForClinicalDataAcdV1`, func() {
 				runPipelineWithFlowOptionsModel.Body = core.StringPtr("testString")
 				runPipelineWithFlowOptionsModel.ContentType = core.StringPtr("application/json")
 				runPipelineWithFlowOptionsModel.DebugTextRestore = core.BoolPtr(true)
- 				runPipelineWithFlowOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				runPipelineWithFlowOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
-				response, operationErr = testService.RunPipelineWithFlow(runPipelineWithFlowOptionsModel)
+				result, response, operationErr = testService.RunPipelineWithFlow(runPipelineWithFlowOptionsModel)
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
 			})
 			It(`Invoke RunPipelineWithFlow with error: Operation validation and request error`, func() {
 				testService, testServiceErr := annotatorforclinicaldataacdv1.NewAnnotatorForClinicalDataAcdV1(&annotatorforclinicaldataacdv1.AnnotatorForClinicalDataAcdV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
-					Version: core.StringPtr(version),
+					Version:       core.StringPtr(version),
 				})
 				Expect(testServiceErr).To(BeNil())
 				Expect(testService).ToNot(BeNil())
@@ -1758,7 +1758,7 @@ var _ = Describe(`AnnotatorForClinicalDataAcdV1`, func() {
 				annotatorFlowModel.Flow = flowModel
 				annotatorFlowModel.ID = core.StringPtr("testString")
 				annotatorFlowModel.Type = core.StringPtr("testString")
-				annotatorFlowModel.Data = make(map[string][]Entity)
+				annotatorFlowModel.Data = make(map[string][]annotatorforclinicaldataacdv1.Entity)
 				annotatorFlowModel.Metadata = make(map[string]interface{})
 				annotatorFlowModel.GlobalConfigurations = []annotatorforclinicaldataacdv1.ConfigurationEntity{*configurationEntityModel}
 				annotatorFlowModel.Uid = core.Int64Ptr(int64(26))
@@ -1768,7 +1768,8 @@ var _ = Describe(`AnnotatorForClinicalDataAcdV1`, func() {
 				unstructuredContainerModel.Text = core.StringPtr("testString")
 				unstructuredContainerModel.ID = core.StringPtr("testString")
 				unstructuredContainerModel.Type = core.StringPtr("testString")
-				unstructuredContainerModel.Data = make(map[string][]Entity)
+				unstructuredContainerModel.Data = make(map[string][]annotatorforclinicaldataacdv1. 
+					Entity)
 				unstructuredContainerModel.Metadata = make(map[string]interface{})
 				unstructuredContainerModel.Uid = core.Int64Ptr(int64(26))
 
@@ -1789,16 +1790,18 @@ var _ = Describe(`AnnotatorForClinicalDataAcdV1`, func() {
 				// Invoke operation with empty URL (negative test)
 				err := testService.SetServiceURL("")
 				Expect(err).To(BeNil())
-				response, operationErr := testService.RunPipelineWithFlow(runPipelineWithFlowOptionsModel)
+				result, response, operationErr := testService.RunPipelineWithFlow(runPipelineWithFlowOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
 				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
 				// Construct a second instance of the RunPipelineWithFlowOptions model with no property values
 				runPipelineWithFlowOptionsModelNew := new(annotatorforclinicaldataacdv1.RunPipelineWithFlowOptions)
 				// Invoke operation with invalid model (negative test)
-				response, operationErr = testService.RunPipelineWithFlow(runPipelineWithFlowOptionsModelNew)
+				result, response, operationErr = testService.RunPipelineWithFlow(runPipelineWithFlowOptionsModelNew)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
 			})
 			AfterEach(func() {
 				testServer.Close()
@@ -1826,7 +1829,7 @@ var _ = Describe(`AnnotatorForClinicalDataAcdV1`, func() {
 				testService, testServiceErr := annotatorforclinicaldataacdv1.NewAnnotatorForClinicalDataAcdV1(&annotatorforclinicaldataacdv1.AnnotatorForClinicalDataAcdV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
-					Version: core.StringPtr(version),
+					Version:       core.StringPtr(version),
 				})
 				Expect(testServiceErr).To(BeNil())
 				Expect(testService).ToNot(BeNil())
@@ -1838,7 +1841,7 @@ var _ = Describe(`AnnotatorForClinicalDataAcdV1`, func() {
 
 				// Construct an instance of the GetAnnotatorsOptions model
 				getAnnotatorsOptionsModel := new(annotatorforclinicaldataacdv1.GetAnnotatorsOptions)
- 				getAnnotatorsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				getAnnotatorsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
 				response, operationErr = testService.GetAnnotators(getAnnotatorsOptionsModel)
@@ -1849,7 +1852,7 @@ var _ = Describe(`AnnotatorForClinicalDataAcdV1`, func() {
 				testService, testServiceErr := annotatorforclinicaldataacdv1.NewAnnotatorForClinicalDataAcdV1(&annotatorforclinicaldataacdv1.AnnotatorForClinicalDataAcdV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
-					Version: core.StringPtr(version),
+					Version:       core.StringPtr(version),
 				})
 				Expect(testServiceErr).To(BeNil())
 				Expect(testService).ToNot(BeNil())
@@ -1891,7 +1894,7 @@ var _ = Describe(`AnnotatorForClinicalDataAcdV1`, func() {
 				testService, testServiceErr := annotatorforclinicaldataacdv1.NewAnnotatorForClinicalDataAcdV1(&annotatorforclinicaldataacdv1.AnnotatorForClinicalDataAcdV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
-					Version: core.StringPtr(version),
+					Version:       core.StringPtr(version),
 				})
 				Expect(testServiceErr).To(BeNil())
 				Expect(testService).ToNot(BeNil())
@@ -1904,7 +1907,7 @@ var _ = Describe(`AnnotatorForClinicalDataAcdV1`, func() {
 				// Construct an instance of the GetAnnotatorsByIdOptions model
 				getAnnotatorsByIdOptionsModel := new(annotatorforclinicaldataacdv1.GetAnnotatorsByIdOptions)
 				getAnnotatorsByIdOptionsModel.ID = core.StringPtr("testString")
- 				getAnnotatorsByIdOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				getAnnotatorsByIdOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
 				response, operationErr = testService.GetAnnotatorsByID(getAnnotatorsByIdOptionsModel)
@@ -1915,7 +1918,7 @@ var _ = Describe(`AnnotatorForClinicalDataAcdV1`, func() {
 				testService, testServiceErr := annotatorforclinicaldataacdv1.NewAnnotatorForClinicalDataAcdV1(&annotatorforclinicaldataacdv1.AnnotatorForClinicalDataAcdV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
-					Version: core.StringPtr(version),
+					Version:       core.StringPtr(version),
 				})
 				Expect(testServiceErr).To(BeNil())
 				Expect(testService).ToNot(BeNil())
@@ -1964,7 +1967,7 @@ var _ = Describe(`AnnotatorForClinicalDataAcdV1`, func() {
 				testService, testServiceErr := annotatorforclinicaldataacdv1.NewAnnotatorForClinicalDataAcdV1(&annotatorforclinicaldataacdv1.AnnotatorForClinicalDataAcdV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
-					Version: core.StringPtr(version),
+					Version:       core.StringPtr(version),
 				})
 				Expect(testServiceErr).To(BeNil())
 				Expect(testService).ToNot(BeNil())
@@ -1976,7 +1979,7 @@ var _ = Describe(`AnnotatorForClinicalDataAcdV1`, func() {
 
 				// Construct an instance of the DeleteUserSpecificArtifactsOptions model
 				deleteUserSpecificArtifactsOptionsModel := new(annotatorforclinicaldataacdv1.DeleteUserSpecificArtifactsOptions)
- 				deleteUserSpecificArtifactsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				deleteUserSpecificArtifactsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
 				response, operationErr = testService.DeleteUserSpecificArtifacts(deleteUserSpecificArtifactsOptionsModel)
@@ -1987,7 +1990,7 @@ var _ = Describe(`AnnotatorForClinicalDataAcdV1`, func() {
 				testService, testServiceErr := annotatorforclinicaldataacdv1.NewAnnotatorForClinicalDataAcdV1(&annotatorforclinicaldataacdv1.AnnotatorForClinicalDataAcdV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
-					Version: core.StringPtr(version),
+					Version:       core.StringPtr(version),
 				})
 				Expect(testServiceErr).To(BeNil())
 				Expect(testService).ToNot(BeNil())
@@ -2008,19 +2011,19 @@ var _ = Describe(`AnnotatorForClinicalDataAcdV1`, func() {
 			})
 		})
 	})
-    Describe(`Service constructor tests`, func() {
+	Describe(`Service constructor tests`, func() {
 		version := "testString"
 		It(`Instantiate service client`, func() {
 			testService, testServiceErr := annotatorforclinicaldataacdv1.NewAnnotatorForClinicalDataAcdV1(&annotatorforclinicaldataacdv1.AnnotatorForClinicalDataAcdV1Options{
 				Authenticator: &core.NoAuthAuthenticator{},
-				Version: core.StringPtr(version),
+				Version:       core.StringPtr(version),
 			})
 			Expect(testService).ToNot(BeNil())
 			Expect(testServiceErr).To(BeNil())
 		})
 		It(`Instantiate service client with error: Invalid URL`, func() {
 			testService, testServiceErr := annotatorforclinicaldataacdv1.NewAnnotatorForClinicalDataAcdV1(&annotatorforclinicaldataacdv1.AnnotatorForClinicalDataAcdV1Options{
-				URL: "{BAD_URL_STRING",
+				URL:     "{BAD_URL_STRING",
 				Version: core.StringPtr(version),
 			})
 			Expect(testService).To(BeNil())
@@ -2028,7 +2031,7 @@ var _ = Describe(`AnnotatorForClinicalDataAcdV1`, func() {
 		})
 		It(`Instantiate service client with error: Invalid Auth`, func() {
 			testService, testServiceErr := annotatorforclinicaldataacdv1.NewAnnotatorForClinicalDataAcdV1(&annotatorforclinicaldataacdv1.AnnotatorForClinicalDataAcdV1Options{
-				URL: "https://annotatorforclinicaldataacdv1/api",
+				URL:     "https://annotatorforclinicaldataacdv1/api",
 				Version: core.StringPtr(version),
 				Authenticator: &core.BasicAuthenticator{
 					Username: "",
@@ -2049,7 +2052,7 @@ var _ = Describe(`AnnotatorForClinicalDataAcdV1`, func() {
 		Context(`Using external config, construct service client instances`, func() {
 			// Map containing environment variables used in testing.
 			var testEnvironment = map[string]string{
-				"ANNOTATOR_FOR_CLINICAL_DATA_ACD_URL": "https://annotatorforclinicaldataacdv1/api",
+				"ANNOTATOR_FOR_CLINICAL_DATA_ACD_URL":       "https://annotatorforclinicaldataacdv1/api",
 				"ANNOTATOR_FOR_CLINICAL_DATA_ACD_AUTH_TYPE": "noauth",
 			}
 
@@ -2065,7 +2068,7 @@ var _ = Describe(`AnnotatorForClinicalDataAcdV1`, func() {
 			It(`Create service client using external config and set url from constructor successfully`, func() {
 				SetTestEnvironment(testEnvironment)
 				testService, testServiceErr := annotatorforclinicaldataacdv1.NewAnnotatorForClinicalDataAcdV1UsingExternalConfig(&annotatorforclinicaldataacdv1.AnnotatorForClinicalDataAcdV1Options{
-					URL: "https://testService/api",
+					URL:     "https://testService/api",
 					Version: core.StringPtr(version),
 				})
 				Expect(testService).ToNot(BeNil())
@@ -2089,7 +2092,7 @@ var _ = Describe(`AnnotatorForClinicalDataAcdV1`, func() {
 		Context(`Using external config, construct service client instances with error: Invalid Auth`, func() {
 			// Map containing environment variables used in testing.
 			var testEnvironment = map[string]string{
-				"ANNOTATOR_FOR_CLINICAL_DATA_ACD_URL": "https://annotatorforclinicaldataacdv1/api",
+				"ANNOTATOR_FOR_CLINICAL_DATA_ACD_URL":       "https://annotatorforclinicaldataacdv1/api",
 				"ANNOTATOR_FOR_CLINICAL_DATA_ACD_AUTH_TYPE": "someOtherAuth",
 			}
 
@@ -2107,12 +2110,12 @@ var _ = Describe(`AnnotatorForClinicalDataAcdV1`, func() {
 		Context(`Using external config, construct service client instances with error: Invalid URL`, func() {
 			// Map containing environment variables used in testing.
 			var testEnvironment = map[string]string{
-				"ANNOTATOR_FOR_CLINICAL_DATA_ACD_AUTH_TYPE":   "NOAuth",
+				"ANNOTATOR_FOR_CLINICAL_DATA_ACD_AUTH_TYPE": "NOAuth",
 			}
 
 			SetTestEnvironment(testEnvironment)
 			testService, testServiceErr := annotatorforclinicaldataacdv1.NewAnnotatorForClinicalDataAcdV1UsingExternalConfig(&annotatorforclinicaldataacdv1.AnnotatorForClinicalDataAcdV1Options{
-				URL: "{BAD_URL_STRING",
+				URL:     "{BAD_URL_STRING",
 				Version: core.StringPtr(version),
 			})
 
@@ -2129,7 +2132,7 @@ var _ = Describe(`AnnotatorForClinicalDataAcdV1`, func() {
 		Context(`Using mock server endpoint`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-			 		defer GinkgoRecover()
+					defer GinkgoRecover()
 
 					// Verify the contents of the request
 					Expect(req.URL.Path).To(Equal(cartridgesGetPath))
@@ -2145,7 +2148,7 @@ var _ = Describe(`AnnotatorForClinicalDataAcdV1`, func() {
 				testService, testServiceErr := annotatorforclinicaldataacdv1.NewAnnotatorForClinicalDataAcdV1(&annotatorforclinicaldataacdv1.AnnotatorForClinicalDataAcdV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
-					Version: core.StringPtr(version),
+					Version:       core.StringPtr(version),
 				})
 				Expect(testServiceErr).To(BeNil())
 				Expect(testService).ToNot(BeNil())
@@ -2187,7 +2190,7 @@ var _ = Describe(`AnnotatorForClinicalDataAcdV1`, func() {
 				testService, testServiceErr := annotatorforclinicaldataacdv1.NewAnnotatorForClinicalDataAcdV1(&annotatorforclinicaldataacdv1.AnnotatorForClinicalDataAcdV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
-					Version: core.StringPtr(version),
+					Version:       core.StringPtr(version),
 				})
 				Expect(testServiceErr).To(BeNil())
 				Expect(testService).ToNot(BeNil())
@@ -2200,7 +2203,7 @@ var _ = Describe(`AnnotatorForClinicalDataAcdV1`, func() {
 
 				// Construct an instance of the CartridgesGetOptions model
 				cartridgesGetOptionsModel := new(annotatorforclinicaldataacdv1.CartridgesGetOptions)
- 				cartridgesGetOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				cartridgesGetOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
 				result, response, operationErr = testService.CartridgesGet(cartridgesGetOptionsModel)
@@ -2212,7 +2215,7 @@ var _ = Describe(`AnnotatorForClinicalDataAcdV1`, func() {
 				testService, testServiceErr := annotatorforclinicaldataacdv1.NewAnnotatorForClinicalDataAcdV1(&annotatorforclinicaldataacdv1.AnnotatorForClinicalDataAcdV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
-					Version: core.StringPtr(version),
+					Version:       core.StringPtr(version),
 				})
 				Expect(testServiceErr).To(BeNil())
 				Expect(testService).ToNot(BeNil())
@@ -2240,7 +2243,7 @@ var _ = Describe(`AnnotatorForClinicalDataAcdV1`, func() {
 		Context(`Using mock server endpoint`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-			 		defer GinkgoRecover()
+					defer GinkgoRecover()
 
 					// Verify the contents of the request
 					Expect(req.URL.Path).To(Equal(cartridgesPostMultipartPath))
@@ -2256,7 +2259,7 @@ var _ = Describe(`AnnotatorForClinicalDataAcdV1`, func() {
 				testService, testServiceErr := annotatorforclinicaldataacdv1.NewAnnotatorForClinicalDataAcdV1(&annotatorforclinicaldataacdv1.AnnotatorForClinicalDataAcdV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
-					Version: core.StringPtr(version),
+					Version:       core.StringPtr(version),
 				})
 				Expect(testServiceErr).To(BeNil())
 				Expect(testService).ToNot(BeNil())
@@ -2300,7 +2303,7 @@ var _ = Describe(`AnnotatorForClinicalDataAcdV1`, func() {
 				testService, testServiceErr := annotatorforclinicaldataacdv1.NewAnnotatorForClinicalDataAcdV1(&annotatorforclinicaldataacdv1.AnnotatorForClinicalDataAcdV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
-					Version: core.StringPtr(version),
+					Version:       core.StringPtr(version),
 				})
 				Expect(testServiceErr).To(BeNil())
 				Expect(testService).ToNot(BeNil())
@@ -2315,7 +2318,7 @@ var _ = Describe(`AnnotatorForClinicalDataAcdV1`, func() {
 				cartridgesPostMultipartOptionsModel := new(annotatorforclinicaldataacdv1.CartridgesPostMultipartOptions)
 				cartridgesPostMultipartOptionsModel.ArchiveFile = CreateMockReader("This is a mock file.")
 				cartridgesPostMultipartOptionsModel.ArchiveFileContentType = core.StringPtr("testString")
- 				cartridgesPostMultipartOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				cartridgesPostMultipartOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
 				result, response, operationErr = testService.CartridgesPostMultipart(cartridgesPostMultipartOptionsModel)
@@ -2325,9 +2328,9 @@ var _ = Describe(`AnnotatorForClinicalDataAcdV1`, func() {
 			})
 			It(`Invoke CartridgesPostMultipart with error: Param validation error`, func() {
 				testService, testServiceErr := annotatorforclinicaldataacdv1.NewAnnotatorForClinicalDataAcdV1(&annotatorforclinicaldataacdv1.AnnotatorForClinicalDataAcdV1Options{
-					URL:  testServer.URL,
+					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
-					Version: core.StringPtr(version),
+					Version:       core.StringPtr(version),
 				})
 				Expect(testServiceErr).To(BeNil())
 				Expect(testService).ToNot(BeNil())
@@ -2344,7 +2347,7 @@ var _ = Describe(`AnnotatorForClinicalDataAcdV1`, func() {
 				testService, testServiceErr := annotatorforclinicaldataacdv1.NewAnnotatorForClinicalDataAcdV1(&annotatorforclinicaldataacdv1.AnnotatorForClinicalDataAcdV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
-					Version: core.StringPtr(version),
+					Version:       core.StringPtr(version),
 				})
 				Expect(testServiceErr).To(BeNil())
 				Expect(testService).ToNot(BeNil())
@@ -2374,7 +2377,7 @@ var _ = Describe(`AnnotatorForClinicalDataAcdV1`, func() {
 		Context(`Using mock server endpoint`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-			 		defer GinkgoRecover()
+					defer GinkgoRecover()
 
 					// Verify the contents of the request
 					Expect(req.URL.Path).To(Equal(cartridgesPutMultipartPath))
@@ -2390,7 +2393,7 @@ var _ = Describe(`AnnotatorForClinicalDataAcdV1`, func() {
 				testService, testServiceErr := annotatorforclinicaldataacdv1.NewAnnotatorForClinicalDataAcdV1(&annotatorforclinicaldataacdv1.AnnotatorForClinicalDataAcdV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
-					Version: core.StringPtr(version),
+					Version:       core.StringPtr(version),
 				})
 				Expect(testServiceErr).To(BeNil())
 				Expect(testService).ToNot(BeNil())
@@ -2434,7 +2437,7 @@ var _ = Describe(`AnnotatorForClinicalDataAcdV1`, func() {
 				testService, testServiceErr := annotatorforclinicaldataacdv1.NewAnnotatorForClinicalDataAcdV1(&annotatorforclinicaldataacdv1.AnnotatorForClinicalDataAcdV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
-					Version: core.StringPtr(version),
+					Version:       core.StringPtr(version),
 				})
 				Expect(testServiceErr).To(BeNil())
 				Expect(testService).ToNot(BeNil())
@@ -2449,7 +2452,7 @@ var _ = Describe(`AnnotatorForClinicalDataAcdV1`, func() {
 				cartridgesPutMultipartOptionsModel := new(annotatorforclinicaldataacdv1.CartridgesPutMultipartOptions)
 				cartridgesPutMultipartOptionsModel.ArchiveFile = CreateMockReader("This is a mock file.")
 				cartridgesPutMultipartOptionsModel.ArchiveFileContentType = core.StringPtr("testString")
- 				cartridgesPutMultipartOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				cartridgesPutMultipartOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
 				result, response, operationErr = testService.CartridgesPutMultipart(cartridgesPutMultipartOptionsModel)
@@ -2459,9 +2462,9 @@ var _ = Describe(`AnnotatorForClinicalDataAcdV1`, func() {
 			})
 			It(`Invoke CartridgesPutMultipart with error: Param validation error`, func() {
 				testService, testServiceErr := annotatorforclinicaldataacdv1.NewAnnotatorForClinicalDataAcdV1(&annotatorforclinicaldataacdv1.AnnotatorForClinicalDataAcdV1Options{
-					URL:  testServer.URL,
+					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
-					Version: core.StringPtr(version),
+					Version:       core.StringPtr(version),
 				})
 				Expect(testServiceErr).To(BeNil())
 				Expect(testService).ToNot(BeNil())
@@ -2478,7 +2481,7 @@ var _ = Describe(`AnnotatorForClinicalDataAcdV1`, func() {
 				testService, testServiceErr := annotatorforclinicaldataacdv1.NewAnnotatorForClinicalDataAcdV1(&annotatorforclinicaldataacdv1.AnnotatorForClinicalDataAcdV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
-					Version: core.StringPtr(version),
+					Version:       core.StringPtr(version),
 				})
 				Expect(testServiceErr).To(BeNil())
 				Expect(testService).ToNot(BeNil())
@@ -2508,7 +2511,7 @@ var _ = Describe(`AnnotatorForClinicalDataAcdV1`, func() {
 		Context(`Using mock server endpoint`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-			 		defer GinkgoRecover()
+					defer GinkgoRecover()
 
 					// Verify the contents of the request
 					Expect(req.URL.Path).To(Equal(cartridgesGetIDPath))
@@ -2524,7 +2527,7 @@ var _ = Describe(`AnnotatorForClinicalDataAcdV1`, func() {
 				testService, testServiceErr := annotatorforclinicaldataacdv1.NewAnnotatorForClinicalDataAcdV1(&annotatorforclinicaldataacdv1.AnnotatorForClinicalDataAcdV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
-					Version: core.StringPtr(version),
+					Version:       core.StringPtr(version),
 				})
 				Expect(testServiceErr).To(BeNil())
 				Expect(testService).ToNot(BeNil())
@@ -2567,7 +2570,7 @@ var _ = Describe(`AnnotatorForClinicalDataAcdV1`, func() {
 				testService, testServiceErr := annotatorforclinicaldataacdv1.NewAnnotatorForClinicalDataAcdV1(&annotatorforclinicaldataacdv1.AnnotatorForClinicalDataAcdV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
-					Version: core.StringPtr(version),
+					Version:       core.StringPtr(version),
 				})
 				Expect(testServiceErr).To(BeNil())
 				Expect(testService).ToNot(BeNil())
@@ -2581,7 +2584,7 @@ var _ = Describe(`AnnotatorForClinicalDataAcdV1`, func() {
 				// Construct an instance of the CartridgesGetIdOptions model
 				cartridgesGetIdOptionsModel := new(annotatorforclinicaldataacdv1.CartridgesGetIdOptions)
 				cartridgesGetIdOptionsModel.ID = core.StringPtr("testString")
- 				cartridgesGetIdOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				cartridgesGetIdOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
 				result, response, operationErr = testService.CartridgesGetID(cartridgesGetIdOptionsModel)
@@ -2593,7 +2596,7 @@ var _ = Describe(`AnnotatorForClinicalDataAcdV1`, func() {
 				testService, testServiceErr := annotatorforclinicaldataacdv1.NewAnnotatorForClinicalDataAcdV1(&annotatorforclinicaldataacdv1.AnnotatorForClinicalDataAcdV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
-					Version: core.StringPtr(version),
+					Version:       core.StringPtr(version),
 				})
 				Expect(testServiceErr).To(BeNil())
 				Expect(testService).ToNot(BeNil())
@@ -2629,13 +2632,12 @@ var _ = Describe(`AnnotatorForClinicalDataAcdV1`, func() {
 		Context(`Using mock server endpoint`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-			 		defer GinkgoRecover()
+					defer GinkgoRecover()
 
 					// Verify the contents of the request
 					Expect(req.URL.Path).To(Equal(deployCartridgePath))
 					Expect(req.Method).To(Equal("POST"))
 					Expect(req.URL.Query()["version"]).To(Equal([]string{"testString"}))
-
 
 					// TODO: Add check for update query parameter
 
@@ -2648,7 +2650,7 @@ var _ = Describe(`AnnotatorForClinicalDataAcdV1`, func() {
 				testService, testServiceErr := annotatorforclinicaldataacdv1.NewAnnotatorForClinicalDataAcdV1(&annotatorforclinicaldataacdv1.AnnotatorForClinicalDataAcdV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
-					Version: core.StringPtr(version),
+					Version:       core.StringPtr(version),
 				})
 				Expect(testServiceErr).To(BeNil())
 				Expect(testService).ToNot(BeNil())
@@ -2684,7 +2686,6 @@ var _ = Describe(`AnnotatorForClinicalDataAcdV1`, func() {
 					Expect(req.Method).To(Equal("POST"))
 					Expect(req.URL.Query()["version"]).To(Equal([]string{"testString"}))
 
-
 					// TODO: Add check for update query parameter
 
 					res.Header().Set("Content-type", "application/json")
@@ -2696,7 +2697,7 @@ var _ = Describe(`AnnotatorForClinicalDataAcdV1`, func() {
 				testService, testServiceErr := annotatorforclinicaldataacdv1.NewAnnotatorForClinicalDataAcdV1(&annotatorforclinicaldataacdv1.AnnotatorForClinicalDataAcdV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
-					Version: core.StringPtr(version),
+					Version:       core.StringPtr(version),
 				})
 				Expect(testServiceErr).To(BeNil())
 				Expect(testService).ToNot(BeNil())
@@ -2712,7 +2713,7 @@ var _ = Describe(`AnnotatorForClinicalDataAcdV1`, func() {
 				deployCartridgeOptionsModel.ArchiveFile = CreateMockReader("This is a mock file.")
 				deployCartridgeOptionsModel.ArchiveFileContentType = core.StringPtr("testString")
 				deployCartridgeOptionsModel.Update = core.BoolPtr(true)
- 				deployCartridgeOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				deployCartridgeOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
 				result, response, operationErr = testService.DeployCartridge(deployCartridgeOptionsModel)
@@ -2722,9 +2723,9 @@ var _ = Describe(`AnnotatorForClinicalDataAcdV1`, func() {
 			})
 			It(`Invoke DeployCartridge with error: Param validation error`, func() {
 				testService, testServiceErr := annotatorforclinicaldataacdv1.NewAnnotatorForClinicalDataAcdV1(&annotatorforclinicaldataacdv1.AnnotatorForClinicalDataAcdV1Options{
-					URL:  testServer.URL,
+					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
-					Version: core.StringPtr(version),
+					Version:       core.StringPtr(version),
 				})
 				Expect(testServiceErr).To(BeNil())
 				Expect(testService).ToNot(BeNil())
@@ -2741,7 +2742,7 @@ var _ = Describe(`AnnotatorForClinicalDataAcdV1`, func() {
 				testService, testServiceErr := annotatorforclinicaldataacdv1.NewAnnotatorForClinicalDataAcdV1(&annotatorforclinicaldataacdv1.AnnotatorForClinicalDataAcdV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
-					Version: core.StringPtr(version),
+					Version:       core.StringPtr(version),
 				})
 				Expect(testServiceErr).To(BeNil())
 				Expect(testService).ToNot(BeNil())
@@ -2766,19 +2767,19 @@ var _ = Describe(`AnnotatorForClinicalDataAcdV1`, func() {
 			})
 		})
 	})
-    Describe(`Service constructor tests`, func() {
+	Describe(`Service constructor tests`, func() {
 		version := "testString"
 		It(`Instantiate service client`, func() {
 			testService, testServiceErr := annotatorforclinicaldataacdv1.NewAnnotatorForClinicalDataAcdV1(&annotatorforclinicaldataacdv1.AnnotatorForClinicalDataAcdV1Options{
 				Authenticator: &core.NoAuthAuthenticator{},
-				Version: core.StringPtr(version),
+				Version:       core.StringPtr(version),
 			})
 			Expect(testService).ToNot(BeNil())
 			Expect(testServiceErr).To(BeNil())
 		})
 		It(`Instantiate service client with error: Invalid URL`, func() {
 			testService, testServiceErr := annotatorforclinicaldataacdv1.NewAnnotatorForClinicalDataAcdV1(&annotatorforclinicaldataacdv1.AnnotatorForClinicalDataAcdV1Options{
-				URL: "{BAD_URL_STRING",
+				URL:     "{BAD_URL_STRING",
 				Version: core.StringPtr(version),
 			})
 			Expect(testService).To(BeNil())
@@ -2786,7 +2787,7 @@ var _ = Describe(`AnnotatorForClinicalDataAcdV1`, func() {
 		})
 		It(`Instantiate service client with error: Invalid Auth`, func() {
 			testService, testServiceErr := annotatorforclinicaldataacdv1.NewAnnotatorForClinicalDataAcdV1(&annotatorforclinicaldataacdv1.AnnotatorForClinicalDataAcdV1Options{
-				URL: "https://annotatorforclinicaldataacdv1/api",
+				URL:     "https://annotatorforclinicaldataacdv1/api",
 				Version: core.StringPtr(version),
 				Authenticator: &core.BasicAuthenticator{
 					Username: "",
@@ -2807,7 +2808,7 @@ var _ = Describe(`AnnotatorForClinicalDataAcdV1`, func() {
 		Context(`Using external config, construct service client instances`, func() {
 			// Map containing environment variables used in testing.
 			var testEnvironment = map[string]string{
-				"ANNOTATOR_FOR_CLINICAL_DATA_ACD_URL": "https://annotatorforclinicaldataacdv1/api",
+				"ANNOTATOR_FOR_CLINICAL_DATA_ACD_URL":       "https://annotatorforclinicaldataacdv1/api",
 				"ANNOTATOR_FOR_CLINICAL_DATA_ACD_AUTH_TYPE": "noauth",
 			}
 
@@ -2823,7 +2824,7 @@ var _ = Describe(`AnnotatorForClinicalDataAcdV1`, func() {
 			It(`Create service client using external config and set url from constructor successfully`, func() {
 				SetTestEnvironment(testEnvironment)
 				testService, testServiceErr := annotatorforclinicaldataacdv1.NewAnnotatorForClinicalDataAcdV1UsingExternalConfig(&annotatorforclinicaldataacdv1.AnnotatorForClinicalDataAcdV1Options{
-					URL: "https://testService/api",
+					URL:     "https://testService/api",
 					Version: core.StringPtr(version),
 				})
 				Expect(testService).ToNot(BeNil())
@@ -2847,7 +2848,7 @@ var _ = Describe(`AnnotatorForClinicalDataAcdV1`, func() {
 		Context(`Using external config, construct service client instances with error: Invalid Auth`, func() {
 			// Map containing environment variables used in testing.
 			var testEnvironment = map[string]string{
-				"ANNOTATOR_FOR_CLINICAL_DATA_ACD_URL": "https://annotatorforclinicaldataacdv1/api",
+				"ANNOTATOR_FOR_CLINICAL_DATA_ACD_URL":       "https://annotatorforclinicaldataacdv1/api",
 				"ANNOTATOR_FOR_CLINICAL_DATA_ACD_AUTH_TYPE": "someOtherAuth",
 			}
 
@@ -2865,12 +2866,12 @@ var _ = Describe(`AnnotatorForClinicalDataAcdV1`, func() {
 		Context(`Using external config, construct service client instances with error: Invalid URL`, func() {
 			// Map containing environment variables used in testing.
 			var testEnvironment = map[string]string{
-				"ANNOTATOR_FOR_CLINICAL_DATA_ACD_AUTH_TYPE":   "NOAuth",
+				"ANNOTATOR_FOR_CLINICAL_DATA_ACD_AUTH_TYPE": "NOAuth",
 			}
 
 			SetTestEnvironment(testEnvironment)
 			testService, testServiceErr := annotatorforclinicaldataacdv1.NewAnnotatorForClinicalDataAcdV1UsingExternalConfig(&annotatorforclinicaldataacdv1.AnnotatorForClinicalDataAcdV1Options{
-				URL: "{BAD_URL_STRING",
+				URL:     "{BAD_URL_STRING",
 				Version: core.StringPtr(version),
 			})
 
@@ -2888,7 +2889,7 @@ var _ = Describe(`AnnotatorForClinicalDataAcdV1`, func() {
 		Context(`Using mock server endpoint`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-			 		defer GinkgoRecover()
+					defer GinkgoRecover()
 
 					// Verify the contents of the request
 					Expect(req.URL.Path).To(Equal(getHealthCheckStatusPath))
@@ -2906,7 +2907,7 @@ var _ = Describe(`AnnotatorForClinicalDataAcdV1`, func() {
 				testService, testServiceErr := annotatorforclinicaldataacdv1.NewAnnotatorForClinicalDataAcdV1(&annotatorforclinicaldataacdv1.AnnotatorForClinicalDataAcdV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
-					Version: core.StringPtr(version),
+					Version:       core.StringPtr(version),
 				})
 				Expect(testServiceErr).To(BeNil())
 				Expect(testService).ToNot(BeNil())
@@ -2952,7 +2953,7 @@ var _ = Describe(`AnnotatorForClinicalDataAcdV1`, func() {
 				testService, testServiceErr := annotatorforclinicaldataacdv1.NewAnnotatorForClinicalDataAcdV1(&annotatorforclinicaldataacdv1.AnnotatorForClinicalDataAcdV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
-					Version: core.StringPtr(version),
+					Version:       core.StringPtr(version),
 				})
 				Expect(testServiceErr).To(BeNil())
 				Expect(testService).ToNot(BeNil())
@@ -2967,7 +2968,7 @@ var _ = Describe(`AnnotatorForClinicalDataAcdV1`, func() {
 				getHealthCheckStatusOptionsModel := new(annotatorforclinicaldataacdv1.GetHealthCheckStatusOptions)
 				getHealthCheckStatusOptionsModel.Accept = core.StringPtr("application/json")
 				getHealthCheckStatusOptionsModel.Format = core.StringPtr("json")
- 				getHealthCheckStatusOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				getHealthCheckStatusOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
 				result, response, operationErr = testService.GetHealthCheckStatus(getHealthCheckStatusOptionsModel)
@@ -2979,7 +2980,7 @@ var _ = Describe(`AnnotatorForClinicalDataAcdV1`, func() {
 				testService, testServiceErr := annotatorforclinicaldataacdv1.NewAnnotatorForClinicalDataAcdV1(&annotatorforclinicaldataacdv1.AnnotatorForClinicalDataAcdV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
-					Version: core.StringPtr(version),
+					Version:       core.StringPtr(version),
 				})
 				Expect(testServiceErr).To(BeNil())
 				Expect(testService).ToNot(BeNil())
@@ -3009,7 +3010,7 @@ var _ = Describe(`AnnotatorForClinicalDataAcdV1`, func() {
 			testService, _ := annotatorforclinicaldataacdv1.NewAnnotatorForClinicalDataAcdV1(&annotatorforclinicaldataacdv1.AnnotatorForClinicalDataAcdV1Options{
 				URL:           "http://annotatorforclinicaldataacdv1modelgenerator.com",
 				Authenticator: &core.NoAuthAuthenticator{},
-				Version: core.StringPtr(version),
+				Version:       core.StringPtr(version),
 			})
 			It(`Invoke NewAnnotator successfully`, func() {
 				name := "testString"
@@ -3093,7 +3094,7 @@ var _ = Describe(`AnnotatorForClinicalDataAcdV1`, func() {
 				annotatorFlowModel.Flow = flowModel
 				annotatorFlowModel.ID = core.StringPtr("testString")
 				annotatorFlowModel.Type = core.StringPtr("testString")
-				annotatorFlowModel.Data = make(map[string][]Entity)
+				annotatorFlowModel.Data = make(map[string][]annotatorforclinicaldataacdv1.Entity)
 				annotatorFlowModel.Metadata = make(map[string]interface{})
 				annotatorFlowModel.GlobalConfigurations = []annotatorforclinicaldataacdv1.ConfigurationEntity{*configurationEntityModel}
 				annotatorFlowModel.Uid = core.Int64Ptr(int64(26))
@@ -3101,7 +3102,7 @@ var _ = Describe(`AnnotatorForClinicalDataAcdV1`, func() {
 				Expect(annotatorFlowModel.Flow).To(Equal(flowModel))
 				Expect(annotatorFlowModel.ID).To(Equal(core.StringPtr("testString")))
 				Expect(annotatorFlowModel.Type).To(Equal(core.StringPtr("testString")))
-				Expect(annotatorFlowModel.Data).To(Equal(make(map[string][]Entity)))
+				Expect(annotatorFlowModel.Data).To(Equal(make(map[string][]annotatorforclinicaldataacdv1.Entity)))
 				Expect(annotatorFlowModel.Metadata).To(Equal(make(map[string]interface{})))
 				Expect(annotatorFlowModel.GlobalConfigurations).To(Equal([]annotatorforclinicaldataacdv1.ConfigurationEntity{*configurationEntityModel}))
 				Expect(annotatorFlowModel.Uid).To(Equal(core.Int64Ptr(int64(26))))
@@ -3307,7 +3308,7 @@ var _ = Describe(`AnnotatorForClinicalDataAcdV1`, func() {
 				annotatorFlowModel.Flow = flowModel
 				annotatorFlowModel.ID = core.StringPtr("testString")
 				annotatorFlowModel.Type = core.StringPtr("testString")
-				annotatorFlowModel.Data = make(map[string][]Entity)
+				annotatorFlowModel.Data = make(map[string][]annotatorforclinicaldataacdv1.Entity)
 				annotatorFlowModel.Metadata = make(map[string]interface{})
 				annotatorFlowModel.GlobalConfigurations = []annotatorforclinicaldataacdv1.ConfigurationEntity{*configurationEntityModel}
 				annotatorFlowModel.Uid = core.Int64Ptr(int64(26))
@@ -3315,7 +3316,7 @@ var _ = Describe(`AnnotatorForClinicalDataAcdV1`, func() {
 				Expect(annotatorFlowModel.Flow).To(Equal(flowModel))
 				Expect(annotatorFlowModel.ID).To(Equal(core.StringPtr("testString")))
 				Expect(annotatorFlowModel.Type).To(Equal(core.StringPtr("testString")))
-				Expect(annotatorFlowModel.Data).To(Equal(make(map[string][]Entity)))
+				Expect(annotatorFlowModel.Data).To(Equal(make(map[string][]annotatorforclinicaldataacdv1.Entity)))
 				Expect(annotatorFlowModel.Metadata).To(Equal(make(map[string]interface{})))
 				Expect(annotatorFlowModel.GlobalConfigurations).To(Equal([]annotatorforclinicaldataacdv1.ConfigurationEntity{*configurationEntityModel}))
 				Expect(annotatorFlowModel.Uid).To(Equal(core.Int64Ptr(int64(26))))
@@ -3326,13 +3327,13 @@ var _ = Describe(`AnnotatorForClinicalDataAcdV1`, func() {
 				unstructuredContainerModel.Text = core.StringPtr("testString")
 				unstructuredContainerModel.ID = core.StringPtr("testString")
 				unstructuredContainerModel.Type = core.StringPtr("testString")
-				unstructuredContainerModel.Data = make(map[string][]Entity)
+				unstructuredContainerModel.Data = make(map[string][]annotatorforclinicaldataacdv1.Entity)
 				unstructuredContainerModel.Metadata = make(map[string]interface{})
 				unstructuredContainerModel.Uid = core.Int64Ptr(int64(26))
 				Expect(unstructuredContainerModel.Text).To(Equal(core.StringPtr("testString")))
 				Expect(unstructuredContainerModel.ID).To(Equal(core.StringPtr("testString")))
 				Expect(unstructuredContainerModel.Type).To(Equal(core.StringPtr("testString")))
-				Expect(unstructuredContainerModel.Data).To(Equal(make(map[string][]Entity)))
+				Expect(unstructuredContainerModel.Data).To(Equal(make(map[string][]annotatorforclinicaldataacdv1.Entity)))
 				Expect(unstructuredContainerModel.Metadata).To(Equal(make(map[string]interface{})))
 				Expect(unstructuredContainerModel.Uid).To(Equal(core.Int64Ptr(int64(26))))
 
@@ -3382,7 +3383,7 @@ var _ = Describe(`AnnotatorForClinicalDataAcdV1`, func() {
 				annotatorFlowModel.Flow = flowModel
 				annotatorFlowModel.ID = core.StringPtr("testString")
 				annotatorFlowModel.Type = core.StringPtr("testString")
-				annotatorFlowModel.Data = make(map[string][]Entity)
+				annotatorFlowModel.Data = make(map[string][]annotatorforclinicaldataacdv1.Entity)
 				annotatorFlowModel.Metadata = make(map[string]interface{})
 				annotatorFlowModel.GlobalConfigurations = []annotatorforclinicaldataacdv1.ConfigurationEntity{*configurationEntityModel}
 				annotatorFlowModel.Uid = core.Int64Ptr(int64(26))
@@ -3390,7 +3391,7 @@ var _ = Describe(`AnnotatorForClinicalDataAcdV1`, func() {
 				Expect(annotatorFlowModel.Flow).To(Equal(flowModel))
 				Expect(annotatorFlowModel.ID).To(Equal(core.StringPtr("testString")))
 				Expect(annotatorFlowModel.Type).To(Equal(core.StringPtr("testString")))
-				Expect(annotatorFlowModel.Data).To(Equal(make(map[string][]Entity)))
+				Expect(annotatorFlowModel.Data).To(Equal(make(map[string][]annotatorforclinicaldataacdv1.Entity)))
 				Expect(annotatorFlowModel.Metadata).To(Equal(make(map[string]interface{})))
 				Expect(annotatorFlowModel.GlobalConfigurations).To(Equal([]annotatorforclinicaldataacdv1.ConfigurationEntity{*configurationEntityModel}))
 				Expect(annotatorFlowModel.Uid).To(Equal(core.Int64Ptr(int64(26))))
@@ -3401,13 +3402,13 @@ var _ = Describe(`AnnotatorForClinicalDataAcdV1`, func() {
 				unstructuredContainerModel.Text = core.StringPtr("testString")
 				unstructuredContainerModel.ID = core.StringPtr("testString")
 				unstructuredContainerModel.Type = core.StringPtr("testString")
-				unstructuredContainerModel.Data = make(map[string][]Entity)
+				unstructuredContainerModel.Data = make(map[string][]annotatorforclinicaldataacdv1.Entity)
 				unstructuredContainerModel.Metadata = make(map[string]interface{})
 				unstructuredContainerModel.Uid = core.Int64Ptr(int64(26))
 				Expect(unstructuredContainerModel.Text).To(Equal(core.StringPtr("testString")))
 				Expect(unstructuredContainerModel.ID).To(Equal(core.StringPtr("testString")))
 				Expect(unstructuredContainerModel.Type).To(Equal(core.StringPtr("testString")))
-				Expect(unstructuredContainerModel.Data).To(Equal(make(map[string][]Entity)))
+				Expect(unstructuredContainerModel.Data).To(Equal(make(map[string][]annotatorforclinicaldataacdv1.Entity)))
 				Expect(unstructuredContainerModel.Metadata).To(Equal(make(map[string]interface{})))
 				Expect(unstructuredContainerModel.Uid).To(Equal(core.Int64Ptr(int64(26))))
 
@@ -3471,7 +3472,7 @@ var _ = Describe(`AnnotatorForClinicalDataAcdV1`, func() {
 				annotatorFlowModel.Flow = flowModel
 				annotatorFlowModel.ID = core.StringPtr("testString")
 				annotatorFlowModel.Type = core.StringPtr("testString")
-				annotatorFlowModel.Data = make(map[string][]Entity)
+				annotatorFlowModel.Data = make(map[string][]annotatorforclinicaldataacdv1.Entity)
 				annotatorFlowModel.Metadata = make(map[string]interface{})
 				annotatorFlowModel.GlobalConfigurations = []annotatorforclinicaldataacdv1.ConfigurationEntity{*configurationEntityModel}
 				annotatorFlowModel.Uid = core.Int64Ptr(int64(26))
@@ -3479,7 +3480,7 @@ var _ = Describe(`AnnotatorForClinicalDataAcdV1`, func() {
 				Expect(annotatorFlowModel.Flow).To(Equal(flowModel))
 				Expect(annotatorFlowModel.ID).To(Equal(core.StringPtr("testString")))
 				Expect(annotatorFlowModel.Type).To(Equal(core.StringPtr("testString")))
-				Expect(annotatorFlowModel.Data).To(Equal(make(map[string][]Entity)))
+				Expect(annotatorFlowModel.Data).To(Equal(make(map[string][]annotatorforclinicaldataacdv1.Entity)))
 				Expect(annotatorFlowModel.Metadata).To(Equal(make(map[string]interface{})))
 				Expect(annotatorFlowModel.GlobalConfigurations).To(Equal([]annotatorforclinicaldataacdv1.ConfigurationEntity{*configurationEntityModel}))
 				Expect(annotatorFlowModel.Uid).To(Equal(core.Int64Ptr(int64(26))))
