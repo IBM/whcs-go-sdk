@@ -2435,7 +2435,7 @@ var _ = Describe(`InsightsForMedicalLiteratureServiceV1`, func() {
 				// Construct an instance of the SearchOptions model
 				searchOptionsModel := new(insightsformedicalliteratureservicev1.SearchOptions)
 				searchOptionsModel.Corpus = core.StringPtr("testString")
-				searchOptionsModel.Body = core.StringPtr("testString")
+				searchOptionsModel.Returns = new(insightsformedicalliteratureservicev1.ReturnsModel)
 				searchOptionsModel.Verbose = core.BoolPtr(true)
 				searchOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Expect response parsing to fail since we are receiving a text/plain response
@@ -2488,7 +2488,7 @@ var _ = Describe(`InsightsForMedicalLiteratureServiceV1`, func() {
 				// Construct an instance of the SearchOptions model
 				searchOptionsModel := new(insightsformedicalliteratureservicev1.SearchOptions)
 				searchOptionsModel.Corpus = core.StringPtr("testString")
-				searchOptionsModel.Body = core.StringPtr("testString")
+				searchOptionsModel.Returns = new(insightsformedicalliteratureservicev1.ReturnsModel)
 				searchOptionsModel.Verbose = core.BoolPtr(true)
 				searchOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
@@ -2510,7 +2510,7 @@ var _ = Describe(`InsightsForMedicalLiteratureServiceV1`, func() {
 				// Construct an instance of the SearchOptions model
 				searchOptionsModel := new(insightsformedicalliteratureservicev1.SearchOptions)
 				searchOptionsModel.Corpus = core.StringPtr("testString")
-				searchOptionsModel.Body = core.StringPtr("testString")
+				searchOptionsModel.Returns = new(insightsformedicalliteratureservicev1.ReturnsModel)
 				searchOptionsModel.Verbose = core.BoolPtr(true)
 				searchOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
@@ -4316,15 +4316,14 @@ var _ = Describe(`InsightsForMedicalLiteratureServiceV1`, func() {
 			It(`Invoke NewSearchOptions successfully`, func() {
 				// Construct an instance of the SearchOptions model
 				corpus := "testString"
-				body := "testString"
-				searchOptionsModel := testService.NewSearchOptions(corpus, body)
+				searchOptionsModel := testService.NewSearchOptions(corpus, testService.NewReturnsModel())
 				searchOptionsModel.SetCorpus("testString")
-				searchOptionsModel.SetBody("testString")
+				searchOptionsModel.SetReturns(testService.NewReturnsModel())
 				searchOptionsModel.SetVerbose(true)
 				searchOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(searchOptionsModel).ToNot(BeNil())
 				Expect(searchOptionsModel.Corpus).To(Equal(core.StringPtr("testString")))
-				Expect(searchOptionsModel.Body).To(Equal(core.StringPtr("testString")))
+				Expect(searchOptionsModel.Returns).To(Equal(testService.NewReturnsModel()))
 				Expect(searchOptionsModel.Verbose).To(Equal(core.BoolPtr(true)))
 				Expect(searchOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})

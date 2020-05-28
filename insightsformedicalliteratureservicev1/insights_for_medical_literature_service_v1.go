@@ -1140,7 +1140,14 @@ func (insightsForMedicalLiteratureService *InsightsForMedicalLiteratureServiceV1
 		builder.AddQuery("verbose", fmt.Sprint(*searchOptions.Verbose))
 	}
 
-	_, err = builder.SetBodyContentJSON(searchOptions.Body)
+	body := make(map[string]interface{})
+	if searchOptions.Query != nil {
+		body["query"] = searchOptions.Query
+	}
+	if searchOptions.Returns != nil {
+		body["returns"] = searchOptions.Returns
+	}
+	_, err = builder.SetBodyContentJSON(body)
 	if err != nil {
 		return
 	}
@@ -3721,6 +3728,19 @@ func (options *TypeaheadOptions) SetHeaders(param map[string]string) *TypeaheadO
 	return options
 }
 
+// Aggregations : Model for retrieving aggregations.
+type Aggregations struct {
+	// Number of values to aggregate
+	Limit *int64 `json:"limit,omitempty"`
+}
+
+// NewAggregations : Instantiate Aggregations
+func (*InsightsForMedicalLiteratureServiceV1) NewAggregations(number int64) *Aggregations {
+	return &Aggregations{
+		Limit: core.Int64Ptr(number),
+	}
+}
+
 // AggregationModel : Model for field aggregations.
 type AggregationModel struct {
 	// Name of the aggregation.
@@ -4051,6 +4071,16 @@ func UnmarshalAttribute(m map[string]json.RawMessage, result interface{}) (err e
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
 	return
+}
+
+// Attributes : Model for retrieving attributes.
+type Attributes struct {
+}
+
+// NewAttributes : Instantiate Attributes
+func (*InsightsForMedicalLiteratureServiceV1) NewAttributes() *Attributes {
+	return &Attributes{
+	}
 }
 
 // Backend : Object representing repository response.
@@ -4621,6 +4651,61 @@ func UnmarshalConceptModel(m map[string]json.RawMessage, result interface{}) (er
 	return
 }
 
+// Concepts : Model for retrieving concepts.
+type Concepts struct {
+	// Ontology of concepts to retrieve
+	Ontology *string `json:"ontology,omitempty"`
+
+	// Number of values to aggregate
+	Limit *int64 `json:"limit,omitempty"`
+
+	// Scope of discovery (corpus or documents)
+	Scope *string `json:"scope,omitempty"`
+
+	// Semantic types of concepts
+	Types [] string `json:"types,omitempty"`
+
+	// Mode for concept retrieval
+	Mode *string `json:"mode,omitempty"`
+}
+
+
+// NewConcepts : Instantiate Concepts
+func (*InsightsForMedicalLiteratureServiceV1) NewConcepts() *Concepts {
+	return &Concepts{
+	}
+}
+
+// SetOntology : Allow user to set ontology
+func (options *Concepts) SetOntology(ontology string) *Concepts {
+	options.Ontology = core.StringPtr(ontology)
+	return options
+}
+
+// SetLimit : Allow user to set limit
+func (options *Concepts) SetLimit(limit int64) *Concepts {
+	options.Limit = core.Int64Ptr(limit)
+	return options
+}
+
+// SetScope : Allow user to set scope
+func (options *Concepts) SetScope(scope string) *Concepts {
+	options.Scope = core.StringPtr(scope)
+	return options
+}
+
+// SetTypes : Allow user to set semantic types
+func (options *Concepts) SetTypes(types []string) *Concepts {
+	options.Types = types
+	return options
+}
+
+// SetMode: Allow user to set mode
+func (options *Concepts) SetMode(mode string) *Concepts {
+	options.Mode = core.StringPtr(mode)
+	return options
+}
+
 // CorporaConfig : Model respresenting configured corpora.
 type CorporaConfig struct {
 	// List of corpora found in the instance.
@@ -4802,6 +4887,62 @@ func UnmarshalDataModel(m map[string]json.RawMessage, result interface{}) (err e
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
 	return
+}
+
+// DateHistograms : Model for retrieving date histograms.
+type DateHistograms struct {
+	// Interval of dates
+	Interval *string `json:"interval,omitempty"`
+
+	// Utc offset
+	Utc *int64 `json:"utc,omitempty"`
+}
+
+
+// NewDateHistograms : Instantiate date histogram retrieval options
+func (*InsightsForMedicalLiteratureServiceV1) NewDateHistograms() *DateHistograms {
+	return &DateHistograms{
+	}
+}
+
+// SetInterval: Allow user to set interval
+func (options *DateHistograms) SetInterval(interval string) *DateHistograms {
+	options.Interval = core.StringPtr(interval)
+	return options
+}
+
+// SetUtc : Allow user to set utc offset
+func (options *DateHistograms) SetUtc(utc int64) *DateHistograms {
+	options.Utc = core.Int64Ptr(utc)
+	return options
+}
+
+// Documents : Model for retrieving date documents.
+type Documents struct {
+	// Number of documents
+	Limit *string `json:"limit,omitempty"`
+
+	// Offset
+	Offset *int64 `json:"offset,omitempty"`
+}
+
+
+// NewDocuments : Instantiate Document retrieval options
+func (*InsightsForMedicalLiteratureServiceV1) NewDocuments() *Documents {
+	return &Documents{
+	}
+}
+
+// SetLimit: Allow user to set interval
+func (options *Documents) SetLimit(limit string) *Documents {
+	options.Limit = core.StringPtr(limit)
+	return options
+}
+
+// SetUtc : Allow user to set utc offset
+func (options *Documents) SetOffset(offset int64) *Documents {
+	options.Offset = core.Int64Ptr(offset)
+	return options
 }
 
 // EntryModel : Object representing a passage.
@@ -5133,7 +5274,7 @@ type QueryConcept struct {
 	Text *string `json:"text,omitempty"`
 }
 
-// NewQueryModel instantiates new instance of QueryModel
+// NewQueryConcept instantiates new instance of QueryConcept
 func (*InsightsForMedicalLiteratureServiceV1) NewQueryConcept() *QueryConcept {
 	return &QueryConcept{}
 }
@@ -5145,7 +5286,7 @@ func (query *QueryConcept) SetBoolOperand(operand string) *QueryConcept {
 }
 
 // Sets the concept identifier
-func (query *QueryConcept) SetCui(cuii string) *QueryConcept {
+func (query *QueryConcept) SetCui(cui string) *QueryConcept {
 	query.Cui = core.StringPtr(cui)
 	return query
 }
@@ -5165,6 +5306,12 @@ func (query *QueryConcept) SetNegated(negated bool) *QueryConcept {
 // Sets the source ontology
 func (query *QueryConcept) SetOntology(ontology string) *QueryConcept {
 	query.Ontology = core.StringPtr(ontology)
+	return query
+}
+
+// Sets the concept rank
+func (query *QueryConcept) SetRank(rank string) *QueryConcept {
+	query.Rank = core.StringPtr(rank)
 	return query
 }
 
@@ -5194,7 +5341,7 @@ type QueryModel struct {
 	BoolExpression *string `json:"boolExpression,omitempty"`
 
 	// BoolRegexp a boolean regular expression.
-	BoolRegexp map[string]string `json:"boolRegexp,omitempty"`
+	BoolRegexp []map[string]string `json:"boolRegexp,omitempty"`
 
 	// BoolTerm qeury condition.
 	BoolTerm map[string]string `json:"boolTerm,omitempty"`
@@ -5206,13 +5353,13 @@ type QueryModel struct {
 	CursorId *string `json:"cursordId,omitempty"`
 
 	// Date range query condition.
-	DateRange map[string]Range `json:"dateRange,omitempty"`
+	DateRange []map[string]Range `json:"dateRange,omitempty"`
 
 	// Regular expression for value condition.
 	Regexp []map[string]string `json:"regexp,omitempty"`
 
 	// Boost factofr for title search emphasis.
-	Tille *TitleBoost `json;"title,omitempty"`
+	Title *Title `json:"title,omitempty"`
 }
 
 // NewQueryModel instantiates new instance of QueryModel
@@ -5245,7 +5392,7 @@ func (query *QueryModel) SetCursorId(cursor string) *QueryModel {
 }
 
 // Sets the concept conditions.
-func (query *QueryModel) SetConcepts(concepts []Concepts) *QueryModel {
+func (query *QueryModel) SetConcepts(concepts []QueryConcept) *QueryModel {
 	query.Concepts = concepts
 	return query
 }
@@ -5257,8 +5404,8 @@ func (query *QueryModel) SetDateRange(ranges []map[string]Range) *QueryModel {
 }
 
 // Sets the booleam term condition.
-func (query *QueryModel) SetRegexp(exp string) *QueryModel {
-	query.Regexp = core.StringPtr(exp)
+func (query *QueryModel) SetRegexp(exp []map[string]string) *QueryModel {
+	query.Regexp = exp
 	return query
 }
 
@@ -5269,43 +5416,43 @@ func (query *QueryModel) SetTitleBoost(booster *Title) *QueryModel {
 }
 
 // UnmarshalQueryModel unmarshals a QueryModel instance from the raw mwessage.
-func UnmarshalQueryModel(m map[string]json.RawMessage, result interface{}} (err error) {
-	obj := new(QueryModel)
-	err = core.UnmarshalPrimitive(m, "boolExpression", &obj.BoolExpression)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "boolRegexp", &obj.BoolRegexp)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "boolTerm", &obj.BoolTerm)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalModel(m, "concepts", &obj.Concepts, UnmarshalQueryConcept)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "cursorId", &obj.CursorId)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalModel(m, "dateRange", &obj.DateRange, UnmarshalRange)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "regexp", &obj.Regexp)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalModel(m, "title", &obj.Title, UnmarshalTitle)
-	if err != nil {
-		return
-	}
-	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
-	return
-}
+//func UnmarshalQueryModel(m map[string]json.RawMessage, result interface{}) (err error) {
+//	obj := new(QueryModel)
+//	err = core.UnmarshalPrimitive(m, "boolExpression", &obj.BoolExpression)
+//	if err != nil {
+//		return
+//	}
+//	err = core.UnmarshalPrimitive(m, "boolRegexp", &obj.BoolRegexp)
+//	if err != nil {
+//		return
+//	}
+//	err = core.UnmarshalPrimitive(m, "boolTerm", &obj.BoolTerm)
+//	if err != nil {
+//		return
+//	}
+//	err = core.UnmarshalModel(m, "concepts", &obj.Concepts, UnmarshalQueryConcept)
+//	if err != nil {
+//		return
+//	}
+//	err = core.UnmarshalPrimitive(m, "cursorId", &obj.CursorId)
+//	if err != nil {
+//		return
+//	}
+//	err = core.UnmarshalModel(m, "dateRange", &obj.DateRange, UnmarshalRange)
+//	if err != nil {
+//		return
+//	}
+//	err = core.UnmarshalPrimitive(m, "regexp", &obj.Regexp)
+//	if err != nil {
+//		return
+//	}
+//	err = core.UnmarshalModel(m, "title", &obj.Title, UnmarshalTitle)
+//	if err != nil {
+//		return
+//	}
+//	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+//	return
+//}
 
 // Range : object representing a date range.
 type Range struct {
@@ -5320,7 +5467,7 @@ type Range struct {
 func (*InsightsForMedicalLiteratureServiceV1) NewRange() *Range {
 	return &Range{}
 }
-.
+
 // Sets the range beginning value
 func (options *Range) SetBegin(begin string) *Range {
 	options.Begin = core.StringPtr(begin)
@@ -5334,7 +5481,7 @@ func (options *Range) SetBEnd(end string) *Range {
 }
 
 // UnmarshalRange unmarshals a Range instance from the raw mwessage.
-func UnmarshalRange(m map[string]json.RawMessage, result interface{}} (err error) {
+func UnmarshalRange(m map[string]json.RawMessage, result interface{}) (err error) {
 	obj := new(Range)
 	err = core.UnmarshalPrimitive(m, "begin", &obj.Begin)
 	if err != nil {
@@ -5595,6 +5742,77 @@ func UnmarshalRelationModel(m map[string]json.RawMessage, result interface{}) (e
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
 	return
+}
+
+// ReturnsModel : Object defining desired search results.
+type ReturnsModel struct {
+	// Aggreations of field values
+	Aggregations map[string]Aggregations `json:"aggregations,omityempty"`
+
+	// Attributes
+	Attributes *Attributes `json:"attributes,omitempty"`
+
+	// Concepts
+	Concepts *Concepts `json:"concepts,omitempty"`
+
+	// DateHistograms
+	DateHistograms map[string]DateHistograms `json:"dateHistograms,omitempty"`
+
+	// Documents
+	Documents *Documents `json:"documents,omitempty"`
+
+	// Types
+	Types *Types `json:"types,omitempty"`
+	
+	// Typeahead
+	Typeahead *Typeahead `json:"types,omitempty"`
+}
+
+// NewReturnsModel instantiates new instance of ReturnsModel
+func (*InsightsForMedicalLiteratureServiceV1) NewReturnsModel() *ReturnsModel {
+	return &ReturnsModel{}
+}
+
+// Sets the aggregations
+func (options *ReturnsModel) SetAggregations(aggregations map[string]Aggregations) *ReturnsModel {
+	options.Aggregations = aggregations
+	return options
+}
+
+// Sets the attributes
+func (options *ReturnsModel) SetAttributes(attributes *Attributes) *ReturnsModel {
+	options.Attributes = attributes
+	return options
+}
+
+// Sets the concepts
+func (options *ReturnsModel) SetConcepts(concepts *Concepts) *ReturnsModel {
+	options.Concepts = concepts
+	return options
+}
+
+// Sets the histograms
+func (options *ReturnsModel) SetDateHistograms(histograms map[string]DateHistograms) *ReturnsModel {
+	options.DateHistograms = histograms
+	return options
+}
+
+// Sets the documents
+func (options *ReturnsModel) SetDocuments(documents *Documents) *ReturnsModel {
+	options.Documents = documents
+	return options
+}
+
+// Sets the types
+func (options *ReturnsModel) SetTypes(types *Types) *ReturnsModel {
+	options.Types = types
+	return options
+}
+
+// Sets the aggregations
+func (options *ReturnsModel) SetTypeahead(typeahead *Typeahead) *ReturnsModel {
+	options.Typeahead = typeahead
+	return options
 }
 
 // SearchMatchesModel : Object representing a corpus search match.
@@ -6057,6 +6275,80 @@ func UnmarshalTitle(m map[string]json.RawMessage, result interface{}) (err error
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
 	return
+}
+
+// Typeahead : Model for retrieving typeahead suggestions.
+type Typeahead struct {
+	// Ontology of suggestions
+	Ontology *string `json:"ontology,omitempty"`
+
+	// Query
+	Query *string `json:"query,omitempty"`
+
+	// Semantic types
+	Types []string `json:"types,omitempty"`
+
+	// Number of documents
+	Limit *int64 `json:"limit,omitempty"`
+
+	// Whether to include duplicates
+	NoDuplicates *bool `json:"no_dpulicates,omitempty"`
+}
+
+
+// NewTypeahead : Instantiate typeahead retrieval options
+func (*InsightsForMedicalLiteratureServiceV1) NewTypeahead() *Typeahead {
+	return &Typeahead{
+	}
+}
+
+// SetOntology: Allow user to set ontology
+func (options *Typeahead) SetOntology(ontology string) *Typeahead {
+	options.Ontology = core.StringPtr(ontology)
+	return options
+}
+
+// SetQuery: Allow user to set query
+func (options *Typeahead) SetQuery(query string) *Typeahead {
+	options.Query = core.StringPtr(query)
+	return options
+}
+
+// SetTypes: Allow user to set types
+func (options *Typeahead) SetTypes(types []string) *Typeahead {
+	options.Types = types
+	return options
+}
+
+// SetLimit: Allow user to set interval
+func (options *Typeahead) SetLimit(limit int64) *Typeahead {
+	options.Limit = core.Int64Ptr(limit)
+	return options
+}
+
+// SetUtc : Allow user to set utc offset
+func (options *Typeahead) SetNoDuplicates(flag bool) *Typeahead {
+	options.NoDuplicates = core.BoolPtr(flag)
+	return options
+}
+
+// Types : Model for retrieving semantic types.
+type Types struct {
+	// Ontology for types
+	Ontology *string `json:"ontology,omitempty"`
+}
+
+
+// NewDocuments : Instantiate Document retrieval options
+func (*InsightsForMedicalLiteratureServiceV1) NewTypes() *Types {
+	return &Types{
+	}
+}
+
+// SetOntology: Allow user to set ontology
+func (options *Types) SetOntology(ontology string) *Types {
+	options.Ontology = core.StringPtr(ontology)
+	return options
 }
 
 // UnstructuredModel : Model representing unstructed text.

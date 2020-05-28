@@ -336,8 +336,19 @@ var _ = Describe(`InsightsForMedicalLiteratureServiceV1`, func() {
 
 	Describe(`Search(searchOptions *SearchOptions)`, func() {
 		It(`Successfully search the corpus`, func() {
-			body := `{"query": { "concepts": [{ "ontology": "concepts", "cui": "C0018787", "rank": "10"}]}, "returns": { "documents": { "limit": "10", "offset": 0}}}`
-			getSearchOptions := IML.NewSearchOptions("ctgov", body)
+			concept := IML.NewQueryConcept()
+			concept.SetOntology("concepts")
+			concept.SetCui("C0018787")
+			concept.SetRank("10")
+			query := IML.NewQueryModel()
+			query.SetConcepts([]insightsformedicalliteratureservicev1.QueryConcept{*concept})
+			returns := IML.NewReturnsModel()
+			documents := IML.NewDocuments()
+			documents.SetLimit("10")
+			documents.SetOffset(0)
+			returns.SetDocuments(documents)
+			getSearchOptions := IML.NewSearchOptions("ctgov", returns)
+			getSearchOptions.SetQuery(query)
 			result, detailedResponse, err := IML.Search(getSearchOptions)
 			Expect(err).To(BeNil())
 			Expect(detailedResponse).ToNot(BeNil())
