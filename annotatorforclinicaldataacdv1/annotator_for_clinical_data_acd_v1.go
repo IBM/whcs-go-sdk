@@ -1925,6 +1925,16 @@ type AttributeValueAnnotation struct {
 	Values []AttributeValueEntry `json:"values,omitempty"`
 
 	Vocabs *string `json:"vocabs,omitempty`
+
+	InsightModelData *InsightModel `json:"insightModelData,omitempty"`
+
+	CcsCode *string `json:"ccsCode,omitempty"`
+
+	HccCode *string `json:"hccCode,omitempty"`
+
+	RuleId *string `json:"ruleId,omitempty"`
+
+	DerivedFrom []Concept `json:"derivedFrom,omitempty"`
 }
 
 // UnmarshalAttributeValueAnnotation unmarshals an instance of AttributeValueAnnotation from the specified map of raw messages.
@@ -2031,6 +2041,26 @@ func UnmarshalAttributeValueAnnotation(m map[string]json.RawMessage, result inte
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "vocabs", &obj.Vocabs)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalModel(m, "insightModelData", &obj.InsightModelData, UnmarshalInsightModel)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "ccsCode", &obj.CcsCode)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "hccCode", &obj.HccCode)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "ruleId", &obj.RuleId)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalModel(m, "derivedFrom", &obj.DerivedFrom, UnmarshalConcept)
 	if err != nil {
 		return
 	}
@@ -2352,6 +2382,12 @@ type Concept struct {
 	SemanticType *string `json:"semanticType,omitempty"`
 
 	Vocabs *string `json:"vocabs,omitempty"`
+
+	InsightModelData *InsightModel `json:"insightModelData,omitempty"`
+
+	RuleId *string `json:"ruleId,omitempty"`
+
+	DerivedFrom *string `json:"derivedFrom,omitempty"`
 }
 
 // UnmarshalConcept unmarshals an instance of Concept from the specified map of raw messages.
@@ -2458,6 +2494,18 @@ func UnmarshalConcept(m map[string]json.RawMessage, result interface{}) (err err
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "vocabs", &obj.Vocabs)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalModel(m, "insightModelData", &obj.InsightModelData, UnmarshalInsightModel)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "ruleId", &obj.RuleId)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalModel(m, "derivedFrom", &obj.DerivedFrom, UnmarshalConcept)
 	if err != nil {
 		return
 	}
