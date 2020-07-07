@@ -72,11 +72,6 @@ func NewAnnotatorForClinicalDataAcdV1UsingExternalConfig(options *AnnotatorForCl
 		return
 	}
 
-	err = annotatorForClinicalDataAcd.Service.ConfigureService(options.ServiceName)
-	if err != nil {
-		return
-	}
-
 	if options.URL != "" {
 		err = annotatorForClinicalDataAcd.Service.SetServiceURL(options.URL)
 	}
@@ -122,7 +117,7 @@ func (annotatorForClinicalDataAcd *AnnotatorForClinicalDataAcdV1) SetServiceURL(
 
 // GetProfiles : Get list of available persisted profiles
 // Returns a summary including ID and description of the available persisted profiles.
-func (annotatorForClinicalDataAcd *AnnotatorForClinicalDataAcdV1) GetProfiles(getProfilesOptions *GetProfilesOptions) (result *ListStringWrapper, response *core.DetailedResponse, err error) {
+func (annotatorForClinicalDataAcd *AnnotatorForClinicalDataAcdV1) GetProfiles(getProfilesOptions *GetProfilesOptions) (result *ListAcdProfiles, response *core.DetailedResponse, err error) {
 	err = core.ValidateStruct(getProfilesOptions, "getProfilesOptions")
 	if err != nil {
 		return
@@ -159,7 +154,8 @@ func (annotatorForClinicalDataAcd *AnnotatorForClinicalDataAcdV1) GetProfiles(ge
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalListStringWrapper)
+
+	err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalListAcdProfiles)
 	if err != nil {
 		return
 	}
@@ -429,7 +425,7 @@ func (annotatorForClinicalDataAcd *AnnotatorForClinicalDataAcdV1) DeleteProfile(
 
 // GetFlows : Get list of available persisted flows
 // Returns a summary including ID and description of the available persisted flows.
-func (annotatorForClinicalDataAcd *AnnotatorForClinicalDataAcdV1) GetFlows(getFlowsOptions *GetFlowsOptions) (result *ListStringWrapper, response *core.DetailedResponse, err error) {
+func (annotatorForClinicalDataAcd *AnnotatorForClinicalDataAcdV1) GetFlows(getFlowsOptions *GetFlowsOptions) (result *ListAcdFlows, response *core.DetailedResponse, err error) {
 	err = core.ValidateStruct(getFlowsOptions, "getFlowsOptions")
 	if err != nil {
 		return
@@ -466,7 +462,8 @@ func (annotatorForClinicalDataAcd *AnnotatorForClinicalDataAcdV1) GetFlows(getFl
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalListStringWrapper)
+
+	err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalListAcdFlows)
 	if err != nil {
 		return
 	}
@@ -782,7 +779,8 @@ func (annotatorForClinicalDataAcd *AnnotatorForClinicalDataAcdV1) DeleteFlows(de
 // augmentation:</b> allergy, bathing_assistance, cancer, dressing_assistance, eating_assistance, ejection_fraction,
 // lab_value, medication, named_entities, procedure, seeing_assistance, smoking, symptom_disease, toileting_assistance,
 // walking_assistance.<br/>.
-func (annotatorForClinicalDataAcd *AnnotatorForClinicalDataAcdV1) RunPipeline(runPipelineOptions *RunPipelineOptions) (result *UnstructuredContainer, response *core.DetailedResponse, err error) {
+func (annotatorForClinicalDataAcd *AnnotatorForClinicalDataAcdV1) RunPipeline(runPipelineOptions *RunPipelineOptions) (result *AnalyticFlowBeanInput, response *core.DetailedResponse, err error) {
+
 	err = core.ValidateNotNil(runPipelineOptions, "runPipelineOptions cannot be nil")
 	if err != nil {
 		return
@@ -810,6 +808,7 @@ func (annotatorForClinicalDataAcd *AnnotatorForClinicalDataAcdV1) RunPipeline(ru
 		builder.AddHeader(headerName, headerValue)
 	}
 	builder.AddHeader("Content-Type", "application/json")
+	builder.AddHeader("Accept", "application/json")
 
 	builder.AddQuery("version", fmt.Sprint(*annotatorForClinicalDataAcd.Version))
 	if runPipelineOptions.DebugTextRestore != nil {
@@ -840,7 +839,7 @@ func (annotatorForClinicalDataAcd *AnnotatorForClinicalDataAcdV1) RunPipeline(ru
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalUnstructuredContainer)
+	err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalAnalyticFlowBeanInput)
 	if err != nil {
 		return
 	}
@@ -860,7 +859,7 @@ func (annotatorForClinicalDataAcd *AnnotatorForClinicalDataAcdV1) RunPipeline(ru
 //  "source": "umls",<br>            "sourceVersion": "2017AA",<br>            "type":
 // "umls.PatientOrDisabledGroup",<br>            "begin": 0,<br>            "end": 7,<br>            "coveredText":
 // "Patient"<br>          }<br> ]<br>      }  <br>    } <br> ]<br>}<br></pre>.
-func (annotatorForClinicalDataAcd *AnnotatorForClinicalDataAcdV1) RunPipelineWithFlow(runPipelineWithFlowOptions *RunPipelineWithFlowOptions) (result *UnstructuredContainer, response *core.DetailedResponse, err error) {
+func (annotatorForClinicalDataAcd *AnnotatorForClinicalDataAcdV1) RunPipelineWithFlow(runPipelineWithFlowOptions *RunPipelineWithFlowOptions) (result *AnalyticFlowBeanInput, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(runPipelineWithFlowOptions, "runPipelineWithFlowOptions cannot be nil")
 	if err != nil {
 		return
@@ -890,6 +889,7 @@ func (annotatorForClinicalDataAcd *AnnotatorForClinicalDataAcdV1) RunPipelineWit
 	if runPipelineWithFlowOptions.ContentType != nil {
 		builder.AddHeader("Content-Type", fmt.Sprint(*runPipelineWithFlowOptions.ContentType))
 	}
+	builder.AddHeader("Accept", "application/json")
 
 	builder.AddQuery("version", fmt.Sprint(*annotatorForClinicalDataAcd.Version))
 	builder.AddQuery("return_analyzed_text", fmt.Sprint(*runPipelineWithFlowOptions.ReturnAnalyzedText))
@@ -897,7 +897,7 @@ func (annotatorForClinicalDataAcd *AnnotatorForClinicalDataAcdV1) RunPipelineWit
 		builder.AddQuery("debug_text_restore", fmt.Sprint(*runPipelineWithFlowOptions.DebugTextRestore))
 	}
 
-	_, err = builder.SetBodyContent(core.StringNilMapper(runPipelineWithFlowOptions.ContentType), runPipelineWithFlowOptions.AnalyticFlowBeanInput, nil, runPipelineWithFlowOptions.Body)
+	_, err = builder.SetBodyContent(*runPipelineWithFlowOptions.ContentType, nil, nil, runPipelineWithFlowOptions.Body)
 	if err != nil {
 		return
 	}
@@ -912,7 +912,8 @@ func (annotatorForClinicalDataAcd *AnnotatorForClinicalDataAcdV1) RunPipelineWit
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalUnstructuredContainer)
+
+	err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalAnalyticFlowBeanInput)
 	if err != nil {
 		return
 	}
@@ -924,7 +925,7 @@ func (annotatorForClinicalDataAcd *AnnotatorForClinicalDataAcdV1) RunPipelineWit
 // GetAnnotators : Get list of available annotators
 // Get list of available annotators that can be leveraged to detect information from unstructured data. One or more
 // annnotators can be leveraged within a single request to the service.
-func (annotatorForClinicalDataAcd *AnnotatorForClinicalDataAcdV1) GetAnnotators(getAnnotatorsOptions *GetAnnotatorsOptions) (response *core.DetailedResponse, err error) {
+func (annotatorForClinicalDataAcd *AnnotatorForClinicalDataAcdV1) GetAnnotators(getAnnotatorsOptions *GetAnnotatorsOptions) (result *ListAnnotatorDescription, response *core.DetailedResponse, err error) {
 	err = core.ValidateStruct(getAnnotatorsOptions, "getAnnotatorsOptions")
 	if err != nil {
 		return
@@ -955,14 +956,24 @@ func (annotatorForClinicalDataAcd *AnnotatorForClinicalDataAcdV1) GetAnnotators(
 		return
 	}
 
-	response, err = annotatorForClinicalDataAcd.Service.Request(request, nil)
+	var rawResponse map[string]json.RawMessage
+	response, err = annotatorForClinicalDataAcd.Service.Request(request, &rawResponse)
+	if err != nil {
+		return
+	}
+
+	err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalListAnnotatorDescription)
+	if err != nil {
+		return
+	}
+	response.Result = result
 
 	return
 }
 
 // GetAnnotatorsByID : Get details of a specific annotator
 // Get details of an annotator that can be used to detect information from unstructured data.
-func (annotatorForClinicalDataAcd *AnnotatorForClinicalDataAcdV1) GetAnnotatorsByID(getAnnotatorsByIdOptions *GetAnnotatorsByIdOptions) (response *core.DetailedResponse, err error) {
+func (annotatorForClinicalDataAcd *AnnotatorForClinicalDataAcdV1) GetAnnotatorsByID(getAnnotatorsByIdOptions *GetAnnotatorsByIdOptions) (result *AnnotatorDescription, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(getAnnotatorsByIdOptions, "getAnnotatorsByIdOptions cannot be nil")
 	if err != nil {
 		return
@@ -997,7 +1008,17 @@ func (annotatorForClinicalDataAcd *AnnotatorForClinicalDataAcdV1) GetAnnotatorsB
 		return
 	}
 
-	response, err = annotatorForClinicalDataAcd.Service.Request(request, nil)
+	var rawResponse map[string]json.RawMessage
+	response, err = annotatorForClinicalDataAcd.Service.Request(request, &rawResponse)
+	if err != nil {
+		return
+	}
+
+	err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalAnnotatorDescription)
+	if err != nil {
+		return
+	}
+	response.Result = result
 
 	return
 }
@@ -1042,7 +1063,7 @@ func (annotatorForClinicalDataAcd *AnnotatorForClinicalDataAcdV1) DeleteUserSpec
 
 // CartridgesGet : Get list of available deployment status
 // Returns a summary including ID and status of the available deployments.
-func (annotatorForClinicalDataAcd *AnnotatorForClinicalDataAcdV1) CartridgesGet(cartridgesGetOptions *CartridgesGetOptions) (result *ListStringWrapper, response *core.DetailedResponse, err error) {
+func (annotatorForClinicalDataAcd *AnnotatorForClinicalDataAcdV1) CartridgesGet(cartridgesGetOptions *CartridgesGetOptions) (result *ListAcdCartridges, response *core.DetailedResponse, err error) {
 	err = core.ValidateStruct(cartridgesGetOptions, "cartridgesGetOptions")
 	if err != nil {
 		return
@@ -1079,7 +1100,8 @@ func (annotatorForClinicalDataAcd *AnnotatorForClinicalDataAcdV1) CartridgesGet(
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalListStringWrapper)
+
+	err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalListAcdCartridges)
 	if err != nil {
 		return
 	}
@@ -1134,7 +1156,6 @@ func (annotatorForClinicalDataAcd *AnnotatorForClinicalDataAcdV1) CartridgesPost
 	if err != nil {
 		return
 	}
-
 	var rawResponse map[string]json.RawMessage
 	response, err = annotatorForClinicalDataAcd.Service.Request(request, &rawResponse)
 	if err != nil {
@@ -1195,7 +1216,6 @@ func (annotatorForClinicalDataAcd *AnnotatorForClinicalDataAcdV1) CartridgesPutM
 	if err != nil {
 		return
 	}
-
 	var rawResponse map[string]json.RawMessage
 	response, err = annotatorForClinicalDataAcd.Service.Request(request, &rawResponse)
 	if err != nil {
@@ -1253,6 +1273,7 @@ func (annotatorForClinicalDataAcd *AnnotatorForClinicalDataAcdV1) CartridgesGetI
 	if err != nil {
 		return
 	}
+
 	err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalAcdCartridges)
 	if err != nil {
 		return
@@ -1456,6 +1477,23 @@ func UnmarshalAcdCartridges(m map[string]json.RawMessage, result interface{}) (e
 	return
 }
 
+// ListAcdCartridges : ListAcdCartridges struct
+type ListAcdCartridges struct {
+	// List of cartridges.
+	Cartridges []AcdCartridges `json:"cartridges,omitempty"`
+}
+
+// UnmarshalListAcdCartridges unmarshals an instance of ListAcdCartridges from the specified map of raw messages.
+func UnmarshalListAcdCartridges(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(ListAcdCartridges)
+	err = core.UnmarshalModel(m, "cartridges", &obj.Cartridges, UnmarshalAcdCartridges)
+	if err != nil {
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
 // AcdFlow : AcdFlow struct
 type AcdFlow struct {
 	ID *string `json:"id,omitempty"`
@@ -1507,6 +1545,22 @@ func UnmarshalAcdFlow(m map[string]json.RawMessage, result interface{}) (err err
 		return
 	}
 	err = core.UnmarshalModel(m, "annotatorFlows", &obj.AnnotatorFlows, UnmarshalAnnotatorFlow)
+	if err != nil {
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// ListAcdFlows : List AcdFlows struct
+type ListAcdFlows struct {
+	Flows map[string]AcdFlow `json:"-"`
+}
+
+// UnmarshalListAcdFlows unmarshals an instance of ListAcdFlows from the specified map of raw messages.
+func UnmarshalListAcdFlows(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(ListAcdFlows)
+	err = core.UnmarshalModel(m, "", &obj.Flows, UnmarshalAcdFlow)
 	if err != nil {
 		return
 	}
@@ -1572,6 +1626,22 @@ func UnmarshalAcdProfile(m map[string]json.RawMessage, result interface{}) (err 
 	return
 }
 
+// ListAcdProfiles : List AcdProfiles struct
+type ListAcdProfiles struct {
+	Profiles map[string]AcdProfile `json:"-"`
+}
+
+// UnmarshalListAcdProfiles unmarshals an instance of ListAcdProfiles from the specified map of raw messages.
+func UnmarshalListAcdProfiles(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(ListAcdProfiles)
+	err = core.UnmarshalModel(m, "", &obj.Profiles, UnmarshalAcdProfile)
+	if err != nil {
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
 // AdverseEvent : AdverseEvent insight struct
 type AdverseEvent struct {
 	Score *float64 `json:"score,omitempty"`
@@ -1588,7 +1658,7 @@ func UnmarshalAdverseEvent(m map[string]json.RawMessage, result interface{}) (er
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalPrimitive(m, "allergydScore", &obj.AllergyScore)
+	err = core.UnmarshalPrimitive(m, "allergyScore", &obj.AllergyScore)
 	if err != nil {
 		return
 	}
@@ -1710,6 +1780,39 @@ func UnmarshalAnnotator(m map[string]json.RawMessage, result interface{}) (err e
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
 	return
 }
+
+// AnnotatorDescription : AnnotatorDescription struct
+type AnnotatorDescription struct {
+	Description *string `json:"description,omitempty"`
+}
+
+// UnmarshalAnnotatorDescription unmarshals an instance of AnnotatorDescription from the specified map of raw messages.
+func UnmarshalAnnotatorDescription(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(AnnotatorDescription)
+	err = core.UnmarshalPrimitive(m, "description", &obj.Description)
+	if err != nil {
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// ListAnnotatorDescription : List AnnotatorDescription struct
+type ListAnnotatorDescription struct {
+	Annotators map[string]AnnotatorDescription `json:"-"`
+}
+
+// UnmarshalListAnnotatorDescription unmarshals an instance of ListAnnotatorDescription from the specified map of raw messages.
+func UnmarshalListAnnotatorDescription(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(ListAnnotatorDescription)
+	err = core.UnmarshalModel(m, "", &obj.Annotators, UnmarshalAnnotatorDescription)
+	if err != nil {
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
 
 // AnnotatorFlow : AnnotatorFlow struct
 type AnnotatorFlow struct {
@@ -1906,7 +2009,7 @@ type AttributeValueAnnotation struct {
 
 	LoincId *string `json:"loincId,omitempty"`
 
-	MeshId *string `json:"meshId,omitEmpty"`
+	MeshId *string `json:"meshId,omitempty"`
 
 	Name *string `json:"name,omitempty"`
 
@@ -2363,7 +2466,7 @@ type Concept struct {
 
 	LoincId *string `json:"loincId,omitempty"`
 
-	MeshId *string `json:"meshId,omitEmpty"`
+	MeshId *string `json:"meshId,omitempty"`
 
 	Name *string `json:"name,omitempty"`
 
@@ -2387,7 +2490,7 @@ type Concept struct {
 
 	RuleId *string `json:"ruleId,omitempty"`
 
-	DerivedFrom *string `json:"derivedFrom,omitempty"`
+	DerivedFrom []Concept `json:"derivedFrom,omitempty"`
 }
 
 // UnmarshalConcept unmarshals an instance of Concept from the specified map of raw messages.
@@ -3011,16 +3114,16 @@ func UnmarshalDisambiguation(m map[string]json.RawMessage, result interface{}) (
 	return
 }
 
-// DoseChangeEvent : DoseChangeEvent insight struct
-type DoseChangeEvent struct {
+// DoseChangedEvent : DoseChangedEvent insight struct
+type DoseChangedEvent struct {
 	Score *float64 `json:"score,omitempty"`
 
 	Usage *Usage `json:"usage,omitempty"`
 }
 
-// UnmarshalDoseChangeEvent unmarshals an instance of DoseChangeEvent from the specific raw message.
-func UnmarshalDoseChangeEvent(m map[string]json.RawMessage, result interface{}) (err error) {
-	obj := new(DoseChangeEvent)
+// UnmarshalDoseChangedEvent unmarshals an instance of DoseChangedEvent from the specific raw message.
+func UnmarshalDoseChangedEvent(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(DoseChangedEvent)
 	err = core.UnmarshalPrimitive(m, "score", &obj.Score)
 	if err != nil {
 		return
@@ -3246,7 +3349,7 @@ func (*AnnotatorForClinicalDataAcdV1) NewFlowEntry(annotator *Annotator) (model 
 // UnmarshalFlowEntry unmarshals an instance of FlowEntry from the specified map of raw messages.
 func UnmarshalFlowEntry(m map[string]json.RawMessage, result interface{}) (err error) {
 	obj := new(FlowEntry)
-	err = core.UnmarshalModel(m, "elements", &obj.Annotator, UnmarshalAnnotator)
+	err = core.UnmarshalModel(m, "annotator", &obj.Annotator, UnmarshalAnnotator)
 	if err != nil {
 		return
 	}
@@ -3562,22 +3665,6 @@ func UnmarshalLabValueAnnotation(m map[string]json.RawMessage, result interface{
 	return
 }
 
-// ListStringWrapper : ListStringWrapper struct
-type ListStringWrapper struct {
-	Data []string `json:"data,omitempty"`
-}
-
-// UnmarshalListStringWrapper unmarshals an instance of ListStringWrapper from the specified map of raw messages.
-func UnmarshalListStringWrapper(m map[string]json.RawMessage, result interface{}) (err error) {
-	obj := new(ListStringWrapper)
-	err = core.UnmarshalPrimitive(m, "data", &obj.Data)
-	if err != nil {
-		return
-	}
-	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
-	return
-}
-
 // MedicationAnnotation : MedicationAnnotation struct
 type MedicationAnnotation struct {
 	Begin *int64 `json:"begin,omitempty"`
@@ -3668,7 +3755,7 @@ type MedicationInsight struct {
 
 	StoppedEvent *StoppedEvent `json:"stoppedEvent,omitempty"`
 
-	DoseChangeEvent *DoseChangeEvent `json:"doseChangeEvent,omitempty"`
+	DoseChangedEvent *DoseChangedEvent `json:"doseChangedEvent,omitempty"`
 
 	AdverseEvent *AdverseEvent `json:"adverseEvent,omitempty"`
 }
@@ -3688,7 +3775,7 @@ func UnmarshalMedicationInsight(m map[string]json.RawMessage, result interface{}
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalModel(m, "doseChangeEvent", &obj.DoseChangeEvent, UnmarshalDoseChangeEvent)
+	err = core.UnmarshalModel(m, "doseChangedEvent", &obj.DoseChangedEvent, UnmarshalDoseChangedEvent)
 	if err != nil {
 		return
 	}
@@ -3764,7 +3851,103 @@ func UnmarshalNegatedSpan(m map[string]json.RawMessage, result interface{}) (err
 	return
 }
 
-// LabValueAnnotation : LabValueAnnotation struct
+// NluEntities : NluEntities struct
+type NluEntities struct {
+	Begin *int64 `json:"begin,omitempty"`
+
+	End *int64 `json:"end,omitempty"`
+
+	CoveredText *string `json:"coveredText,omitempty"`
+
+	Type *string `json:"type,omitempty"`
+
+	Source *string `json:"source,omitempty"`
+
+	Relevance *float64 `json:"relevance,omitempty"`
+
+	UID *int64 `json:"uid,omitempty"`
+
+	Negated *bool `json:"negated,omitempty"`
+
+	Hypothetical *bool `json:"hypothetical,omitempty"`
+}
+
+// UnmarshalNluEntities unmarshals an instance of NluEntities from the specified map of raw messages.
+func UnmarshalNluEntities(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(NluEntities)
+	err = core.UnmarshalPrimitive(m, "begin", &obj.Begin)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "end", &obj.End)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "coveredText", &obj.CoveredText)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "type", &obj.Type)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "source", &obj.Source)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "relevance", &obj.Relevance)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "uid", &obj.UID)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "negated", &obj.Negated)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "hypothetical", &obj.Hypothetical)
+	if err != nil {
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// Node : Node struct
+type NodeAnnotation struct {
+	Entity *NodeEntityAnnotation `json:"entity,omitempty"`
+}
+
+// UnmarshalNode unmarshals an instance of Node from the specified map of raw messages.
+func UnmarshalNodeAnnotation(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(NodeAnnotation)
+	err = core.UnmarshalModel(m, "entity", &obj.Entity, UnmarshalNodeEntityAnnotation)
+	if err != nil {
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// NodeEntity : NodeEntity struct
+type NodeEntityAnnotation struct {
+	UID *int64 `json:"uid,omitempty"`
+}
+
+// UnmarshalNodeEntity unmarshals an instance of NodeEntity from the specified map of raw messages.
+func UnmarshalNodeEntityAnnotation(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(NodeEntityAnnotation)
+	err = core.UnmarshalPrimitive(m, "uid", &obj.UID)
+	if err != nil {
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// ProcedureAnnotation : ProcedureAnnotation struct
 type ProcedureAnnotation struct {
 	Begin *int64 `json:"begin,omitempty"`
 
@@ -3898,11 +4081,45 @@ func UnmarshalProcedureInsight(m map[string]json.RawMessage, result interface{})
 	return
 }
 
+// Relations : Relations struct.
+type Relations struct {
+	Source *string `json:"source,omitempty"`
+
+	Score *float64 `json:"score,omitempty"`
+
+	Nodes []NodeAnnotation `json:"nodes,omitempty"`
+
+	Type *string `json:"type,omitempty"`
+}
+
+// UnmarshalRelations unmarshal an instance of Relations from the specified raw message.
+func UnmarshalRelations(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(Relations)
+	err = core.UnmarshalPrimitive(m, "source", &obj.Source)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "score", &obj.Score)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalModel(m, "nodes", &obj.Nodes, UnmarshalNodeAnnotation)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "type", &obj.Type)
+	if err != nil {
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
 // RunPipelineOptions : The RunPipeline options.
 type RunPipelineOptions struct {
-	Unstructured []UnstructuredContainer `json:"unstructured,omitempty"`
+	Unstructured []UnstructuredContainer `json:"unstructured" validate:"required"`
 
-	AnnotatorFlows []AnnotatorFlow `json:"annotatorFlows,omitempty"`
+	AnnotatorFlows []AnnotatorFlow `json:"annotatorFlows" validate:"required"`
 
 	// If true, any ReplaceTextChange annotations will be left in the container and the modified text before restoring to
 	// original form will stored in the metadata that is returned.  Otherwise, these annotations and modified text will be
@@ -3960,10 +4177,10 @@ type RunPipelineWithFlowOptions struct {
 	ReturnAnalyzedText *bool `json:"return_analyzed_text" validate:"required"`
 
 	// Input request data in TEXT or JSON format .
-	AnalyticFlowBeanInput *AnalyticFlowBeanInput `json:"AnalyticFlowBeanInput,omitempty"`
+	Body *string `json:"body,omitempty"`
 
 	// Input request data in TEXT or JSON format .
-	Body *string `json:"body,omitempty"`
+	AnalyticFlowBeanInput *AnalyticFlowBeanInput `json:"AnalyticFlowBeanInput,omitempty"`
 
 	// The type of the input. A character encoding can be specified by including a `charset` parameter. For example,
 	// 'text/plain;charset=utf-8'.
@@ -4036,7 +4253,7 @@ type SectionAnnotation struct {
 
 	CoveredText *string `json:"coveredText,omitempty"`
 
-	SectionTrigger *string `json:"sectionTrigger,omitempty"`
+	SectionType *string `json:"sectionType,omitempty"`
 
 	Type *string `json:"type,omitempty"`
 
@@ -4058,7 +4275,7 @@ func UnmarshalSectionAnnotation(m map[string]json.RawMessage, result interface{}
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalPrimitive(m, "sectionTrigger", &obj.SectionTrigger)
+	err = core.UnmarshalPrimitive(m, "sectionType", &obj.SectionType)
 	if err != nil {
 		return
 	}
@@ -4066,7 +4283,7 @@ func UnmarshalSectionAnnotation(m map[string]json.RawMessage, result interface{}
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalModel(m, "uid", &obj.Trigger, UnmarshalSectionTrigger)
+	err = core.UnmarshalModel(m, "trigger", &obj.Trigger, UnmarshalSectionTrigger)
 	if err != nil {
 		return
 	}
@@ -4104,7 +4321,7 @@ func UnmarshalSectionTrigger(m map[string]json.RawMessage, result interface{}) (
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalPrimitive(m, "id", &obj.Source)
+	err = core.UnmarshalPrimitive(m, "source", &obj.Source)
 	if err != nil {
 		return
 	}
@@ -4256,7 +4473,7 @@ type SpellingCorrection struct {
 
 	CoveredText *string `json:"coveredText,omitempty"`
 
-	SuggestionData []Suggestion `json:"suggestionData,omitempty"`
+	Suggestions []Suggestion `json:"suggestions,omitempty"`
 }
 
 // UnmarshalSpellingCorrection unmarshals an instance of SpellingCorrection from the specified map of raw messages.
@@ -4274,7 +4491,7 @@ func UnmarshalSpellingCorrection(m map[string]json.RawMessage, result interface{
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalModel(m, "uid", &obj.SuggestionData, UnmarshalSuggestion)
+	err = core.UnmarshalModel(m, "suggestions", &obj.Suggestions, UnmarshalSuggestion)
 	if err != nil {
 		return
 	}
@@ -4590,7 +4807,7 @@ type UnstructuredContainer struct {
 
 	Type *string `json:"type,omitempty"`
 
-	Data map[string][]Entity `json:"data,omitempty"`
+	Data *ContainerAnnotation `json:"data,omitempty"`
 
 	Metadata map[string]interface{} `json:"metadata,omitempty"`
 
@@ -4623,7 +4840,7 @@ func UnmarshalUnstructuredContainer(m map[string]json.RawMessage, result interfa
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalModel(m, "data", &obj.Data, UnmarshalEntity)
+	err = core.UnmarshalModel(m, "data", &obj.Data, UnmarshalContainerAnnotation)
 	if err != nil {
 		return
 	}
@@ -4632,6 +4849,185 @@ func UnmarshalUnstructuredContainer(m map[string]json.RawMessage, result interfa
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "uid", &obj.Uid)
+	if err != nil {
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// ContainerAnnotation : ContainerAnnotation struct
+type ContainerAnnotation struct {
+
+	AllergyInd []Annotation `json:"allergyInd,omitempty"`
+
+	AllergyMedicationInd []Annotation  `json:"AllergyMedicationInd,omitempty"`
+
+	AttributeValues []AttributeValueAnnotation `json:"attributeValues,omitempty"`
+
+	BathingAssistanceInd []AssistanceAnnotation `json:"BathingAssistanceInd,omitempty"`
+
+	IcaCancerDiagnosisInd []CancerAnnotation `json:"IcaCancerDiagnosisInd,omitempty"`
+
+	Concepts []Concept `json:"concepts,omitempty"`
+
+	ConceptValues []ConceptValue `json:"conceptValues,omitempty"`
+
+	EjectionFractionInd []EjectionFractionAnnotation `json:"ejectionFractionInd,omitempty"`
+
+	HypotheticalSpans []Annotation `json:"hypotheticalSpans,omitempty"`
+
+	LabValueInd []LabValueAnnotation `json:"LabValueInd,omitempty"`
+
+	MedicationInd []MedicationAnnotation `json:"MedicationInd,omitempty"`
+
+	EmailAddressInd []Annotation `json:EmailAddressInd,omitempty"`
+
+	PersonInd []Annotation `json:PersonInd,omitempty"`
+
+	US_PhoneNumberInd []Annotation `json:US_PhoneNumberInd,omitempty"`
+
+	MedicalInstitutionInd []Annotation `json:MedicalInstitutionInd,omitempty"`
+
+	OrganizationInd []Annotation `json:OrganizationInd,omitempty"`
+
+	NegatedSpans []NegatedSpan `json:"negatedSpans,omitempty"`
+
+	ProcedureInd []ProcedureAnnotation `json:"ProcedureInd,omitempty"`
+
+	SeeingAssistanceInd []AssistanceAnnotation `json:"SeeingAssistanceInd,omitempty"`
+
+	SmokingInd []SmokingAnnotation `json:"SmokingInd,omitempty"`
+
+	SymptomDiseaseInd []SymptomDiseaseAnnotation `json:"SymptomDiseaseInd,omitempty"`
+
+	ToiletingAssistanceInd []AssistanceAnnotation `json:"ToiletingAssistanceInd,omitempty"`
+
+	WalkingAssistanceInd []AssistanceAnnotation `json:"WalkingAssistanceInd,omitempty"`
+
+	Sections []SectionAnnotation `json:"sections,omitempty"`
+
+	NluEntities []NluEntities `json:"nluEntities,omitempty"`
+
+	Relations []Relations `json:"relations,omitempty"`
+
+	SpellingCorrections []SpellingCorrection `json:"spellingCorrections,omitempty"`
+
+	SpellCorrectedText []SpellCorrectedText `json:spellCorrectedText,omitempty"`
+}
+
+// UnmarshalContainerAnnotation unmarshals an instance of ContainerAnnotation from the specified map of raw messages.
+func UnmarshalContainerAnnotation(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(ContainerAnnotation)
+	err = core.UnmarshalModel(m, "AllergyInd", &obj.AllergyInd, UnmarshalAnnotation)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalModel(m, "AllergyMedicationInd", &obj.AllergyMedicationInd, UnmarshalAnnotation)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalModel(m, "attributeValues", &obj.AttributeValues, UnmarshalAttributeValueAnnotation)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalModel(m, "BathingAssistanceInd", &obj.BathingAssistanceInd, UnmarshalAssistanceAnnotation)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalModel(m, "IcaCancerDiagnosisInd", &obj.IcaCancerDiagnosisInd, UnmarshalCancerAnnotation)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalModel(m, "concepts", &obj.Concepts, UnmarshalConcept)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalModel(m, "conceptValues", &obj.ConceptValues, UnmarshalConceptValue)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalModel(m, "EjectionFractionInd", &obj.EjectionFractionInd, UnmarshalEjectionFractionAnnotation)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalModel(m, "hypotheticalSpans", &obj.HypotheticalSpans, UnmarshalAnnotation)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalModel(m, "LabValueInd", &obj.LabValueInd, UnmarshalLabValueAnnotation)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalModel(m, "MedicationInd", &obj.MedicationInd, UnmarshalMedicationAnnotation)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalModel(m, "EmailAddressInd", &obj.EmailAddressInd, UnmarshalAnnotation)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalModel(m, "PersonInd", &obj.PersonInd, UnmarshalAnnotation)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalModel(m, "US_PhoneNumberInd", &obj.US_PhoneNumberInd, UnmarshalAnnotation)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalModel(m, "MedicalInstitutionInd", &obj.MedicalInstitutionInd, UnmarshalAnnotation)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalModel(m, "OrganizationInd", &obj.OrganizationInd, UnmarshalAnnotation)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalModel(m, "negatedSpans", &obj.NegatedSpans, UnmarshalNegatedSpan)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalModel(m, "ProcedureInd", &obj.ProcedureInd, UnmarshalProcedureAnnotation)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalModel(m, "SeeingAssistanceInd", &obj.SeeingAssistanceInd, UnmarshalAssistanceAnnotation)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalModel(m, "SmokingInd", &obj.SmokingInd, UnmarshalSmokingAnnotation)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalModel(m, "SymptomDiseaseInd", &obj.SymptomDiseaseInd, UnmarshalSymptomDiseaseAnnotation)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalModel(m, "ToiletingAssistanceInd", &obj.ToiletingAssistanceInd, UnmarshalAssistanceAnnotation)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalModel(m, "WalkingAssistanceInd", &obj.WalkingAssistanceInd, UnmarshalAssistanceAnnotation)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalModel(m, "sections", &obj.Sections, UnmarshalSectionAnnotation)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalModel(m, "nluEntities", &obj.NluEntities, UnmarshalNluEntities)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalModel(m, "relations", &obj.Relations, UnmarshalRelations)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalModel(m, "spellingCorrections", &obj.SpellingCorrections, UnmarshalSpellingCorrection)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalModel(m, "spellCorrectedText", &obj.SpellCorrectedText, UnmarshalSpellCorrectedText)
 	if err != nil {
 		return
 	}

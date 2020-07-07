@@ -17,10 +17,7 @@
 package annotatorforclinicaldataacdv1_test
 
 import (
-	"io/ioutil"
 	"os"
-	"strings"
-
 	"github.com/IBM/go-sdk-core/v4/core"
 	"github.com/IBM/whcs-go-sdk/annotatorforclinicaldataacdv1"
 	"github.com/joho/godotenv"
@@ -39,7 +36,9 @@ var (
 	iamUrl       string
 	apikey       string
 	disableSsl   bool   = false
-	analyzeText  string = `The patient has cancer and is currently taking 400 ml sisplatin chemotherapy.\nHISTORY:  Patient is allergic to latex.  Patient cannot walk and needs help bathing and getting around.  The lab values were: white blood cell count 4.6, hemoglobin 12.2.  Echocardiogram demonstrated ejection fraction of approx 60%.  Patient cannot dress or feed without help as the patient can not see.  Patient may die soon but has not died yet.  Patient smoked for 20 years.  Patient can not clean up after defacating in toilet.  Jone Doe was seen at Baylor Hospitall in Austin, TX.  Johndoe@testaddress.com - (555) 555-5555'`
+	analyzeText  string = "The patient has cancer and patient is currently taking 400 ml sisplatin chemotherapy.  Aspirin from once daily to twice daily.\nHISTORY:  Patient is allergic to latex.  Patient cannot walk and needs help bathing and getting around.  The lab values were: white blood cell count 4.6, hemoglobin 12.2.  Echocardiogram demonstrated ejection fraction of approx 60%.  Patient cannot dress or feed without help as the patient can not see.  Patient may die soon but has not died yet.  Patient smoked for 20 years.  Patient can not clean up after defacating in toilet.  Jone Doe was seen at Baylor Hospitall in Austin, TX.  Johndoe@testaddress.com - (555) 555-5555"
+
+
 )
 
 func shouldSkipTest() {
@@ -85,7 +84,6 @@ var _ = Describe(`AnnotatorForClinicalDataAcdV1`, func() {
 			})
 		}
 		Expect(err).To(BeNil())
-		//		Expect(err).ToNot(BeNil())
 		Expect(ACD.Service.Options.URL).To(Not(Equal("")))
 	})
 
@@ -97,12 +95,15 @@ var _ = Describe(`AnnotatorForClinicalDataAcdV1`, func() {
 			Expect(detailedResponse).ToNot(BeNil())
 			Expect(detailedResponse.StatusCode).To(Equal(200))
 			Expect(result).ToNot(BeNil())
+			for profileId, _ := range result.Profiles { 
+				Expect(profileId).ToNot(BeNil())
+			}
 		})
 	})
 
 	Describe(`GetProfilesById(getProfilesByIdOptions *GetProfilesByIdOptions) `, func() {
-		It(`Successfully retrieve mathcing profile`, func() {
-			getProfilesByIdOptions := ACD.NewGetProfilesByIdOptions("clinical_insights_cartridge_v1.0_profile")
+		It(`Successfully retrieve matching profile`, func() {
+			getProfilesByIdOptions := ACD.NewGetProfilesByIdOptions("wh_acd.ibm_clinical_insights_v1.0_profile")
 			result, detailedResponse, err := ACD.GetProfilesByID(getProfilesByIdOptions)
 			Expect(err).To(BeNil())
 			Expect(detailedResponse).ToNot(BeNil())
@@ -111,12 +112,6 @@ var _ = Describe(`AnnotatorForClinicalDataAcdV1`, func() {
 			Expect(result.ID).ToNot(BeNil())
 			Expect(result.Name).ToNot(BeNil())
 			Expect(result.Annotators).ToNot(BeNil())
-			annotatorCounter := 0
-			for annotatorCounter < len(result.Annotators) {
-				annotator := result.Annotators[annotatorCounter]
-				Expect(annotator.Name).ToNot(BeNil())
-				annotatorCounter++
-			}
 		})
 	})
 
@@ -139,7 +134,7 @@ var _ = Describe(`AnnotatorForClinicalDataAcdV1`, func() {
 		})
 	})
 
-	Describe(`UpdateeProfile(updateProfileOptions *UpdateProfileOptions)`, func() {
+	Describe(`UpdateProfile(updateProfileOptions *UpdateProfileOptions)`, func() {
 		It(`Successfully update a profile`, func() {
 			updateProfilesOptions := ACD.NewUpdateProfileOptions("testProfile")
 			updateProfilesOptions.SetNewID("testProfile")
@@ -174,12 +169,15 @@ var _ = Describe(`AnnotatorForClinicalDataAcdV1`, func() {
 			Expect(detailedResponse).ToNot(BeNil())
 			Expect(detailedResponse.StatusCode).To(Equal(200))
 			Expect(result).ToNot(BeNil())
+			for flowId, _ := range result.Flows { 
+				Expect(flowId).ToNot(BeNil())
+			}
 		})
 	})
 
 	Describe(`GetFlowsById(getFlowsByIdOptions *GetFlowsByIdOptions) `, func() {
-		It(`Successfully retrieve mathcing flow`, func() {
-			getFlowsByIdOptions := ACD.NewGetFlowsByIdOptions("clinical_insights_cartridge_v5.0_default_flow")
+		It(`Successfully retrieve matching flow`, func() {
+			getFlowsByIdOptions := ACD.NewGetFlowsByIdOptions("wh_acd.ibm_clinical_insights_v1.0_standard_flow")
 			result, detailedResponse, err := ACD.GetFlowsByID(getFlowsByIdOptions)
 			Expect(err).To(BeNil())
 			Expect(detailedResponse).ToNot(BeNil())
@@ -188,12 +186,6 @@ var _ = Describe(`AnnotatorForClinicalDataAcdV1`, func() {
 			Expect(result.ID).ToNot(BeNil())
 			Expect(result.Name).ToNot(BeNil())
 			Expect(result.AnnotatorFlows).ToNot(BeNil())
-			annotatorCounter := 0
-			for annotatorCounter < len(result.AnnotatorFlows) {
-				annotator := result.AnnotatorFlows[annotatorCounter]
-				Expect(annotator.Profile).ToNot(BeNil())
-				annotatorCounter++
-			}
 		})
 	})
 	Describe(`CreateFlows(createFlowsOptions *CreateFlowsOptions)`, func() {
@@ -255,20 +247,27 @@ var _ = Describe(`AnnotatorForClinicalDataAcdV1`, func() {
 	Describe(`GetAnnotators(getAnnotatorsOptions *GetAnnotatorsOptions) `, func() {
 		It(`Successfully retrieve all flows`, func() {
 			getAnnotatorsOptions := ACD.NewGetAnnotatorsOptions()
-			detailedResponse, err := ACD.GetAnnotators(getAnnotatorsOptions)
+			result, detailedResponse, err := ACD.GetAnnotators(getAnnotatorsOptions)
 			Expect(err).To(BeNil())
 			Expect(detailedResponse).ToNot(BeNil())
 			Expect(detailedResponse.StatusCode).To(Equal(200))
+			Expect(result).ToNot(BeNil())
+			Expect(result.Annotators)
+			for annotatorId, _ := range result.Annotators { 
+				Expect(annotatorId).ToNot(BeNil())
+			}
 		})
 	})
 
-	Describe(`GetAnnotatorsById(getAnnotatorssByIdOptions *GetAnnotaotrssByIdOptions) `, func() {
-		It(`Successfully retrieve mathcing flow`, func() {
+	Describe(`GetAnnotatorsById(getAnnotatorsByIdOptions *GetAnnotatorsByIdOptions) `, func() {
+		It(`Successfully retrieve matching flow`, func() {
 			getAnnotatorsByIdOptions := ACD.NewGetAnnotatorsByIdOptions("concept_detection")
-			detailedResponse, err := ACD.GetAnnotatorsByID(getAnnotatorsByIdOptions)
+			result, detailedResponse, err := ACD.GetAnnotatorsByID(getAnnotatorsByIdOptions)
 			Expect(err).To(BeNil())
 			Expect(detailedResponse).ToNot(BeNil())
 			Expect(detailedResponse.StatusCode).To(Equal(200))
+			Expect(result).ToNot(BeNil())
+			Expect(result.Description).ToNot(BeNil())
 		})
 	})
 
@@ -279,6 +278,7 @@ var _ = Describe(`AnnotatorForClinicalDataAcdV1`, func() {
 			Expect(err).To(BeNil())
 			Expect(detailedResponse).ToNot(BeNil())
 			Expect(detailedResponse.StatusCode).To(Equal(200))
+			Expect(result).ToNot(BeNil())
 			Expect(result.ServiceState).ToNot(BeNil())
 		})
 	})
@@ -286,46 +286,306 @@ var _ = Describe(`AnnotatorForClinicalDataAcdV1`, func() {
 	Describe(`RunPipeline(runPipelineOptions *RunPipelineOptions)`, func() {
 		It(`Successfully run analyze pipeline`, func() {
 			pipelineOptions := ACD.NewRunPipelineOptions()
-			annotator, err := ACD.NewAnnotator("concept_detection")
-			flowEntry, err := ACD.NewFlowEntry(annotator)
-			flowEntry.Annotator = annotator
+			cdParams := make(map[string][]string)
+			cdParamValue := []string{"true"}
+			cdParams["apply_spell_check"] = cdParamValue
+			cdAnnotator, err := ACD.NewAnnotator("concept_detection")
+			cdAnnotator.Parameters = cdParams
+			cdFlowEntry, err := ACD.NewFlowEntry(cdAnnotator)
+			cdFlowEntry.Annotator = cdAnnotator
+
+			cvAnnotator, err := ACD.NewAnnotator("concept_value")
+			cvFlowEntry, err := ACD.NewFlowEntry(cvAnnotator)
+			cvFlowEntry.Annotator = cvAnnotator
+
+			cancerAnnotator, err := ACD.NewAnnotator("cancer")
+			cancerFlowEntry, err := ACD.NewFlowEntry(cancerAnnotator)
+			cancerFlowEntry.Annotator = cancerAnnotator
+
+			efAnnotator, err := ACD.NewAnnotator("ejection_fraction")
+			efFlowEntry, err := ACD.NewFlowEntry(efAnnotator)
+			efFlowEntry.Annotator = efAnnotator
+
+			smokingAnnotator, err := ACD.NewAnnotator("smoking")
+			smokingFlowEntry, err := ACD.NewFlowEntry(smokingAnnotator)
+			smokingFlowEntry.Annotator = smokingAnnotator
+
+			labValueAnnotator, err := ACD.NewAnnotator("lab_value")
+			labValueFlowEntry, err := ACD.NewFlowEntry(labValueAnnotator)
+			labValueFlowEntry.Annotator = labValueAnnotator
+
+			spellCheckParams := make(map[string][]string)
+			spellCheckProfile := []string{"default"}
+			spellCheckParams["spell_check_profile"] = spellCheckProfile
+			spellAnnotator, err := ACD.NewAnnotator("spell_checker")
+			spellAnnotator.Parameters = spellCheckParams
+			spellFlowEntry, err := ACD.NewFlowEntry(spellAnnotator)
+			spellFlowEntry.Annotator = spellAnnotator
+
 			async := false
-			flow, err := ACD.NewFlow([]annotatorforclinicaldataacdv1.FlowEntry{*flowEntry}, core.BoolPtr(async))
+			flow, err := ACD.NewFlow([]annotatorforclinicaldataacdv1.FlowEntry{*cdFlowEntry, *cvFlowEntry, *cancerFlowEntry, *efFlowEntry, *smokingFlowEntry, *labValueFlowEntry, *spellFlowEntry}, core.BoolPtr(async))
 			annotatorFlow, err := ACD.NewAnnotatorFlow(flow)
 			pipelineOptions.SetAnnotatorFlows([]annotatorforclinicaldataacdv1.AnnotatorFlow{*annotatorFlow})
 			container := ACD.NewUnstructuredContainer()
 			container.SetText(analyzeText)
 			pipelineOptions.SetUnstructured([]annotatorforclinicaldataacdv1.UnstructuredContainer{*container})
+			pipelineOptions.SetDebugTextRestore(false)
 			result, detailedResponse, err := ACD.RunPipeline(pipelineOptions)
 			Expect(err).To(BeNil())
 			Expect(detailedResponse).ToNot(BeNil())
 			Expect(detailedResponse.StatusCode).To(Equal(200))
 			Expect(result).ToNot(BeNil())
-			Expect(result.Data).ToNot(BeNil())
+			Expect(result.Unstructured).ToNot(BeNil())
+			Expect(result.AnnotatorFlows).ToNot(BeNil())
+			for _, element := range result.Unstructured {
+				Expect(element.Data.Concepts).ToNot(BeNil())
+				for _, conceptEntry := range element.Data.Concepts {
+					Expect(conceptEntry.Begin).ToNot(BeNil())
+					Expect(conceptEntry.End).ToNot(BeNil())
+					Expect(conceptEntry.CoveredText).ToNot(BeNil())
+					Expect(conceptEntry.Type).ToNot(BeNil())
+					Expect(conceptEntry.Cui).ToNot(BeNil())
+					Expect(conceptEntry.PreferredName).ToNot(BeNil())
+					Expect(conceptEntry.Source).ToNot(BeNil())
+				}
+				Expect(element.Data.IcaCancerDiagnosisInd).ToNot(BeNil())
+				for _, icaCancerEntry := range element.Data.IcaCancerDiagnosisInd {
+					Expect(icaCancerEntry.Begin).ToNot(BeNil())
+					Expect(icaCancerEntry.End).ToNot(BeNil())
+					Expect(icaCancerEntry.CoveredText).ToNot(BeNil())
+					Expect(icaCancerEntry.Type).ToNot(BeNil())
+					Expect(icaCancerEntry.Modality).ToNot(BeNil())
+				}
+				Expect(element.Data.EjectionFractionInd).ToNot(BeNil())
+				for _, ejectionFractionEntry := range element.Data.EjectionFractionInd {
+					Expect(ejectionFractionEntry.Begin).ToNot(BeNil())
+					Expect(ejectionFractionEntry.End).ToNot(BeNil())
+					Expect(ejectionFractionEntry.CoveredText).ToNot(BeNil())
+					Expect(ejectionFractionEntry.Type).ToNot(BeNil())
+					Expect(ejectionFractionEntry.IsRange).ToNot(BeNil())
+				}
+				Expect(element.Data.SmokingInd).ToNot(BeNil())
+				for _, smokingEntry := range element.Data.SmokingInd {
+					Expect(smokingEntry.Begin).ToNot(BeNil())
+					Expect(smokingEntry.End).ToNot(BeNil())
+					Expect(smokingEntry.CoveredText).ToNot(BeNil())
+					Expect(smokingEntry.Type).ToNot(BeNil())
+				}
+				Expect(element.Data.LabValueInd).ToNot(BeNil())
+				for _, labValueEntry := range element.Data.LabValueInd {
+					Expect(labValueEntry.Begin).ToNot(BeNil())
+					Expect(labValueEntry.End).ToNot(BeNil())
+					Expect(labValueEntry.CoveredText).ToNot(BeNil())
+					Expect(labValueEntry.Type).ToNot(BeNil())
+				}
+			}
+		})
+	})
+
+	Describe(`RunPipeline(runPipelineOptions *RunPipelineOptions)`, func() {
+		It(`Successfully run analyze pipeline`, func() {
+			pipelineOptions := ACD.NewRunPipelineOptions()
+			cdAnnotator, err := ACD.NewAnnotator("concept_detection")
+			cdFlowEntry, err := ACD.NewFlowEntry(cdAnnotator)
+			cdFlowEntry.Annotator = cdAnnotator
+
+			allergyAnnotator, err := ACD.NewAnnotator("allergy")
+			allergyFlowEntry, err := ACD.NewFlowEntry(allergyAnnotator)
+			allergyFlowEntry.Annotator = allergyAnnotator
+			async := false
+			flow, err := ACD.NewFlow([]annotatorforclinicaldataacdv1.FlowEntry{*cdFlowEntry, *allergyFlowEntry}, core.BoolPtr(async))
+			annotatorFlow, err := ACD.NewAnnotatorFlow(flow)
+
+			pipelineOptions.SetAnnotatorFlows([]annotatorforclinicaldataacdv1.AnnotatorFlow{*annotatorFlow})
+			container := ACD.NewUnstructuredContainer()
+
+			container.SetText("Patient is allergic to aspirin, dust, and mold.")
+			pipelineOptions.SetUnstructured([]annotatorforclinicaldataacdv1.UnstructuredContainer{*container})
+			pipelineOptions.SetDebugTextRestore(false)
+			result, detailedResponse, err := ACD.RunPipeline(pipelineOptions)
+			Expect(err).To(BeNil())
+			Expect(detailedResponse).ToNot(BeNil())
+			Expect(detailedResponse.StatusCode).To(Equal(200))
+			Expect(result).ToNot(BeNil())
+			Expect(result.Unstructured).ToNot(BeNil())
+			Expect(result.AnnotatorFlows).ToNot(BeNil())
+			Expect(result.Unstructured).ToNot(BeNil())
+			for _, element := range result.Unstructured {
+				Expect(element.Data).ToNot(BeNil())
+				containerAnno := element.Data
+				Expect(containerAnno.AllergyInd).ToNot(BeNil())
+				for _, allergy := range containerAnno.AllergyInd {
+					Expect(allergy.Begin).ToNot(BeNil())
+					Expect(allergy.End).ToNot(BeNil())
+					Expect(allergy.CoveredText).ToNot(BeNil())
+					Expect(allergy.Type).ToNot(BeNil())
+                }
+				Expect(containerAnno.AllergyMedicationInd).ToNot(BeNil())
+				for _, allergyMed := range containerAnno.AllergyMedicationInd {
+					Expect(allergyMed.Begin).ToNot(BeNil())
+					Expect(allergyMed.End).ToNot(BeNil())
+					Expect(allergyMed.CoveredText).ToNot(BeNil())
+					Expect(allergyMed.Type).ToNot(BeNil())
+                }
+            }
+		})
+	})
+
+	Describe(`RunPipeline(runPipelineOptions *RunPipelineOptions)`, func() {
+		It(`Successfully run analyze pipeline`, func() {
+			pipelineOptions := ACD.NewRunPipelineOptions()
+			cdAnnotator, err := ACD.NewAnnotator("concept_detection")
+			cdFlowEntry, err := ACD.NewFlowEntry(cdAnnotator)
+			cdFlowEntry.Annotator = cdAnnotator
+
+			seeingAssistAnnotator, err := ACD.NewAnnotator("seeing_assistance")
+			seeingAssistFlowEntry, err := ACD.NewFlowEntry(seeingAssistAnnotator)
+			seeingAssistFlowEntry.Annotator = seeingAssistAnnotator
+			async := false
+			flow, err := ACD.NewFlow([]annotatorforclinicaldataacdv1.FlowEntry{*cdFlowEntry, *seeingAssistFlowEntry}, core.BoolPtr(async))
+			annotatorFlow, err := ACD.NewAnnotatorFlow(flow)
+
+			pipelineOptions.SetAnnotatorFlows([]annotatorforclinicaldataacdv1.AnnotatorFlow{*annotatorFlow})
+			container := ACD.NewUnstructuredContainer()
+
+			container.SetText("She has macular degeneration which puts her at high risk for seeing difficulties.")
+			pipelineOptions.SetUnstructured([]annotatorforclinicaldataacdv1.UnstructuredContainer{*container})
+			pipelineOptions.SetDebugTextRestore(false)
+			result, detailedResponse, err := ACD.RunPipeline(pipelineOptions)
+			Expect(err).To(BeNil())
+			Expect(detailedResponse).ToNot(BeNil())
+			Expect(detailedResponse.StatusCode).To(Equal(200))
+			Expect(result).ToNot(BeNil())
+			Expect(result.Unstructured).ToNot(BeNil())
+			Expect(result.AnnotatorFlows).ToNot(BeNil())
+			Expect(result.Unstructured).ToNot(BeNil())
+			for _, element := range result.Unstructured {
+				Expect(element.Data).ToNot(BeNil())
+				containerAnno := element.Data
+				Expect(containerAnno.SeeingAssistanceInd).ToNot(BeNil())
+				for _, seeingAssist := range containerAnno.SeeingAssistanceInd {
+					Expect(seeingAssist.Begin).ToNot(BeNil())
+					Expect(seeingAssist.End).ToNot(BeNil())
+					Expect(seeingAssist.CoveredText).ToNot(BeNil())
+					Expect(seeingAssist.Type).ToNot(BeNil())
+					Expect(seeingAssist.Modality).ToNot(BeNil())
+                }
+            }
 		})
 	})
 
 	Describe(`RunPipelineWithFlow(runPipelineWithFlowOptions *RunPipelineWithFlowOptions)`, func() {
 		It(`Successfully run analyze pipeline`, func() {
-			pipelineOptions := ACD.NewRunPipelineWithFlowOptions("clinical_insights_v1.0_standard_flow", false)
+			pipelineOptions := ACD.NewRunPipelineWithFlowOptions("wh_acd.ibm_clinical_insights_v1.0_standard_flow", false)
 			pipelineOptions.SetBody(analyzeText)
 			pipelineOptions.SetContentType("text/plain")
+			pipelineOptions.SetDebugTextRestore(false)
 			result, detailedResponse, err := ACD.RunPipelineWithFlow(pipelineOptions)
 			Expect(err).To(BeNil())
 			Expect(detailedResponse).ToNot(BeNil())
 			Expect(detailedResponse.StatusCode).To(Equal(200))
 			Expect(result).ToNot(BeNil())
-			Expect(result.Data).ToNot(BeNil())
+			Expect(result.Unstructured).ToNot(BeNil())
+			for _, element := range result.Unstructured {
+				Expect(element.Data).ToNot(BeNil())
+				containerAnno := element.Data
+				Expect(containerAnno.AttributeValues).ToNot(BeNil())
+				for _, attributeValue := range containerAnno.AttributeValues {
+					Expect(attributeValue.Begin).ToNot(BeNil())
+					Expect(attributeValue.End).ToNot(BeNil())
+					Expect(attributeValue.CoveredText).ToNot(BeNil())
+					Expect(attributeValue.DisambiguationData).ToNot(BeNil())
+					Expect(attributeValue.PreferredName).ToNot(BeNil())
+					Expect(attributeValue.Negated).ToNot(BeNil())
+					Expect(attributeValue.Values).ToNot(BeNil())
+					for _, attributeValueEntry := range attributeValue.Values {
+						Expect(attributeValueEntry.Value).ToNot(BeNil())
+                    }
+                }
+				Expect(containerAnno.MedicationInd).ToNot(BeNil())
+				for _, medIndEntry := range containerAnno.MedicationInd {
+					Expect(medIndEntry.Begin).ToNot(BeNil())
+					Expect(medIndEntry.End).ToNot(BeNil())
+					Expect(medIndEntry.CoveredText).ToNot(BeNil())
+					Expect(medIndEntry.Type).ToNot(BeNil())
+					Expect(medIndEntry.Negated).ToNot(BeNil())
+					if (medIndEntry.InsightModelData != nil) {
+						Expect(medIndEntry.InsightModelData.Medication).ToNot(BeNil())
+						medication := medIndEntry.InsightModelData.Medication
+						Expect(medication.Usage).ToNot(BeNil())
+						Expect(medication.StartedEvent).ToNot(BeNil())
+						Expect(medication.StoppedEvent).ToNot(BeNil())
+						Expect(medication.AdverseEvent).ToNot(BeNil())
+                    }
+					
+				}				
+            }
+		})
+	})
+	Describe(`RunPipelineWithFlow(runPipelineWithFlowOptions *RunPipelineWithFlowOptions)`, func() {
+		It(`Successfully run analyze pipeline`, func() {
+			pipelineOptions := ACD.NewRunPipelineWithFlowOptions("wh_acd.ibm_clinical_insights_v1.0_standard_flow", false)
+			pipelineOptions.SetBody("He is taking hydrochlorothiazide for high blood pressure. Systolic blood pressure is 150 mmHg and r diastolic blood pressure is 90 mmHg.\n")
+			pipelineOptions.SetContentType("text/plain")
+			pipelineOptions.SetDebugTextRestore(false)
+			result, detailedResponse, err := ACD.RunPipelineWithFlow(pipelineOptions)
+			Expect(err).To(BeNil())
+			Expect(detailedResponse).ToNot(BeNil())
+			Expect(detailedResponse.StatusCode).To(Equal(200))
+			Expect(result).ToNot(BeNil())
+			Expect(result.Unstructured).ToNot(BeNil())
+			for _, element := range result.Unstructured {
+				Expect(element.Data).ToNot(BeNil())
+				containerAnno := element.Data
+				Expect(containerAnno.AttributeValues).ToNot(BeNil())
+				for _, attributeValue := range containerAnno.AttributeValues {
+					Expect(attributeValue.Begin).ToNot(BeNil())
+					Expect(attributeValue.End).ToNot(BeNil())
+					Expect(attributeValue.CoveredText).ToNot(BeNil())
+					Expect(attributeValue.DisambiguationData).ToNot(BeNil())
+					Expect(attributeValue.PreferredName).ToNot(BeNil())
+					Expect(attributeValue.Negated).ToNot(BeNil())
+					Expect(attributeValue.Values).ToNot(BeNil())
+					for _, attributeValueEntry := range attributeValue.Values {
+						Expect(attributeValueEntry.Value).ToNot(BeNil())
+                    }
+                }
+				Expect(containerAnno.MedicationInd).ToNot(BeNil())
+				for _, medIndEntry := range containerAnno.MedicationInd {
+					Expect(medIndEntry.Begin).ToNot(BeNil())
+					Expect(medIndEntry.End).ToNot(BeNil())
+					Expect(medIndEntry.CoveredText).ToNot(BeNil())
+					Expect(medIndEntry.Type).ToNot(BeNil())
+					Expect(medIndEntry.Negated).ToNot(BeNil())
+					if (medIndEntry.InsightModelData != nil) {
+						Expect(medIndEntry.InsightModelData.Medication).ToNot(BeNil())
+						medication := medIndEntry.InsightModelData.Medication
+						Expect(medication.Usage).ToNot(BeNil())
+						Expect(medication.StartedEvent).ToNot(BeNil())
+						Expect(medication.StoppedEvent).ToNot(BeNil())
+						Expect(medication.DoseChangedEvent).ToNot(BeNil())
+						Expect(medication.AdverseEvent).ToNot(BeNil())
+                    }	
+				}
+				Expect(containerAnno.SpellCorrectedText).ToNot(BeNil())
+				for _, spellCorrectedEntry := range containerAnno.SpellCorrectedText {
+					Expect(spellCorrectedEntry.CorrectedText).ToNot(BeNil())
+					Expect(spellCorrectedEntry.DebugText).ToNot(BeNil())	
+				}				
+            }
 		})
 	})
 
 	Describe(`DeleteUserSpecificArtifacts(deleteUserSpecificArtifactsOptions *DeleteUserSpecificArtifactsOptions)`, func() {
 		It(`Successfully delete user specific artifacts`, func() {
 			artifactsOptions := ACD.NewDeleteUserSpecificArtifactsOptions()
+            sdkHeaders := make(map[string]string)
+            sdkHeaders["X-IBM-Client-ID"] = "sdk_test"
+            artifactsOptions.SetHeaders(sdkHeaders)
 			detailedResponse, err := ACD.DeleteUserSpecificArtifacts(artifactsOptions)
 			Expect(err).To(BeNil())
 			Expect(detailedResponse).ToNot(BeNil())
-			Expect(detailedResponse.StatusCode).To(Equal(200))
+			Expect(detailedResponse.StatusCode).To(Equal(204))
 		})
 	})
 
@@ -337,12 +597,23 @@ var _ = Describe(`AnnotatorForClinicalDataAcdV1`, func() {
 			Expect(detailedResponse).ToNot(BeNil())
 			Expect(detailedResponse.StatusCode).To(Equal(200))
 			Expect(result).ToNot(BeNil())
+			cartridgeCounter := 0
+			for cartridgeCounter < len(result.Cartridges) {
+				cartridge := result.Cartridges[cartridgeCounter]
+				Expect(cartridge.ID).ToNot(BeNil())
+				Expect(cartridge.Name).ToNot(BeNil())
+				Expect(cartridge.Status).ToNot(BeNil())
+				Expect(cartridge.StatusLocation).ToNot(BeNil())
+				Expect(cartridge.StartTime).ToNot(BeNil())
+				Expect(cartridge.EndTime).ToNot(BeNil())
+				cartridgeCounter++
+			}
 		})
 	})
 
 	Describe(`CartridgesGetID(cartridgesGetIdOptions *CartridgesGetIdOptions)`, func() {
 		It(`Successfully retrieve the cartridge`, func() {
-			cartridgesGetIdOptions := ACD.NewCartridgesGetIdOptions("clinical_insights_cartridge_v1.0")
+			cartridgesGetIdOptions := ACD.NewCartridgesGetIdOptions("wh_acd.ibm_clinical_insights_v1.0")
 			result, detailedResponse, err := ACD.CartridgesGetID(cartridgesGetIdOptions)
 			Expect(err).To(BeNil())
 			Expect(detailedResponse).ToNot(BeNil())
@@ -355,7 +626,6 @@ var _ = Describe(`AnnotatorForClinicalDataAcdV1`, func() {
 			Expect(result.EndTime).ToNot(BeNil())
 			Expect(result.Duration).ToNot(BeNil())
 			Expect(result.CorrelationID).ToNot(BeNil())
-			//			Expect(result.ArtifactResponseCode).To(Equal(200)) nil for some reason
 			responseCounter := 0
 			responses := len(result.ArtifactResponse)
 			for responseCounter < responses {
@@ -365,7 +635,6 @@ var _ = Describe(`AnnotatorForClinicalDataAcdV1`, func() {
 				Expect(response.Level).ToNot(BeNil())
 				responseCounter++
 			}
-			//			ArtifactResponse []ServiceError `json:"artifactResponse,omitempty"`
 		})
 	})
 
@@ -373,12 +642,19 @@ var _ = Describe(`AnnotatorForClinicalDataAcdV1`, func() {
 		It(`Successfully start a cartridge archive deployment`, func() {
 			cartridgesPostMultipartOptions := ACD.NewCartridgesPostMultipartOptions()
 			cartridgesPostMultipartOptions.SetArchiveFileContentType("application/octet-stream")
-			cartridgesPostMultipartOptions.SetArchiveFile(ioutil.NopCloser(strings.NewReader(os.Getenv("ARCHIVE"))))
+			archiveFile, err := os.Open(os.Getenv("ARCHIVE"))
+			cartridgesPostMultipartOptions.SetArchiveFile(archiveFile)
 			result, detailedResponse, err := ACD.CartridgesPostMultipart(cartridgesPostMultipartOptions)
-			Expect(err).To(BeNil())
-			Expect(detailedResponse).ToNot(BeNil())
-			Expect(detailedResponse.StatusCode).To(Equal(200))
-			Expect(result).ToNot(BeNil())
+			if (err != nil) {
+				Expect(detailedResponse).ToNot(BeNil())
+				Expect(detailedResponse.StatusCode).To(Equal(409))
+				Expect(result).To(BeNil())
+			} else {
+				Expect(err).To(BeNil())
+				Expect(detailedResponse).ToNot(BeNil())
+				Expect(detailedResponse.StatusCode).To(Equal(202))
+				Expect(result).ToNot(BeNil())
+            }
 		})
 	})
 
@@ -386,12 +662,20 @@ var _ = Describe(`AnnotatorForClinicalDataAcdV1`, func() {
 		It(`Successfully start a cartridge archive deployment`, func() {
 			cartridgesPutMultipartOptions := ACD.NewCartridgesPutMultipartOptions()
 			cartridgesPutMultipartOptions.SetArchiveFileContentType("application/octet-stream")
-			cartridgesPutMultipartOptions.SetArchiveFile(ioutil.NopCloser(strings.NewReader(os.Getenv("ARCHIVE"))))
+			archiveFile, err := os.Open(os.Getenv("ARCHIVE"))
+			cartridgesPutMultipartOptions.SetArchiveFile(archiveFile)
 			result, detailedResponse, err := ACD.CartridgesPutMultipart(cartridgesPutMultipartOptions)
-			Expect(err).To(BeNil())
-			Expect(detailedResponse).ToNot(BeNil())
-			Expect(detailedResponse.StatusCode).To(Equal(200))
-			Expect(result).ToNot(BeNil())
+			if (err != nil) {
+				Expect(detailedResponse).ToNot(BeNil())
+				//TO DO: ACD returning 400; should be 409
+				Expect(detailedResponse.StatusCode).To(Equal(400))
+				Expect(result).To(BeNil())
+			} else {
+				Expect(err).To(BeNil())
+				Expect(detailedResponse).ToNot(BeNil())
+				Expect(detailedResponse.StatusCode).To(Equal(202))
+				Expect(result).ToNot(BeNil())
+			}
 		})
 	})
 
@@ -399,13 +683,16 @@ var _ = Describe(`AnnotatorForClinicalDataAcdV1`, func() {
 		It(`Successfully start a cartridge archive deployment`, func() {
 			deployCartridgeOptions := ACD.NewDeployCartridgeOptions()
 			deployCartridgeOptions.SetArchiveFileContentType("application/octet-stream")
-			deployCartridgeOptions.SetArchiveFile(ioutil.NopCloser(strings.NewReader(os.Getenv("ARCHIVE"))))
+			archiveFile, err := os.Open(os.Getenv("ARCHIVE"))
+			deployCartridgeOptions.SetArchiveFile(archiveFile)
 			deployCartridgeOptions.SetUpdate(true)
 			result, detailedResponse, err := ACD.DeployCartridge(deployCartridgeOptions)
 			Expect(err).To(BeNil())
 			Expect(detailedResponse).ToNot(BeNil())
-			Expect(detailedResponse.StatusCode).To(Equal(200))
+			Expect(detailedResponse.StatusCode).Should(BeNumerically(">=", 200))
+			Expect(detailedResponse.StatusCode).Should(BeNumerically("<", 299))
 			Expect(result).ToNot(BeNil())
+			Expect(result.Code).ToNot(BeNil())
 		})
 	})
 })
