@@ -72,6 +72,11 @@ func NewAnnotatorForClinicalDataAcdV1UsingExternalConfig(options *AnnotatorForCl
 		return
 	}
 
+	err = annotatorForClinicalDataAcd.Service.ConfigureService(options.ServiceName)
+	if err != nil {
+		return
+	}
+
 	if options.URL != "" {
 		err = annotatorForClinicalDataAcd.Service.SetServiceURL(options.URL)
 	}
