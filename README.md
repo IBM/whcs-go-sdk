@@ -60,7 +60,7 @@ to your `Gopkg.toml` file.  Here is an example:
 then run `dep ensure`.
 
 ## Using the SDK
-For general SDK usage information, please see [this link](https://github.com/IBM/ibm-cloud-sdk-common/blob/master/README.md)
+For general SDK usage information, please see [this link](https://github.com/IBM/ibm-cloud-sdk-common/blob/master/README.md).
 
 ## Questions
 
@@ -70,16 +70,16 @@ please ask a question at
 
 ## Issues
 If you encounter an issue with the project, you are welcome to submit a
-[bug report](<github-repo-url>/issues).
+[bug report](https://github.com/IBM/whcs-go-sdk/issues).
 Before that, please search for similar issues. It's possible that someone has already reported the problem.
 
 ## Open source @ IBM
-Find more open source projects on the [IBM Github Page](http://ibm.github.io/)
+Find more open source projects on the [IBM Github Page](http://ibm.github.io/).
 
 ## Contributing
 See [CONTRIBUTING](CONTRIBUTING.md).
 
 ## License
 
-This SDK project is released under the Apache 2.0 license.
+The IBM Watson Health Cognitive Services Go SDK project is released under the Apache 2.0 license.
 The license's full text can be found in [LICENSE](LICENSE).
