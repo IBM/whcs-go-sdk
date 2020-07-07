@@ -1,9 +1,9 @@
-# IBM Watson Health Cigntive Services Go SDK Version 0.0.1
-Go client library to interact with the various [IBM Watson Health Cigntive Services APIs](https://cloud.ibm.com/apidocs?category=wh-acd).
+# IBM Watson Health Cognitive Services Go SDK Version 0.0.1
+Go client library to interact with the various [IBM Watson Health Cognitive Services APIs](https://cloud.ibm.com/apidocs?category=wh-acd).
 
 ## Overview
 
-The IBM Watson Health Cigntive Services Go SDK allows developers to programmatically interact with the following IBM Cloud services:
+The IBM Watson Health Cognitive Services Go SDK allows developers to programmatically interact with the following IBM Cloud services:
 
 Service Name | Package name 
 --- | --- 
