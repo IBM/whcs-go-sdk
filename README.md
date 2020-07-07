@@ -9,6 +9,8 @@ Service Name | Package name
 [Annotator for Clinical Data](https://cloud.ibm.com/apidocs/wh-acd) | annotatorforclinicaldataacdv1 |
 [Insights for Medical Literature](https://cloud.ibm.com/apidocs/wh-iml) | insightsformedicalliteratureservicev1 |
 
+NOTE: You must be signed into IBM Cloud to see the docs.
+
 ## Prerequisites
 
 [ibm-cloud-onboarding]: https://cloud.ibm.com/registration
