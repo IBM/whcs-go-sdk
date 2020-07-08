@@ -206,7 +206,7 @@ var _ = Describe(`AnnotatorForClinicalDataAcdV1`, func() {
 
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, `{"data": ["Data"]}`)
+					fmt.Fprintf(res, `{"data": {}}`)
 				}))
 			})
 			It(`Invoke GetProfiles successfully`, func() {
@@ -233,6 +233,9 @@ var _ = Describe(`AnnotatorForClinicalDataAcdV1`, func() {
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).ToNot(BeNil())
+				for profileId, _ := range result.Profiles { 
+					Expect(profileId).ToNot(BeNil())
+				}
 			})
 			It(`Invoke GetProfiles with error: Operation request error`, func() {
 				testService, testServiceErr := annotatorforclinicaldataacdv1.NewAnnotatorForClinicalDataAcdV1(&annotatorforclinicaldataacdv1.AnnotatorForClinicalDataAcdV1Options{
@@ -320,6 +323,7 @@ var _ = Describe(`AnnotatorForClinicalDataAcdV1`, func() {
 				response, operationErr = testService.CreateProfile(createProfileOptionsModel)
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
+				Expect(response.StatusCode).To(Equal(201))
 			})
 			It(`Invoke CreateProfile with error: Operation request error`, func() {
 				testService, testServiceErr := annotatorforclinicaldataacdv1.NewAnnotatorForClinicalDataAcdV1(&annotatorforclinicaldataacdv1.AnnotatorForClinicalDataAcdV1Options{
@@ -453,6 +457,11 @@ var _ = Describe(`AnnotatorForClinicalDataAcdV1`, func() {
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).ToNot(BeNil())
+				Expect(result.ID).ToNot(BeNil())
+				Expect(result.Name).ToNot(BeNil())
+				Expect(result.Description).ToNot(BeNil())
+				Expect(result.Annotators).ToNot(BeNil())
+
 			})
 			It(`Invoke GetProfile with error: Operation validation and request error`, func() {
 				testService, testServiceErr := annotatorforclinicaldataacdv1.NewAnnotatorForClinicalDataAcdV1(&annotatorforclinicaldataacdv1.AnnotatorForClinicalDataAcdV1Options{
@@ -664,6 +673,7 @@ var _ = Describe(`AnnotatorForClinicalDataAcdV1`, func() {
 				Expect(operationErr).ToNot(BeNil())
 				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
 				Expect(response).To(BeNil())
+
 				// Construct a second instance of the DeleteProfileOptions model with no property values
 				deleteProfileOptionsModelNew := new(annotatorforclinicaldataacdv1.DeleteProfileOptions)
 				// Invoke operation with invalid model (negative test)
@@ -848,7 +858,7 @@ var _ = Describe(`AnnotatorForClinicalDataAcdV1`, func() {
 
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, `{"data": ["Data"]}`)
+					fmt.Fprintf(res, `{"data": {}}`)
 				}))
 			})
 			It(`Invoke GetFlows successfully`, func() {
@@ -875,6 +885,9 @@ var _ = Describe(`AnnotatorForClinicalDataAcdV1`, func() {
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).ToNot(BeNil())
+				for flowId, _ := range result.Flows { 
+					Expect(flowId).ToNot(BeNil())
+				}
 			})
 			It(`Invoke GetFlows with error: Operation request error`, func() {
 				testService, testServiceErr := annotatorforclinicaldataacdv1.NewAnnotatorForClinicalDataAcdV1(&annotatorforclinicaldataacdv1.AnnotatorForClinicalDataAcdV1Options{
@@ -1121,6 +1134,10 @@ var _ = Describe(`AnnotatorForClinicalDataAcdV1`, func() {
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).ToNot(BeNil())
+				Expect(result.ID).ToNot(BeNil())
+				Expect(result.Name).ToNot(BeNil())
+				Expect(result.Description).ToNot(BeNil())
+				Expect(result.AnnotatorFlows).ToNot(BeNil())
 			})
 			It(`Invoke GetFlowsByID with error: Operation validation and request error`, func() {
 				testService, testServiceErr := annotatorforclinicaldataacdv1.NewAnnotatorForClinicalDataAcdV1(&annotatorforclinicaldataacdv1.AnnotatorForClinicalDataAcdV1Options{
@@ -1143,6 +1160,7 @@ var _ = Describe(`AnnotatorForClinicalDataAcdV1`, func() {
 				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
 				Expect(response).To(BeNil())
 				Expect(result).To(BeNil())
+
 				// Construct a second instance of the GetFlowsByIdOptions model with no property values
 				getFlowsByIdOptionsModelNew := new(annotatorforclinicaldataacdv1.GetFlowsByIdOptions)
 				// Invoke operation with invalid model (negative test)
@@ -1285,6 +1303,7 @@ var _ = Describe(`AnnotatorForClinicalDataAcdV1`, func() {
 				Expect(operationErr).ToNot(BeNil())
 				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
 				Expect(response).To(BeNil())
+
 				// Construct a second instance of the UpdateFlowsOptions model with no property values
 				updateFlowsOptionsModelNew := new(annotatorforclinicaldataacdv1.UpdateFlowsOptions)
 				// Invoke operation with invalid model (negative test)
@@ -1358,6 +1377,7 @@ var _ = Describe(`AnnotatorForClinicalDataAcdV1`, func() {
 				Expect(operationErr).ToNot(BeNil())
 				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
 				Expect(response).To(BeNil())
+
 				// Construct a second instance of the DeleteFlowsOptions model with no property values
 				deleteFlowsOptionsModelNew := new(annotatorforclinicaldataacdv1.DeleteFlowsOptions)
 				// Invoke operation with invalid model (negative test)
@@ -1485,7 +1505,51 @@ var _ = Describe(`AnnotatorForClinicalDataAcdV1`, func() {
 			})
 		})
 	})
+	Describe(`RunPipeline(runPipelineOptions *RunPipelineOptions) - Operation response error`, func() {
+		version := "testString"
+		runPipelinePath := "/v1/analyze"
+		Context(`Using mock server endpoint`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
 
+					// Verify the contents of the request
+					Expect(req.URL.Path).To(Equal(runPipelinePath))
+					Expect(req.Method).To(Equal("POST"))
+					Expect(req.URL.Query()["version"]).To(Equal([]string{"testString"}))
+
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, `} this is not valid json {`)
+				}))
+			})
+			It(`Invoke RunPipeline with error: Operation response processing error`, func() {
+				testService, testServiceErr := annotatorforclinicaldataacdv1.NewAnnotatorForClinicalDataAcdV1(&annotatorforclinicaldataacdv1.AnnotatorForClinicalDataAcdV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+					Version:       core.StringPtr(version),
+				})
+				Expect(testServiceErr).To(BeNil())
+				Expect(testService).ToNot(BeNil())
+
+				// Construct an instance of the RunPipelineOptions model
+				unstructuredContainerModel := new(annotatorforclinicaldataacdv1.UnstructuredContainer)
+				annotatorFlowModel := new(annotatorforclinicaldataacdv1.AnnotatorFlow)
+				runPipelineOptionsModel := new(annotatorforclinicaldataacdv1.RunPipelineOptions)
+				runPipelineOptionsModel.Unstructured = []annotatorforclinicaldataacdv1.UnstructuredContainer{*unstructuredContainerModel}
+				runPipelineOptionsModel.AnnotatorFlows = []annotatorforclinicaldataacdv1.AnnotatorFlow{*annotatorFlowModel}
+				runPipelineOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Expect response parsing to fail since we are receiving a text/plain response
+				result, response, operationErr := testService.RunPipeline(runPipelineOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
 	Describe(`RunPipeline(runPipelineOptions *RunPipelineOptions)`, func() {
 		version := "testString"
 		runPipelinePath := "/v1/analyze"
@@ -1503,6 +1567,9 @@ var _ = Describe(`AnnotatorForClinicalDataAcdV1`, func() {
 
 					// TODO: Add check for return_analyzed_text query parameter
 
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, `{"unstructured":[{"data": {"relations":[{"source":"umls","nodes":[{"entity":{"uid":2}}],"type":"may_treat"}],"nluEntities":[{"relevance":0.828337,"source":"test","type":"test","begin":19,"end":26,"coveredText":"test"}]}}]}`)
 					res.WriteHeader(200)
 				}))
 			})
@@ -1519,6 +1586,7 @@ var _ = Describe(`AnnotatorForClinicalDataAcdV1`, func() {
 				result, response, operationErr := testService.RunPipeline(nil)
 				Expect(operationErr).NotTo(BeNil())
 				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
 
 				// Construct an instance of the FlowEntry model
 				flowEntryModel := new(annotatorforclinicaldataacdv1.FlowEntry)
@@ -1546,12 +1614,12 @@ var _ = Describe(`AnnotatorForClinicalDataAcdV1`, func() {
 				annotatorFlowModel.GlobalConfigurations = []annotatorforclinicaldataacdv1.ConfigurationEntity{*configurationEntityModel}
 				annotatorFlowModel.Uid = core.Int64Ptr(int64(26))
 
-				// Construct an instance of the UnstructuredContainer model
+				// Construct an instance of the UnstructuredContainer model				
 				unstructuredContainerModel := new(annotatorforclinicaldataacdv1.UnstructuredContainer)
 				unstructuredContainerModel.Text = core.StringPtr("testString")
 				unstructuredContainerModel.ID = core.StringPtr("testString")
 				unstructuredContainerModel.Type = core.StringPtr("testString")
-				unstructuredContainerModel.Data = make(map[string][]annotatorforclinicaldataacdv1.Entity)
+				unstructuredContainerModel.Data = new(annotatorforclinicaldataacdv1.ContainerAnnotation)
 				unstructuredContainerModel.Metadata = make(map[string]interface{})
 				unstructuredContainerModel.Uid = core.Int64Ptr(int64(26))
 
@@ -1567,7 +1635,8 @@ var _ = Describe(`AnnotatorForClinicalDataAcdV1`, func() {
 				result, response, operationErr = testService.RunPipeline(runPipelineOptionsModel)
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
-				Expect(result).To(BeNil())
+				Expect(response.StatusCode).To(Equal(200))
+				Expect(result).ToNot(BeNil())
 			})
 			It(`Invoke RunPipeline with error: Operation request error`, func() {
 				testService, testServiceErr := annotatorforclinicaldataacdv1.NewAnnotatorForClinicalDataAcdV1(&annotatorforclinicaldataacdv1.AnnotatorForClinicalDataAcdV1Options{
@@ -1609,7 +1678,7 @@ var _ = Describe(`AnnotatorForClinicalDataAcdV1`, func() {
 				unstructuredContainerModel.Text = core.StringPtr("testString")
 				unstructuredContainerModel.ID = core.StringPtr("testString")
 				unstructuredContainerModel.Type = core.StringPtr("testString")
-				unstructuredContainerModel.Data = make(map[string][]annotatorforclinicaldataacdv1.Entity)
+				unstructuredContainerModel.Data = new(annotatorforclinicaldataacdv1.ContainerAnnotation)
 				unstructuredContainerModel.Metadata = make(map[string]interface{})
 				unstructuredContainerModel.Uid = core.Int64Ptr(int64(26))
 
@@ -1628,6 +1697,14 @@ var _ = Describe(`AnnotatorForClinicalDataAcdV1`, func() {
 				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
 				Expect(response).To(BeNil())
 				Expect(result).To(BeNil())
+
+				// Construct a second instance of the RunPipeline model with no property values
+				runPipelineOptionsModelNew := new(annotatorforclinicaldataacdv1.RunPipelineOptions)
+				// Invoke operation with invalid model (negative test)
+				result, response, operationErr = testService.RunPipeline(runPipelineOptionsModelNew)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
 			})
 			AfterEach(func() {
 				testServer.Close()
@@ -1635,6 +1712,51 @@ var _ = Describe(`AnnotatorForClinicalDataAcdV1`, func() {
 		})
 	})
 
+	Describe(`RunPipelineWithFlow(runPipelineWithFlowOptions *RunPipelineWithFlowOptions) - Operation response error`, func() {
+		version := "testString"
+		runPipelineWithFlowPath := "/v1/analyze/testString"
+		Context(`Using mock server endpoint`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.Path).To(Equal(runPipelineWithFlowPath))
+					Expect(req.Method).To(Equal("POST"))
+					Expect(req.URL.Query()["version"]).To(Equal([]string{"testString"}))
+
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, `} this is not valid json {`)
+				}))
+			})
+			It(`Invoke RunPipelineWithFlow with error: Operation response processing error`, func() {
+				testService, testServiceErr := annotatorforclinicaldataacdv1.NewAnnotatorForClinicalDataAcdV1(&annotatorforclinicaldataacdv1.AnnotatorForClinicalDataAcdV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+					Version:       core.StringPtr(version),
+				})
+				Expect(testServiceErr).To(BeNil())
+				Expect(testService).ToNot(BeNil())
+
+				// Construct an instance of the RunPipelineWithFlowOptions model
+				runPipelineWithFlowOptionsModel := new(annotatorforclinicaldataacdv1.RunPipelineWithFlowOptions)
+				runPipelineWithFlowOptionsModel.FlowID = core.StringPtr("testString")
+				runPipelineWithFlowOptionsModel.ReturnAnalyzedText = core.BoolPtr(true)
+				runPipelineWithFlowOptionsModel.Body = core.StringPtr("testString")
+				runPipelineWithFlowOptionsModel.ContentType = core.StringPtr("application/json")
+				runPipelineWithFlowOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Expect response parsing to fail since we are receiving a text/plain response
+				result, response, operationErr := testService.RunPipelineWithFlow(runPipelineWithFlowOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
 	Describe(`RunPipelineWithFlow(runPipelineWithFlowOptions *RunPipelineWithFlowOptions)`, func() {
 		version := "testString"
 		runPipelineWithFlowPath := "/v1/analyze/testString"
@@ -1703,7 +1825,7 @@ var _ = Describe(`AnnotatorForClinicalDataAcdV1`, func() {
 				unstructuredContainerModel.Text = core.StringPtr("testString")
 				unstructuredContainerModel.ID = core.StringPtr("testString")
 				unstructuredContainerModel.Type = core.StringPtr("testString")
-				unstructuredContainerModel.Data = make(map[string][]annotatorforclinicaldataacdv1.Entity)
+				unstructuredContainerModel.Data = new(annotatorforclinicaldataacdv1.ContainerAnnotation)
 				unstructuredContainerModel.Metadata = make(map[string]interface{})
 				unstructuredContainerModel.Uid = core.Int64Ptr(int64(26))
 
@@ -1726,6 +1848,7 @@ var _ = Describe(`AnnotatorForClinicalDataAcdV1`, func() {
 				result, response, operationErr = testService.RunPipelineWithFlow(runPipelineWithFlowOptionsModel)
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
+				Expect(response.StatusCode).To(Equal(200))
 				Expect(result).To(BeNil())
 			})
 			It(`Invoke RunPipelineWithFlow with error: Operation validation and request error`, func() {
@@ -1768,8 +1891,7 @@ var _ = Describe(`AnnotatorForClinicalDataAcdV1`, func() {
 				unstructuredContainerModel.Text = core.StringPtr("testString")
 				unstructuredContainerModel.ID = core.StringPtr("testString")
 				unstructuredContainerModel.Type = core.StringPtr("testString")
-				unstructuredContainerModel.Data = make(map[string][]annotatorforclinicaldataacdv1. 
-					Entity)
+				unstructuredContainerModel.Data = new(annotatorforclinicaldataacdv1.ContainerAnnotation)
 				unstructuredContainerModel.Metadata = make(map[string]interface{})
 				unstructuredContainerModel.Uid = core.Int64Ptr(int64(26))
 
@@ -1795,6 +1917,7 @@ var _ = Describe(`AnnotatorForClinicalDataAcdV1`, func() {
 				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
 				Expect(response).To(BeNil())
 				Expect(result).To(BeNil())
+
 				// Construct a second instance of the RunPipelineWithFlowOptions model with no property values
 				runPipelineWithFlowOptionsModelNew := new(annotatorforclinicaldataacdv1.RunPipelineWithFlowOptions)
 				// Invoke operation with invalid model (negative test)
@@ -1809,6 +1932,47 @@ var _ = Describe(`AnnotatorForClinicalDataAcdV1`, func() {
 		})
 	})
 
+	Describe(`GetAnnotators(getAnnotatorsOptions *getAnnotatorsOptions) - Operation response error`, func() {
+		version := "testString"
+		getAnnotatorsPath := "/v1/annotators"
+		Context(`Using mock server endpoint`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.Path).To(Equal(getAnnotatorsPath))
+					Expect(req.Method).To(Equal("GET"))
+					Expect(req.URL.Query()["version"]).To(Equal([]string{"testString"}))
+
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, `} this is not valid json {`)
+				}))
+			})
+			It(`Invoke GetAnnotators with error: Operation response processing error`, func() {
+				testService, testServiceErr := annotatorforclinicaldataacdv1.NewAnnotatorForClinicalDataAcdV1(&annotatorforclinicaldataacdv1.AnnotatorForClinicalDataAcdV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+					Version:       core.StringPtr(version),
+				})
+				Expect(testServiceErr).To(BeNil())
+				Expect(testService).ToNot(BeNil())
+
+				// Construct an instance of the GetAnnotatorsOptions model
+				getAnnotatorsOptionsModel := new(annotatorforclinicaldataacdv1.GetAnnotatorsOptions)
+				getAnnotatorsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Expect response parsing to fail since we are receiving a text/plain response
+				result, response, operationErr := testService.GetAnnotators(getAnnotatorsOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
 	Describe(`GetAnnotators(getAnnotatorsOptions *GetAnnotatorsOptions)`, func() {
 		version := "testString"
 		getAnnotatorsPath := "/v1/annotators"
@@ -1822,7 +1986,9 @@ var _ = Describe(`AnnotatorForClinicalDataAcdV1`, func() {
 					Expect(req.Method).To(Equal("GET"))
 					Expect(req.URL.Query()["version"]).To(Equal([]string{"testString"}))
 
+					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
+					fmt.Fprintf(res, `{"data": {}}`)
 				}))
 			})
 			It(`Invoke GetAnnotators successfully`, func() {
@@ -1835,18 +2001,25 @@ var _ = Describe(`AnnotatorForClinicalDataAcdV1`, func() {
 				Expect(testService).ToNot(BeNil())
 
 				// Invoke operation with nil options model (negative test)
-				response, operationErr := testService.GetAnnotators(nil)
+				result, response, operationErr := testService.GetAnnotators(nil)
 				Expect(operationErr).NotTo(BeNil())
 				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+
 
 				// Construct an instance of the GetAnnotatorsOptions model
 				getAnnotatorsOptionsModel := new(annotatorforclinicaldataacdv1.GetAnnotatorsOptions)
 				getAnnotatorsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
-				response, operationErr = testService.GetAnnotators(getAnnotatorsOptionsModel)
+				result, response, operationErr = testService.GetAnnotators(getAnnotatorsOptionsModel)
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+				for annotatorId, _ := range result.Annotators { 
+					Expect(annotatorId).ToNot(BeNil())
+				}
+
 			})
 			It(`Invoke GetAnnotators with error: Operation request error`, func() {
 				testService, testServiceErr := annotatorforclinicaldataacdv1.NewAnnotatorForClinicalDataAcdV1(&annotatorforclinicaldataacdv1.AnnotatorForClinicalDataAcdV1Options{
@@ -1863,10 +2036,12 @@ var _ = Describe(`AnnotatorForClinicalDataAcdV1`, func() {
 				// Invoke operation with empty URL (negative test)
 				err := testService.SetServiceURL("")
 				Expect(err).To(BeNil())
-				response, operationErr := testService.GetAnnotators(getAnnotatorsOptionsModel)
+				result, response, operationErr := testService.GetAnnotators(getAnnotatorsOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
 				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+
 			})
 			AfterEach(func() {
 				testServer.Close()
@@ -1874,6 +2049,48 @@ var _ = Describe(`AnnotatorForClinicalDataAcdV1`, func() {
 		})
 	})
 
+	Describe(`GetAnnotatorsByID(getAnnotatorsByIdOptions *getAnnotatorsByIdOptions) - Operation response error`, func() {
+		version := "testString"
+		getAnnotatorsByIDPath := "/v1/annotators/testString"
+		Context(`Using mock server endpoint`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.Path).To(Equal(getAnnotatorsByIDPath))
+					Expect(req.Method).To(Equal("GET"))
+					Expect(req.URL.Query()["version"]).To(Equal([]string{"testString"}))
+
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, `} this is not valid json {`)
+				}))
+			})
+			It(`Invoke GetAnnotatorsByID with error: Operation response processing error`, func() {
+				testService, testServiceErr := annotatorforclinicaldataacdv1.NewAnnotatorForClinicalDataAcdV1(&annotatorforclinicaldataacdv1.AnnotatorForClinicalDataAcdV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+					Version:       core.StringPtr(version),
+				})
+				Expect(testServiceErr).To(BeNil())
+				Expect(testService).ToNot(BeNil())
+
+				// Construct an instance of the GetAnnotatorsByIdOptions model
+				getAnnotatorsByIdOptionsModel := new(annotatorforclinicaldataacdv1.GetAnnotatorsByIdOptions)
+				getAnnotatorsByIdOptionsModel.ID = core.StringPtr("testString")
+				getAnnotatorsByIdOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Expect response parsing to fail since we are receiving a text/plain response
+				result, response, operationErr := testService.GetAnnotatorsByID(getAnnotatorsByIdOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
 	Describe(`GetAnnotatorsByID(getAnnotatorsByIdOptions *GetAnnotatorsByIdOptions)`, func() {
 		version := "testString"
 		getAnnotatorsByIDPath := "/v1/annotators/testString"
@@ -1887,7 +2104,9 @@ var _ = Describe(`AnnotatorForClinicalDataAcdV1`, func() {
 					Expect(req.Method).To(Equal("GET"))
 					Expect(req.URL.Query()["version"]).To(Equal([]string{"testString"}))
 
+					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
+					fmt.Fprintf(res, `{"description": "Description"}`)
 				}))
 			})
 			It(`Invoke GetAnnotatorsByID successfully`, func() {
@@ -1900,9 +2119,10 @@ var _ = Describe(`AnnotatorForClinicalDataAcdV1`, func() {
 				Expect(testService).ToNot(BeNil())
 
 				// Invoke operation with nil options model (negative test)
-				response, operationErr := testService.GetAnnotatorsByID(nil)
+				result, response, operationErr := testService.GetAnnotatorsByID(nil)
 				Expect(operationErr).NotTo(BeNil())
 				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
 
 				// Construct an instance of the GetAnnotatorsByIdOptions model
 				getAnnotatorsByIdOptionsModel := new(annotatorforclinicaldataacdv1.GetAnnotatorsByIdOptions)
@@ -1910,9 +2130,11 @@ var _ = Describe(`AnnotatorForClinicalDataAcdV1`, func() {
 				getAnnotatorsByIdOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
-				response, operationErr = testService.GetAnnotatorsByID(getAnnotatorsByIdOptionsModel)
+				result, response, operationErr = testService.GetAnnotatorsByID(getAnnotatorsByIdOptionsModel)
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+				Expect(result.Description).ToNot(BeNil())
 			})
 			It(`Invoke GetAnnotatorsByID with error: Operation validation and request error`, func() {
 				testService, testServiceErr := annotatorforclinicaldataacdv1.NewAnnotatorForClinicalDataAcdV1(&annotatorforclinicaldataacdv1.AnnotatorForClinicalDataAcdV1Options{
@@ -1930,16 +2152,19 @@ var _ = Describe(`AnnotatorForClinicalDataAcdV1`, func() {
 				// Invoke operation with empty URL (negative test)
 				err := testService.SetServiceURL("")
 				Expect(err).To(BeNil())
-				response, operationErr := testService.GetAnnotatorsByID(getAnnotatorsByIdOptionsModel)
+				result, response, operationErr := testService.GetAnnotatorsByID(getAnnotatorsByIdOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
 				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+
 				// Construct a second instance of the GetAnnotatorsByIdOptions model with no property values
 				getAnnotatorsByIdOptionsModelNew := new(annotatorforclinicaldataacdv1.GetAnnotatorsByIdOptions)
 				// Invoke operation with invalid model (negative test)
-				response, operationErr = testService.GetAnnotatorsByID(getAnnotatorsByIdOptionsModelNew)
+				result, response, operationErr = testService.GetAnnotatorsByID(getAnnotatorsByIdOptionsModelNew)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
 			})
 			AfterEach(func() {
 				testServer.Close()
@@ -1985,6 +2210,7 @@ var _ = Describe(`AnnotatorForClinicalDataAcdV1`, func() {
 				response, operationErr = testService.DeleteUserSpecificArtifacts(deleteUserSpecificArtifactsOptionsModel)
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
+				Expect(response.StatusCode).To(Equal(204))
 			})
 			It(`Invoke DeleteUserSpecificArtifacts with error: Operation request error`, func() {
 				testService, testServiceErr := annotatorforclinicaldataacdv1.NewAnnotatorForClinicalDataAcdV1(&annotatorforclinicaldataacdv1.AnnotatorForClinicalDataAcdV1Options{
@@ -2210,6 +2436,7 @@ var _ = Describe(`AnnotatorForClinicalDataAcdV1`, func() {
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).ToNot(BeNil())
+				Expect(result.Cartridges).ToNot(BeNil())
 			})
 			It(`Invoke CartridgesGet with error: Operation request error`, func() {
 				testService, testServiceErr := annotatorforclinicaldataacdv1.NewAnnotatorForClinicalDataAcdV1(&annotatorforclinicaldataacdv1.AnnotatorForClinicalDataAcdV1Options{
@@ -2325,6 +2552,8 @@ var _ = Describe(`AnnotatorForClinicalDataAcdV1`, func() {
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).ToNot(BeNil())
+				Expect(result.Code).ToNot(BeNil())
+				
 			})
 			It(`Invoke CartridgesPostMultipart with error: Param validation error`, func() {
 				testService, testServiceErr := annotatorforclinicaldataacdv1.NewAnnotatorForClinicalDataAcdV1(&annotatorforclinicaldataacdv1.AnnotatorForClinicalDataAcdV1Options{
@@ -2591,6 +2820,7 @@ var _ = Describe(`AnnotatorForClinicalDataAcdV1`, func() {
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).ToNot(BeNil())
+				Expect(result.ID).ToNot(BeNil())
 			})
 			It(`Invoke CartridgesGetID with error: Operation validation and request error`, func() {
 				testService, testServiceErr := annotatorforclinicaldataacdv1.NewAnnotatorForClinicalDataAcdV1(&annotatorforclinicaldataacdv1.AnnotatorForClinicalDataAcdV1Options{
@@ -2613,6 +2843,7 @@ var _ = Describe(`AnnotatorForClinicalDataAcdV1`, func() {
 				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
 				Expect(response).To(BeNil())
 				Expect(result).To(BeNil())
+
 				// Construct a second instance of the CartridgesGetIdOptions model with no property values
 				cartridgesGetIdOptionsModelNew := new(annotatorforclinicaldataacdv1.CartridgesGetIdOptions)
 				// Invoke operation with invalid model (negative test)
@@ -2975,6 +3206,7 @@ var _ = Describe(`AnnotatorForClinicalDataAcdV1`, func() {
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).ToNot(BeNil())
+				Expect(result.ServiceState).ToNot(BeNil())
 			})
 			It(`Invoke GetHealthCheckStatus with error: Operation request error`, func() {
 				testService, testServiceErr := annotatorforclinicaldataacdv1.NewAnnotatorForClinicalDataAcdV1(&annotatorforclinicaldataacdv1.AnnotatorForClinicalDataAcdV1Options{
@@ -3321,19 +3553,23 @@ var _ = Describe(`AnnotatorForClinicalDataAcdV1`, func() {
 				Expect(annotatorFlowModel.GlobalConfigurations).To(Equal([]annotatorforclinicaldataacdv1.ConfigurationEntity{*configurationEntityModel}))
 				Expect(annotatorFlowModel.Uid).To(Equal(core.Int64Ptr(int64(26))))
 
+				// Construct an instance of ContainerAnnotation model
+				containerAnnotationModel := new(annotatorforclinicaldataacdv1.ContainerAnnotation)
+				Expect(containerAnnotationModel).ToNot(BeNil())
+
 				// Construct an instance of the UnstructuredContainer model
 				unstructuredContainerModel := new(annotatorforclinicaldataacdv1.UnstructuredContainer)
 				Expect(unstructuredContainerModel).ToNot(BeNil())
 				unstructuredContainerModel.Text = core.StringPtr("testString")
 				unstructuredContainerModel.ID = core.StringPtr("testString")
 				unstructuredContainerModel.Type = core.StringPtr("testString")
-				unstructuredContainerModel.Data = make(map[string][]annotatorforclinicaldataacdv1.Entity)
+				unstructuredContainerModel.Data = containerAnnotationModel
 				unstructuredContainerModel.Metadata = make(map[string]interface{})
 				unstructuredContainerModel.Uid = core.Int64Ptr(int64(26))
 				Expect(unstructuredContainerModel.Text).To(Equal(core.StringPtr("testString")))
 				Expect(unstructuredContainerModel.ID).To(Equal(core.StringPtr("testString")))
 				Expect(unstructuredContainerModel.Type).To(Equal(core.StringPtr("testString")))
-				Expect(unstructuredContainerModel.Data).To(Equal(make(map[string][]annotatorforclinicaldataacdv1.Entity)))
+				Expect(unstructuredContainerModel.Data).To(Equal(containerAnnotationModel))
 				Expect(unstructuredContainerModel.Metadata).To(Equal(make(map[string]interface{})))
 				Expect(unstructuredContainerModel.Uid).To(Equal(core.Int64Ptr(int64(26))))
 
@@ -3396,19 +3632,23 @@ var _ = Describe(`AnnotatorForClinicalDataAcdV1`, func() {
 				Expect(annotatorFlowModel.GlobalConfigurations).To(Equal([]annotatorforclinicaldataacdv1.ConfigurationEntity{*configurationEntityModel}))
 				Expect(annotatorFlowModel.Uid).To(Equal(core.Int64Ptr(int64(26))))
 
+				// Construct an instance of ContainerAnnotation model
+				containerAnnotationModel := new(annotatorforclinicaldataacdv1.ContainerAnnotation)
+				Expect(containerAnnotationModel).ToNot(BeNil())
+
 				// Construct an instance of the UnstructuredContainer model
 				unstructuredContainerModel := new(annotatorforclinicaldataacdv1.UnstructuredContainer)
 				Expect(unstructuredContainerModel).ToNot(BeNil())
 				unstructuredContainerModel.Text = core.StringPtr("testString")
 				unstructuredContainerModel.ID = core.StringPtr("testString")
 				unstructuredContainerModel.Type = core.StringPtr("testString")
-				unstructuredContainerModel.Data = make(map[string][]annotatorforclinicaldataacdv1.Entity)
+				unstructuredContainerModel.Data = containerAnnotationModel
 				unstructuredContainerModel.Metadata = make(map[string]interface{})
 				unstructuredContainerModel.Uid = core.Int64Ptr(int64(26))
 				Expect(unstructuredContainerModel.Text).To(Equal(core.StringPtr("testString")))
 				Expect(unstructuredContainerModel.ID).To(Equal(core.StringPtr("testString")))
 				Expect(unstructuredContainerModel.Type).To(Equal(core.StringPtr("testString")))
-				Expect(unstructuredContainerModel.Data).To(Equal(make(map[string][]annotatorforclinicaldataacdv1.Entity)))
+				Expect(unstructuredContainerModel.Data).To(Equal(containerAnnotationModel))
 				Expect(unstructuredContainerModel.Metadata).To(Equal(make(map[string]interface{})))
 				Expect(unstructuredContainerModel.Uid).To(Equal(core.Int64Ptr(int64(26))))
 
