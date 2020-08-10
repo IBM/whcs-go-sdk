@@ -1,5 +1,3 @@
-// +build integration
-
 /**
  * (C) Copyright IBM Corp. 2020.
  *
@@ -38,7 +36,7 @@ var (
 	iamUrl       string
 	apikey       string
 	disableSsl   bool   = false
-	analyzeText  string = "The patient has cancer and patient is currently taking 400 ml sisplatin chemotherapy.  Aspirin from once daily to twice daily.\nHISTORY:  Patient is allergic to latex.  Patient cannot walk and needs help bathing and getting around.  The lab values were: white blood cell count 4.6, hemoglobin 12.2.  Echocardiogram demonstrated ejection fraction of approx 60%.  Patient cannot dress or feed without help as the patient can not see.  Patient may die soon but has not died yet.  Patient smoked for 20 years.  Patient can not clean up after defacating in toilet.  Jone Doe was seen at Baylor Hospitall in Austin, TX.  Johndoe@testaddress.com - (555) 555-5555"
+	analyzeText  string = "The patient has cancer and patient is currently taking 400 ml sisplatin chemotherapy.  Aspirin from once daily to twice daily.\nHISTORY:  Patient is allergic to latex.  Patient cannot walk and needs help bathing and getting around.  The lab values were: white blood cell count 4.6, hemoglobin 12.2.  Echocardiogram demonstrated ejection fraction of approx 60%.  Patient cannot dress or feed without help as the patient can not see.  Patient may die soon but has not died yet.  Patient smoked for 20 years.  Patient can not clean up after defacating in toilet.  Jone Doe was seen at Baylor Hospitall in Austin, TX.  Johndoe@testaddress.com - (555) 555-5555.  The patient started on metformin because his blood sugar was too high."
 
 
 )
@@ -97,7 +95,7 @@ var _ = Describe(`AnnotatorForClinicalDataAcdV1`, func() {
 			Expect(detailedResponse).ToNot(BeNil())
 			Expect(detailedResponse.StatusCode).To(Equal(200))
 			Expect(result).ToNot(BeNil())
-			for profileId, _ := range result.Profiles { 
+			for profileId, _ := range result.Profiles {
 				Expect(profileId).ToNot(BeNil())
 			}
 		})
@@ -171,7 +169,7 @@ var _ = Describe(`AnnotatorForClinicalDataAcdV1`, func() {
 			Expect(detailedResponse).ToNot(BeNil())
 			Expect(detailedResponse.StatusCode).To(Equal(200))
 			Expect(result).ToNot(BeNil())
-			for flowId, _ := range result.Flows { 
+			for flowId, _ := range result.Flows {
 				Expect(flowId).ToNot(BeNil())
 			}
 		})
@@ -255,7 +253,7 @@ var _ = Describe(`AnnotatorForClinicalDataAcdV1`, func() {
 			Expect(detailedResponse.StatusCode).To(Equal(200))
 			Expect(result).ToNot(BeNil())
 			Expect(result.Annotators)
-			for annotatorId, _ := range result.Annotators { 
+			for annotatorId, _ := range result.Annotators {
 				Expect(annotatorId).ToNot(BeNil())
 			}
 		})
@@ -496,14 +494,13 @@ var _ = Describe(`AnnotatorForClinicalDataAcdV1`, func() {
 					Expect(attributeValue.Begin).ToNot(BeNil())
 					Expect(attributeValue.End).ToNot(BeNil())
 					Expect(attributeValue.CoveredText).ToNot(BeNil())
-					Expect(attributeValue.DisambiguationData).ToNot(BeNil())
 					Expect(attributeValue.PreferredName).ToNot(BeNil())
 					Expect(attributeValue.Negated).ToNot(BeNil())
 					Expect(attributeValue.Values).ToNot(BeNil())
 					for _, attributeValueEntry := range attributeValue.Values {
 						Expect(attributeValueEntry.Value).ToNot(BeNil())
                     }
-                }
+				}
 				Expect(containerAnno.MedicationInd).ToNot(BeNil())
 				for _, medIndEntry := range containerAnno.MedicationInd {
 					Expect(medIndEntry.Begin).ToNot(BeNil())
@@ -519,8 +516,8 @@ var _ = Describe(`AnnotatorForClinicalDataAcdV1`, func() {
 						Expect(medication.StoppedEvent).ToNot(BeNil())
 						Expect(medication.AdverseEvent).ToNot(BeNil())
                     }
-					
-				}				
+
+				}
             }
 		})
 	})
@@ -567,13 +564,13 @@ var _ = Describe(`AnnotatorForClinicalDataAcdV1`, func() {
 						Expect(medication.StoppedEvent).ToNot(BeNil())
 						Expect(medication.DoseChangedEvent).ToNot(BeNil())
 						Expect(medication.AdverseEvent).ToNot(BeNil())
-                    }	
+                    }
 				}
 				Expect(containerAnno.SpellCorrectedText).ToNot(BeNil())
 				for _, spellCorrectedEntry := range containerAnno.SpellCorrectedText {
 					Expect(spellCorrectedEntry.CorrectedText).ToNot(BeNil())
-					Expect(spellCorrectedEntry.DebugText).ToNot(BeNil())	
-				}				
+					Expect(spellCorrectedEntry.DebugText).ToNot(BeNil())
+				}
             }
 		})
 	})
@@ -603,8 +600,6 @@ var _ = Describe(`AnnotatorForClinicalDataAcdV1`, func() {
 			for cartridgeCounter < len(result.Cartridges) {
 				cartridge := result.Cartridges[cartridgeCounter]
 				Expect(cartridge.ID).ToNot(BeNil())
-				Expect(cartridge.Name).ToNot(BeNil())
-				Expect(cartridge.Status).ToNot(BeNil())
 				Expect(cartridge.StatusLocation).ToNot(BeNil())
 				Expect(cartridge.StartTime).ToNot(BeNil())
 				Expect(cartridge.EndTime).ToNot(BeNil())
@@ -669,8 +664,7 @@ var _ = Describe(`AnnotatorForClinicalDataAcdV1`, func() {
 			result, detailedResponse, err := ACD.CartridgesPutMultipart(cartridgesPutMultipartOptions)
 			if (err != nil) {
 				Expect(detailedResponse).ToNot(BeNil())
-				//TO DO: ACD returning 400; should be 409
-				Expect(detailedResponse.StatusCode).To(Equal(400))
+				Expect(detailedResponse.StatusCode).To(Equal(409))
 				Expect(result).To(BeNil())
 			} else {
 				Expect(err).To(BeNil())
