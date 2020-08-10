@@ -3305,6 +3305,34 @@ func UnmarshalEntity(m map[string]json.RawMessage, result interface{}) (err erro
 	return
 }
 
+// Evidence : Evidence struct
+type Evidence struct {
+	Begin *int64 `json:"begin,omitempty"`
+
+	End *int64 `json:"end,omitempty"`
+
+	CoveredText *string `json:"coveredText,omitempty"`
+}
+
+// UnmarshalEvidence unmarshals an instance of Evidence from the specified map of raw messages.
+func UnmarshalEvidence(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(Evidence)
+	err = core.UnmarshalPrimitive(m, "begin", &obj.Begin)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "end", &obj.End)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "coveredText", &obj.CoveredText)
+	if err != nil {
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
 // Flow : Flow struct
 type Flow struct {
 	Elements []FlowEntry `json:"elements,omitempty"`
@@ -3549,6 +3577,8 @@ type InsightModel struct {
 	Diagnosis *DiagnosisInsight `json:"diagnosis,omitempty"`
 
 	Medication *MedicationInsight `json:"medication,omitempty"`
+
+	Normality *NormalityInsight `json:"normality,omitempty"`
 }
 
 // UnmarshalInsightModel unmarshals an instance of InsightModel from the specified raw message.
@@ -3563,6 +3593,10 @@ func UnmarshalInsightModel(m map[string]json.RawMessage, result interface{}) (er
 		return
 	}
 	err = core.UnmarshalModel(m, "medication", &obj.Medication, UnmarshalMedicationInsight)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalModel(m, "normality", &obj.Normality, UnmarshalNormalityInsight)
 	if err != nil {
 		return
 	}
@@ -3945,6 +3979,62 @@ type NodeEntityAnnotation struct {
 func UnmarshalNodeEntityAnnotation(m map[string]json.RawMessage, result interface{}) (err error) {
 	obj := new(NodeEntityAnnotation)
 	err = core.UnmarshalPrimitive(m, "uid", &obj.UID)
+	if err != nil {
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// NormalityInsight : NormalityInsight struct.
+type NormalityInsight struct {
+	NormalityUsage *NormalityUsage `json:"usage,omitempty"`
+
+	Evidence []Evidence `json:"evidence,omitempty"`
+}
+
+// UnmarshalNormalityInsight unmarshal an instance of NormalityInsight from the specified raw message.
+func UnmarshalNormalityInsight(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(NormalityInsight)
+	err = core.UnmarshalModel(m, "usage", &obj.NormalityUsage, UnmarshalNormalityUsage)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalModel(m, "evidence", &obj.Evidence, UnmarshalEvidence)
+	if err != nil {
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// NormalityUsage : NormalityUsage insight struct
+type NormalityUsage struct {
+	NormalScore *float64 `json:"normalScore,omitempty"`
+
+	AbnormalScore *float64 `json:"abnormalScore,omitempty"`
+
+	UnknownScore *float64 `json:"unknownScore,omitempty"`
+
+	NonFindingScore *float64 `json:"nonFindingScore,omitempty"`
+}
+
+// UnmarshalNormalityUsage unmarshals an instance of NormalityUsage from the specific raw message.
+func UnmarshalNormalityUsage(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(NormalityUsage)
+	err = core.UnmarshalPrimitive(m, "normalScore", &obj.NormalScore)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "abnormalScore", &obj.AbnormalScore)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "unknownScore", &obj.UnknownScore)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "nonFindingScoreScore", &obj.NonFindingScore)
 	if err != nil {
 		return
 	}

@@ -233,7 +233,7 @@ var _ = Describe(`AnnotatorForClinicalDataAcdV1`, func() {
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).ToNot(BeNil())
-				for profileId, _ := range result.Profiles { 
+				for profileId, _ := range result.Profiles {
 					Expect(profileId).ToNot(BeNil())
 				}
 			})
@@ -885,7 +885,7 @@ var _ = Describe(`AnnotatorForClinicalDataAcdV1`, func() {
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).ToNot(BeNil())
-				for flowId, _ := range result.Flows { 
+				for flowId, _ := range result.Flows {
 					Expect(flowId).ToNot(BeNil())
 				}
 			})
@@ -1563,14 +1563,9 @@ var _ = Describe(`AnnotatorForClinicalDataAcdV1`, func() {
 					Expect(req.Method).To(Equal("POST"))
 					Expect(req.URL.Query()["version"]).To(Equal([]string{"testString"}))
 
-					// TODO: Add check for debug_text_restore query parameter
-
-					// TODO: Add check for return_analyzed_text query parameter
-
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
 					fmt.Fprintf(res, `{"unstructured":[{"data": {"relations":[{"source":"umls","nodes":[{"entity":{"uid":2}}],"type":"may_treat"}],"nluEntities":[{"relevance":0.828337,"source":"test","type":"test","begin":19,"end":26,"coveredText":"test"}]}}]}`)
-					res.WriteHeader(200)
 				}))
 			})
 			It(`Invoke RunPipeline successfully`, func() {
@@ -1614,7 +1609,7 @@ var _ = Describe(`AnnotatorForClinicalDataAcdV1`, func() {
 				annotatorFlowModel.GlobalConfigurations = []annotatorforclinicaldataacdv1.ConfigurationEntity{*configurationEntityModel}
 				annotatorFlowModel.Uid = core.Int64Ptr(int64(26))
 
-				// Construct an instance of the UnstructuredContainer model				
+				// Construct an instance of the UnstructuredContainer model
 				unstructuredContainerModel := new(annotatorforclinicaldataacdv1.UnstructuredContainer)
 				unstructuredContainerModel.Text = core.StringPtr("testString")
 				unstructuredContainerModel.ID = core.StringPtr("testString")
@@ -1771,10 +1766,6 @@ var _ = Describe(`AnnotatorForClinicalDataAcdV1`, func() {
 					Expect(req.Header["Content-Type"]).ToNot(BeNil())
 					Expect(req.Header["Content-Type"][0]).To(Equal(fmt.Sprintf("%v", "application/json")))
 					Expect(req.URL.Query()["version"]).To(Equal([]string{"testString"}))
-
-					// TODO: Add check for return_analyzed_text query parameter
-
-					// TODO: Add check for debug_text_restore query parameter
 
 					res.WriteHeader(200)
 				}))
@@ -2016,7 +2007,7 @@ var _ = Describe(`AnnotatorForClinicalDataAcdV1`, func() {
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).ToNot(BeNil())
-				for annotatorId, _ := range result.Annotators { 
+				for annotatorId, _ := range result.Annotators {
 					Expect(annotatorId).ToNot(BeNil())
 				}
 
@@ -2553,7 +2544,7 @@ var _ = Describe(`AnnotatorForClinicalDataAcdV1`, func() {
 				Expect(response).ToNot(BeNil())
 				Expect(result).ToNot(BeNil())
 				Expect(result.Code).ToNot(BeNil())
-				
+
 			})
 			It(`Invoke CartridgesPostMultipart with error: Param validation error`, func() {
 				testService, testServiceErr := annotatorforclinicaldataacdv1.NewAnnotatorForClinicalDataAcdV1(&annotatorforclinicaldataacdv1.AnnotatorForClinicalDataAcdV1Options{
@@ -2870,8 +2861,6 @@ var _ = Describe(`AnnotatorForClinicalDataAcdV1`, func() {
 					Expect(req.Method).To(Equal("POST"))
 					Expect(req.URL.Query()["version"]).To(Equal([]string{"testString"}))
 
-					// TODO: Add check for update query parameter
-
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
 					fmt.Fprintf(res, `} this is not valid json {`)
@@ -2916,8 +2905,6 @@ var _ = Describe(`AnnotatorForClinicalDataAcdV1`, func() {
 					Expect(req.URL.Path).To(Equal(deployCartridgePath))
 					Expect(req.Method).To(Equal("POST"))
 					Expect(req.URL.Query()["version"]).To(Equal([]string{"testString"}))
-
-					// TODO: Add check for update query parameter
 
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
