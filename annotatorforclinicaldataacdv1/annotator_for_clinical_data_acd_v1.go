@@ -1647,7 +1647,7 @@ func UnmarshalListAcdProfiles(m map[string]json.RawMessage, result interface{}) 
 	return
 }
 
-// AdverseEvent : AdverseEvent insight struct
+// AdverseEvent : AdverseEvent insight model struct
 type AdverseEvent struct {
 	Score *float64 `json:"score,omitempty"`
 
@@ -3119,7 +3119,7 @@ func UnmarshalDisambiguation(m map[string]json.RawMessage, result interface{}) (
 	return
 }
 
-// DoseChangedEvent : DoseChangedEvent insight struct
+// DoseChangedEvent : DoseChangedEvent insight model struct
 type DoseChangedEvent struct {
 	Score *float64 `json:"score,omitempty"`
 
@@ -4008,7 +4008,7 @@ func UnmarshalNormalityInsight(m map[string]json.RawMessage, result interface{})
 	return
 }
 
-// NormalityUsage : NormalityUsage insight struct
+// NormalityUsage : NormalityUsage insight model struct
 type NormalityUsage struct {
 	NormalScore *float64 `json:"normalScore,omitempty"`
 
@@ -4594,7 +4594,7 @@ func UnmarshalSpellingCorrection(m map[string]json.RawMessage, result interface{
 	return
 }
 
-// StartedEvent : StartedEvent insight struct
+// StartedEvent : StartedEvent insight model struct
 type StartedEvent struct {
 	Score *float64 `json:"score,omitempty"`
 
@@ -4616,7 +4616,7 @@ func UnmarshalStartedEvent(m map[string]json.RawMessage, result interface{}) (er
 	return
 }
 
-// StoppedEvent : StoppedEvent insight struct
+// StoppedEvent : StoppedEvent insight model struct
 type StoppedEvent struct {
 	Score *float64 `json:"score,omitempty"`
 
@@ -4814,7 +4814,7 @@ func UnmarshalSymptomDiseaseAnnotation(m map[string]json.RawMessage, result inte
 	return
 }
 
-// Task : Task insight struct
+// Task : Task insight model struct
 type Task struct {
 	TherapeuticScore *float64 `json:"therapeuticScore,omitempty"`
 
@@ -4854,7 +4854,7 @@ func UnmarshalTask(m map[string]json.RawMessage, result interface{}) (err error)
 	return
 }
 
-// Type : Type insight struct
+// Type : Type insight model struct
 type Type struct {
 	DeviceScore *float64 `json:"deviceScore,omitempty"`
 
@@ -5314,7 +5314,7 @@ func (options *UpdateProfileOptions) SetHeaders(param map[string]string) *Update
 	return options
 }
 
-// Usage : Usage insight struct
+// Usage : Usage insight model struct
 type Usage struct {
 	ExplicitScore *float64 `json:"explicitScore,omitempty"`
 
