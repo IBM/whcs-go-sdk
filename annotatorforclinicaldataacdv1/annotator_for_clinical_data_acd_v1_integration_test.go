@@ -577,6 +577,106 @@ var _ = Describe(`AnnotatorForClinicalDataAcdV1`, func() {
 		})
 	})
 
+	Describe(`RunPipelineWithFlow(runPipelineWithFlowOptions *RunPipelineWithFlowOptions)`, func() {
+		It(`Successfully run analyze pipeline`, func() {
+			pipelineOptions := ACD.NewRunPipelineWithFlowOptions("wh_acd.ibm_clinical_insights_v1.0_standard_flow", false)
+
+			container := ACD.NewUnstructuredContainer()
+			//container.SetText("The patient started on metformin because his blood sugar was too high.")
+			container.SetText("The CT scan showed a tumor in the left lung.")
+			analyticFlowBeanInput := ACD.NewAnalyticFlowBeanInput()
+			analyticFlowBeanInput.SetUnstructured([]annotatorforclinicaldataacdv1.UnstructuredContainer{*container})
+			pipelineOptions.SetAnalyticFlowBeanInput(analyticFlowBeanInput)
+			pipelineOptions.SetContentType("application/json")
+
+			pipelineOptions.SetDebugTextRestore(false)
+			result, detailedResponse, err := ACD.RunPipelineWithFlow(pipelineOptions)
+			Expect(err).To(BeNil())
+			Expect(detailedResponse).ToNot(BeNil())
+			Expect(detailedResponse.StatusCode).To(Equal(200))
+			Expect(result).ToNot(BeNil())
+			Expect(result.Unstructured).ToNot(BeNil())
+			for _, element := range result.Unstructured {
+				Expect(element.Data).ToNot(BeNil())
+				containerAnno := element.Data
+				Expect(containerAnno.AttributeValues).ToNot(BeNil())
+				for _, attributeValue := range containerAnno.AttributeValues {
+					Expect(attributeValue.Begin).ToNot(BeNil())
+					Expect(attributeValue.End).ToNot(BeNil())
+					Expect(attributeValue.CoveredText).ToNot(BeNil())
+					Expect(attributeValue.DisambiguationData).ToNot(BeNil())
+					Expect(attributeValue.PreferredName).ToNot(BeNil())
+					Expect(attributeValue.Negated).ToNot(BeNil())
+					Expect(attributeValue.Values).ToNot(BeNil())
+					for _, attributeValueEntry := range attributeValue.Values {
+						Expect(attributeValueEntry.Value).ToNot(BeNil())
+          }
+					if (attributeValue.InsightModelData != nil) {
+						if (attributeValue.InsightModelData.Normality != nil) {
+							norm := attributeValue.InsightModelData.Normality
+							if (norm.Evidence != nil) {
+								for _, evidence := range norm.Evidence {
+									Expect(evidence.Begin).ToNot(BeNil())
+									Expect(evidence.End).ToNot(BeNil())
+									Expect(evidence.CoveredText).ToNot(BeNil())
+								}
+							}
+						}
+						if (attributeValue.InsightModelData.Procedure != nil) {
+							proc := attributeValue.InsightModelData.Procedure
+							if (proc.Modifiers != nil) {
+								if (proc.Modifiers.AssociatedDiagnosis != nil) {
+									for _, assocDiag := range proc.Modifiers.AssociatedDiagnosis {
+										Expect(assocDiag.Begin).ToNot(BeNil())
+										Expect(assocDiag.End).ToNot(BeNil())
+										Expect(assocDiag.CoveredText).ToNot(BeNil())
+									}
+								}
+							}
+						}
+          }
+				}
+				Expect(containerAnno.MedicationInd).ToNot(BeNil())
+				for _, medIndEntry := range containerAnno.MedicationInd {
+					Expect(medIndEntry.Begin).ToNot(BeNil())
+					Expect(medIndEntry.End).ToNot(BeNil())
+					Expect(medIndEntry.CoveredText).ToNot(BeNil())
+					Expect(medIndEntry.Type).ToNot(BeNil())
+					Expect(medIndEntry.Negated).ToNot(BeNil())
+					if (medIndEntry.InsightModelData != nil) {
+						Expect(medIndEntry.InsightModelData.Medication).ToNot(BeNil())
+						medication := medIndEntry.InsightModelData.Medication
+						Expect(medication.Usage).ToNot(BeNil())
+						Expect(medication.StartedEvent).ToNot(BeNil())
+						Expect(medication.StoppedEvent).ToNot(BeNil())
+						Expect(medication.DoseChangedEvent).ToNot(BeNil())
+						Expect(medication.AdverseEvent).ToNot(BeNil())
+                    }
+				}
+
+				Expect(containerAnno.ProcedureInd).ToNot(BeNil())
+				for _, pIndEntry := range containerAnno.ProcedureInd {
+					Expect(pIndEntry.Begin).ToNot(BeNil())
+					Expect(pIndEntry.End).ToNot(BeNil())
+					Expect(pIndEntry.CoveredText).ToNot(BeNil())
+					Expect(pIndEntry.Type).ToNot(BeNil())
+					Expect(pIndEntry.Negated).ToNot(BeNil())
+					if (pIndEntry.InsightModelData != nil) {
+						Expect(pIndEntry.InsightModelData.Normality).ToNot(BeNil())
+						norm := pIndEntry.InsightModelData.Normality
+						Expect(norm.NormalityUsage).ToNot(BeNil())
+						Expect(norm.Evidence).ToNot(BeNil())
+          }
+				}
+				Expect(containerAnno.SpellCorrectedText).ToNot(BeNil())
+				for _, spellCorrectedEntry := range containerAnno.SpellCorrectedText {
+					Expect(spellCorrectedEntry.CorrectedText).ToNot(BeNil())
+					Expect(spellCorrectedEntry.DebugText).ToNot(BeNil())
+				}
+            }
+		})
+	})
+
 	Describe(`DeleteUserSpecificArtifacts(deleteUserSpecificArtifactsOptions *DeleteUserSpecificArtifactsOptions)`, func() {
 		It(`Successfully delete user specific artifacts`, func() {
 			artifactsOptions := ACD.NewDeleteUserSpecificArtifactsOptions()
