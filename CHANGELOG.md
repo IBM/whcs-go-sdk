@@ -1,3 +1,11 @@
+# [0.1.0](https://github.com/IBM/whcs-go-sdk/compare/v0.0.3...v0.1.0) (2020-09-09)
+
+
+### Features
+
+* WHS-406 additional insight model normality features ([6f89bc5](https://github.com/IBM/whcs-go-sdk/commit/6f89bc5c693ca7b8d72f8e85ad5b758a1de42ae6))
+* WHS-406 additional insight model normality features ([5e46972](https://github.com/IBM/whcs-go-sdk/commit/5e4697256799722b667d3a6ec246114e55035dc6))
+
 ## [0.0.3](https://github.com/IBM/whcs-go-sdk/compare/v0.0.2...v0.0.3) (2020-08-14)
 
 
