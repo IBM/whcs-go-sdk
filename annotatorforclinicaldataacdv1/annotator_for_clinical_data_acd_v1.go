@@ -902,9 +902,21 @@ func (annotatorForClinicalDataAcd *AnnotatorForClinicalDataAcdV1) RunPipelineWit
 		builder.AddQuery("debug_text_restore", fmt.Sprint(*runPipelineWithFlowOptions.DebugTextRestore))
 	}
 
-	_, err = builder.SetBodyContent(*runPipelineWithFlowOptions.ContentType, nil, nil, runPipelineWithFlowOptions.Body)
-	if err != nil {
-		return
+  if (*runPipelineWithFlowOptions.ContentType == "text/plain") {
+		_, err = builder.SetBodyContent(*runPipelineWithFlowOptions.ContentType, nil, nil, runPipelineWithFlowOptions.Body)
+		if err != nil {
+			return
+		}
+	}
+	if (*runPipelineWithFlowOptions.ContentType != "text/plain") {
+		body := make(map[string]interface{})
+		if (runPipelineWithFlowOptions.AnalyticFlowBeanInput != nil && runPipelineWithFlowOptions.AnalyticFlowBeanInput.Unstructured != nil) {
+			body["unstructured"] = runPipelineWithFlowOptions.AnalyticFlowBeanInput.Unstructured
+			_, err = builder.SetBodyContentJSON(body)
+			if err != nil {
+				return
+			}
+		}
 	}
 
 	request, err := builder.Build()
@@ -1682,6 +1694,23 @@ type AnalyticFlowBeanInput struct {
 	AnnotatorFlows []AnnotatorFlow `json:"annotatorFlows,omitempty"`
 }
 
+// NewAnalyticFlowBeanInput : Instantiate AnalyticFlowBeanInput
+func (*AnnotatorForClinicalDataAcdV1) NewAnalyticFlowBeanInput() *AnalyticFlowBeanInput {
+	return &AnalyticFlowBeanInput{}
+}
+
+// SetUnstructured : Allow user to set Unstructured
+func (input *AnalyticFlowBeanInput) SetUnstructured(unstructuredContainer []UnstructuredContainer) {
+	input.Unstructured = unstructuredContainer
+	return
+}
+
+// SetText : sets the container text
+func (container *UnstructuredContainer) SetText(text string) {
+	container.Text = core.StringPtr(text)
+	return
+}
+
 // UnmarshalAnalyticFlowBeanInput unmarshals an instance of AnalyticFlowBeanInput from the specified map of raw messages.
 func UnmarshalAnalyticFlowBeanInput(m map[string]json.RawMessage, result interface{}) (err error) {
 	obj := new(AnalyticFlowBeanInput)
@@ -1789,12 +1818,18 @@ func UnmarshalAnnotator(m map[string]json.RawMessage, result interface{}) (err e
 // AnnotatorDescription : AnnotatorDescription struct
 type AnnotatorDescription struct {
 	Description *string `json:"description,omitempty"`
+
+	Version *string `json:"version,omitempty"`
 }
 
 // UnmarshalAnnotatorDescription unmarshals an instance of AnnotatorDescription from the specified map of raw messages.
 func UnmarshalAnnotatorDescription(m map[string]json.RawMessage, result interface{}) (err error) {
 	obj := new(AnnotatorDescription)
 	err = core.UnmarshalPrimitive(m, "description", &obj.Description)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "version", &obj.Version)
 	if err != nil {
 		return
 	}
@@ -2301,7 +2336,7 @@ func UnmarshalCancerAnnotation(m map[string]json.RawMessage, result interface{})
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalPrimitive(m, "values", &obj.Cancer)
+	err = core.UnmarshalPrimitive(m, "cancer", &obj.Cancer)
 	if err != nil {
 		return
 	}
@@ -2654,6 +2689,18 @@ type ConceptValue struct {
 	Value *string `json:"value,omitempty"`
 
 	Source *string `json:"source,omitempty"`
+
+	RuleId *string `json:"ruleId,omitempty"`
+
+	DerivedFrom []Concept `json:"derivedFrom,omitempty"`
+
+	Unit *string `json:"unit,omitempty"`
+
+	Values []map[string]interface{} `json:"values,omitempty"`
+
+	RangeBegin *string `json:"rangeBegin,omitempty"`
+
+	RangeEnd *string `json:"rangeEnd,omitempty"`
 }
 
 // UnmarshalConceptValue unmarshals an instance of ConceptValue from the specified map of raw messages.
@@ -2720,6 +2767,30 @@ func UnmarshalConceptValue(m map[string]json.RawMessage, result interface{}) (er
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "source", &obj.Source)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "ruleId", &obj.RuleId)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalModel(m, "derivedFrom", &obj.DerivedFrom, UnmarshalConcept)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "unit", &obj.Unit)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "values", &obj.Values)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "rangeBegin", &obj.RangeBegin)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "rangeEnd", &obj.RangeEnd)
 	if err != nil {
 		return
 	}
@@ -3074,6 +3145,8 @@ type DiagnosisInsight struct {
 	TraumaScore *float64 `json:"traumaScore,omitempty"`
 
 	FamilyHistoryScore *float64 `json:"familyHistoryScore,omitempty"`
+
+	Modifiers *DiagnosisModifier `json:"modifiers,omitempty"`
 }
 
 // UnmarshalDiagnosisInsight unmarshals an instance of DiagnosisInsight from the specified map of raw messages.
@@ -3096,6 +3169,32 @@ func UnmarshalDiagnosisInsight(m map[string]json.RawMessage, result interface{})
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "familyHistoryScore", &obj.FamilyHistoryScore)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalModel(m, "modifiers", &obj.Modifiers, UnmarshalDiagnosisModifier)
+	if err != nil {
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// DiagnosisModifier : Diagnosis Modifier Insight struct.
+type DiagnosisModifier struct {
+	AssociatedProcedures []Evidence `json:"associatedProcedures,omitempty"`
+
+	Sites []Site `json:"sites,omitempty"`
+}
+
+// UnmarshalDiagnosisModifier unmarshal an instance of DiagnosisModifier from the specified raw message.
+func UnmarshalDiagnosisModifier(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(DiagnosisModifier)
+	err = core.UnmarshalModel(m, "associatedProcedures", &obj.AssociatedProcedures, UnmarshalEvidence)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalModel(m, "sites", &obj.Sites, UnmarshalSite)
 	if err != nil {
 		return
 	}
@@ -3123,6 +3222,8 @@ func UnmarshalDisambiguation(m map[string]json.RawMessage, result interface{}) (
 type DoseChangedEvent struct {
 	Score *float64 `json:"score,omitempty"`
 
+	AllergyScore *float64 `json:"allergyScore,omitempty"`
+
 	Usage *Usage `json:"usage,omitempty"`
 }
 
@@ -3130,6 +3231,10 @@ type DoseChangedEvent struct {
 func UnmarshalDoseChangedEvent(m map[string]json.RawMessage, result interface{}) (err error) {
 	obj := new(DoseChangedEvent)
 	err = core.UnmarshalPrimitive(m, "score", &obj.Score)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "allergyScore", &obj.AllergyScore)
 	if err != nil {
 		return
 	}
@@ -3305,7 +3410,7 @@ func UnmarshalEntity(m map[string]json.RawMessage, result interface{}) (err erro
 	return
 }
 
-// Evidence : Evidence struct
+// Evidence : Insight Model Data Evidence struct
 type Evidence struct {
 	Begin *int64 `json:"begin,omitempty"`
 
@@ -3991,6 +4096,8 @@ type NormalityInsight struct {
 	NormalityUsage *NormalityUsage `json:"usage,omitempty"`
 
 	Evidence []Evidence `json:"evidence,omitempty"`
+
+	DirectlyAffectedScore *float64 `json:"directlyAffectedScore,omitempty"`
 }
 
 // UnmarshalNormalityInsight unmarshal an instance of NormalityInsight from the specified raw message.
@@ -4001,6 +4108,10 @@ func UnmarshalNormalityInsight(m map[string]json.RawMessage, result interface{})
 		return
 	}
 	err = core.UnmarshalModel(m, "evidence", &obj.Evidence, UnmarshalEvidence)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "directlyAffectedScore", &obj.DirectlyAffectedScore)
 	if err != nil {
 		return
 	}
@@ -4155,6 +4266,8 @@ type ProcedureInsight struct {
 	Type *Type `json:"type,omitempty"`
 
 	Usage *Usage `json:"usage,omitempty"`
+
+	Modifiers *ProcedureModifier `json:"modifiers,omitempty"`
 }
 
 // UnmarshalProcedureInsight unmarshal an instance of ProcedureInsight from the specified raw message.
@@ -4169,6 +4282,32 @@ func UnmarshalProcedureInsight(m map[string]json.RawMessage, result interface{})
 		return
 	}
 	err = core.UnmarshalModel(m, "usage", &obj.Usage, UnmarshalUsage)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalModel(m, "modifiers", &obj.Modifiers, UnmarshalProcedureModifier)
+	if err != nil {
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// ProcedureModifier : Procedure Modifier Insight struct.
+type ProcedureModifier struct {
+	AssociatedDiagnosis []Evidence `json:"associatedDiagnosis,omitempty"`
+
+	Sites []Site `json:"sites,omitempty"`
+}
+
+// UnmarshalProcedureModifier unmarshal an instance of ProcedureModifier from the specified raw message.
+func UnmarshalProcedureModifier(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(ProcedureModifier)
+	err = core.UnmarshalModel(m, "associatedDiagnosis", &obj.AssociatedDiagnosis, UnmarshalEvidence)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalModel(m, "sites", &obj.Sites, UnmarshalSite)
 	if err != nil {
 		return
 	}
@@ -4432,6 +4571,40 @@ func UnmarshalSectionTrigger(m map[string]json.RawMessage, result interface{}) (
 	return
 }
 
+// Site : Insight Model Data Site struct
+type Site struct {
+	Begin *int64 `json:"begin,omitempty"`
+
+	End *int64 `json:"end,omitempty"`
+
+	CoveredText *string `json:"coveredText,omitempty"`
+
+	Type *string `json:"type,omitempty"`
+}
+
+// UnmarshalSite unmarshals an instance of Site from the specified map of raw messages.
+func UnmarshalSite(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(Site)
+	err = core.UnmarshalPrimitive(m, "begin", &obj.Begin)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "end", &obj.End)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "coveredText", &obj.CoveredText)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "type", &obj.Type)
+	if err != nil {
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
 // SmokingAnnotation : SmokingAnnotation struct
 type SmokingAnnotation struct {
 	Begin *int64 `json:"begin,omitempty"`
@@ -4598,6 +4771,8 @@ func UnmarshalSpellingCorrection(m map[string]json.RawMessage, result interface{
 type StartedEvent struct {
 	Score *float64 `json:"score,omitempty"`
 
+	AllergyScore *float64 `json:"allergyScore,omitempty"`
+
 	Usage *Usage `json:"usage,omitempty"`
 }
 
@@ -4605,6 +4780,10 @@ type StartedEvent struct {
 func UnmarshalStartedEvent(m map[string]json.RawMessage, result interface{}) (err error) {
 	obj := new(StartedEvent)
 	err = core.UnmarshalPrimitive(m, "score", &obj.Score)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "allergyScore", &obj.AllergyScore)
 	if err != nil {
 		return
 	}
@@ -4620,6 +4799,8 @@ func UnmarshalStartedEvent(m map[string]json.RawMessage, result interface{}) (er
 type StoppedEvent struct {
 	Score *float64 `json:"score,omitempty"`
 
+	AllergyScore *float64 `json:"allergyScore,omitempty"`
+
 	Usage *Usage `json:"usage,omitempty"`
 }
 
@@ -4627,6 +4808,10 @@ type StoppedEvent struct {
 func UnmarshalStoppedEvent(m map[string]json.RawMessage, result interface{}) (err error) {
 	obj := new(StoppedEvent)
 	err = core.UnmarshalPrimitive(m, "score", &obj.Score)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "allergyScore", &obj.AllergyScore)
 	if err != nil {
 		return
 	}
@@ -4912,12 +5097,6 @@ type UnstructuredContainer struct {
 // NewUnstructuredContainer : Instantiate UnstructuredContainer
 func (*AnnotatorForClinicalDataAcdV1) NewUnstructuredContainer() *UnstructuredContainer {
 	return &UnstructuredContainer{}
-}
-
-// SetText : sets the container text
-func (container *UnstructuredContainer) SetText(text string) {
-	container.Text = core.StringPtr(text)
-	return
 }
 
 // UnmarshalUnstructuredContainer unmarshals an instance of UnstructuredContainer from the specified map of raw messages.
