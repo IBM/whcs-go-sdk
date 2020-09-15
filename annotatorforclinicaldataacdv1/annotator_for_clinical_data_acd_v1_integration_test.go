@@ -97,7 +97,7 @@ var _ = Describe(`AnnotatorForClinicalDataAcdV1`, func() {
 			Expect(detailedResponse).ToNot(BeNil())
 			Expect(detailedResponse.StatusCode).To(Equal(200))
 			Expect(result).ToNot(BeNil())
-			for profileId, _ := range result.Profiles {
+			for profileId, _ := range result {
 				Expect(profileId).ToNot(BeNil())
 			}
 		})
@@ -171,7 +171,7 @@ var _ = Describe(`AnnotatorForClinicalDataAcdV1`, func() {
 			Expect(detailedResponse).ToNot(BeNil())
 			Expect(detailedResponse.StatusCode).To(Equal(200))
 			Expect(result).ToNot(BeNil())
-			for flowId, _ := range result.Flows {
+			for flowId, _ := range result {
 				Expect(flowId).ToNot(BeNil())
 			}
 		})
@@ -254,8 +254,7 @@ var _ = Describe(`AnnotatorForClinicalDataAcdV1`, func() {
 			Expect(detailedResponse).ToNot(BeNil())
 			Expect(detailedResponse.StatusCode).To(Equal(200))
 			Expect(result).ToNot(BeNil())
-			Expect(result.Annotators)
-			for annotatorId, _ := range result.Annotators {
+			for annotatorId, _ := range result {
 				Expect(annotatorId).ToNot(BeNil())
 			}
 		})
@@ -295,27 +294,21 @@ var _ = Describe(`AnnotatorForClinicalDataAcdV1`, func() {
 			cdAnnotator.Parameters = cdParams
 			cdFlowEntry, err := ACD.NewFlowEntry(cdAnnotator)
 			cdFlowEntry.Annotator = cdAnnotator
-
 			cvAnnotator, err := ACD.NewAnnotator("concept_value")
 			cvFlowEntry, err := ACD.NewFlowEntry(cvAnnotator)
 			cvFlowEntry.Annotator = cvAnnotator
-
 			cancerAnnotator, err := ACD.NewAnnotator("cancer")
 			cancerFlowEntry, err := ACD.NewFlowEntry(cancerAnnotator)
 			cancerFlowEntry.Annotator = cancerAnnotator
-
 			efAnnotator, err := ACD.NewAnnotator("ejection_fraction")
 			efFlowEntry, err := ACD.NewFlowEntry(efAnnotator)
 			efFlowEntry.Annotator = efAnnotator
-
 			smokingAnnotator, err := ACD.NewAnnotator("smoking")
 			smokingFlowEntry, err := ACD.NewFlowEntry(smokingAnnotator)
 			smokingFlowEntry.Annotator = smokingAnnotator
-
 			labValueAnnotator, err := ACD.NewAnnotator("lab_value")
 			labValueFlowEntry, err := ACD.NewFlowEntry(labValueAnnotator)
 			labValueFlowEntry.Annotator = labValueAnnotator
-
 			spellCheckParams := make(map[string][]string)
 			spellCheckProfile := []string{"default"}
 			spellCheckParams["spell_check_profile"] = spellCheckProfile
@@ -323,7 +316,6 @@ var _ = Describe(`AnnotatorForClinicalDataAcdV1`, func() {
 			spellAnnotator.Parameters = spellCheckParams
 			spellFlowEntry, err := ACD.NewFlowEntry(spellAnnotator)
 			spellFlowEntry.Annotator = spellAnnotator
-
 			async := false
 			flow, err := ACD.NewFlow([]annotatorforclinicaldataacdv1.FlowEntry{*cdFlowEntry, *cvFlowEntry, *cancerFlowEntry, *efFlowEntry, *smokingFlowEntry, *labValueFlowEntry, *spellFlowEntry}, core.BoolPtr(async))
 			annotatorFlow, err := ACD.NewAnnotatorFlow(flow)
@@ -428,8 +420,8 @@ var _ = Describe(`AnnotatorForClinicalDataAcdV1`, func() {
 					Expect(allergyMed.End).ToNot(BeNil())
 					Expect(allergyMed.CoveredText).ToNot(BeNil())
 					Expect(allergyMed.Type).ToNot(BeNil())
-                }
-            }
+        }
+      }
 		})
 	})
 
@@ -439,17 +431,14 @@ var _ = Describe(`AnnotatorForClinicalDataAcdV1`, func() {
 			cdAnnotator, err := ACD.NewAnnotator("concept_detection")
 			cdFlowEntry, err := ACD.NewFlowEntry(cdAnnotator)
 			cdFlowEntry.Annotator = cdAnnotator
-
 			seeingAssistAnnotator, err := ACD.NewAnnotator("seeing_assistance")
 			seeingAssistFlowEntry, err := ACD.NewFlowEntry(seeingAssistAnnotator)
 			seeingAssistFlowEntry.Annotator = seeingAssistAnnotator
 			async := false
 			flow, err := ACD.NewFlow([]annotatorforclinicaldataacdv1.FlowEntry{*cdFlowEntry, *seeingAssistFlowEntry}, core.BoolPtr(async))
 			annotatorFlow, err := ACD.NewAnnotatorFlow(flow)
-
 			pipelineOptions.SetAnnotatorFlows([]annotatorforclinicaldataacdv1.AnnotatorFlow{*annotatorFlow})
 			container := ACD.NewUnstructuredContainer()
-
 			container.SetText("She has macular degeneration which puts her at high risk for seeing difficulties.")
 			pipelineOptions.SetUnstructured([]annotatorforclinicaldataacdv1.UnstructuredContainer{*container})
 			pipelineOptions.SetDebugTextRestore(false)
@@ -471,8 +460,8 @@ var _ = Describe(`AnnotatorForClinicalDataAcdV1`, func() {
 					Expect(seeingAssist.CoveredText).ToNot(BeNil())
 					Expect(seeingAssist.Type).ToNot(BeNil())
 					Expect(seeingAssist.Modality).ToNot(BeNil())
-                }
-            }
+        }
+      }
 		})
 	})
 
@@ -501,7 +490,7 @@ var _ = Describe(`AnnotatorForClinicalDataAcdV1`, func() {
 					Expect(attributeValue.Values).ToNot(BeNil())
 					for _, attributeValueEntry := range attributeValue.Values {
 						Expect(attributeValueEntry.Value).ToNot(BeNil())
-                    }
+          }
 				}
 				Expect(containerAnno.MedicationInd).ToNot(BeNil())
 				for _, medIndEntry := range containerAnno.MedicationInd {
@@ -517,10 +506,9 @@ var _ = Describe(`AnnotatorForClinicalDataAcdV1`, func() {
 						Expect(medication.StartedEvent).ToNot(BeNil())
 						Expect(medication.StoppedEvent).ToNot(BeNil())
 						Expect(medication.AdverseEvent).ToNot(BeNil())
-                    }
-
+          }
 				}
-            }
+      }
 		})
 	})
 	Describe(`RunPipelineWithFlow(runPipelineWithFlowOptions *RunPipelineWithFlowOptions)`, func() {
@@ -549,8 +537,8 @@ var _ = Describe(`AnnotatorForClinicalDataAcdV1`, func() {
 					Expect(attributeValue.Values).ToNot(BeNil())
 					for _, attributeValueEntry := range attributeValue.Values {
 						Expect(attributeValueEntry.Value).ToNot(BeNil())
-                    }
-                }
+          }
+        }
 				Expect(containerAnno.MedicationInd).ToNot(BeNil())
 				for _, medIndEntry := range containerAnno.MedicationInd {
 					Expect(medIndEntry.Begin).ToNot(BeNil())
@@ -566,29 +554,26 @@ var _ = Describe(`AnnotatorForClinicalDataAcdV1`, func() {
 						Expect(medication.StoppedEvent).ToNot(BeNil())
 						Expect(medication.DoseChangedEvent).ToNot(BeNil())
 						Expect(medication.AdverseEvent).ToNot(BeNil())
-                    }
+          }
 				}
 				Expect(containerAnno.SpellCorrectedText).ToNot(BeNil())
 				for _, spellCorrectedEntry := range containerAnno.SpellCorrectedText {
 					Expect(spellCorrectedEntry.CorrectedText).ToNot(BeNil())
 					Expect(spellCorrectedEntry.DebugText).ToNot(BeNil())
 				}
-            }
+      }
 		})
 	})
 
 	Describe(`RunPipelineWithFlow(runPipelineWithFlowOptions *RunPipelineWithFlowOptions)`, func() {
 		It(`Successfully run analyze pipeline`, func() {
 			pipelineOptions := ACD.NewRunPipelineWithFlowOptions("wh_acd.ibm_clinical_insights_v1.0_standard_flow", false)
-
 			container := ACD.NewUnstructuredContainer()
-			//container.SetText("The patient started on metformin because his blood sugar was too high.")
 			container.SetText("The CT scan showed a tumor in the left lung.")
 			analyticFlowBeanInput := ACD.NewAnalyticFlowBeanInput()
 			analyticFlowBeanInput.SetUnstructured([]annotatorforclinicaldataacdv1.UnstructuredContainer{*container})
 			pipelineOptions.SetAnalyticFlowBeanInput(analyticFlowBeanInput)
 			pipelineOptions.SetContentType("application/json")
-
 			pipelineOptions.SetDebugTextRestore(false)
 			result, detailedResponse, err := ACD.RunPipelineWithFlow(pipelineOptions)
 			Expect(err).To(BeNil())
@@ -651,7 +636,7 @@ var _ = Describe(`AnnotatorForClinicalDataAcdV1`, func() {
 						Expect(medication.StoppedEvent).ToNot(BeNil())
 						Expect(medication.DoseChangedEvent).ToNot(BeNil())
 						Expect(medication.AdverseEvent).ToNot(BeNil())
-                    }
+          }
 				}
 
 				Expect(containerAnno.ProcedureInd).ToNot(BeNil())
@@ -673,7 +658,7 @@ var _ = Describe(`AnnotatorForClinicalDataAcdV1`, func() {
 					Expect(spellCorrectedEntry.CorrectedText).ToNot(BeNil())
 					Expect(spellCorrectedEntry.DebugText).ToNot(BeNil())
 				}
-            }
+      }
 		})
 	})
 
@@ -753,7 +738,7 @@ var _ = Describe(`AnnotatorForClinicalDataAcdV1`, func() {
 				Expect(detailedResponse).ToNot(BeNil())
 				Expect(detailedResponse.StatusCode).To(Equal(202))
 				Expect(result).ToNot(BeNil())
-            }
+      }
 		})
 	})
 

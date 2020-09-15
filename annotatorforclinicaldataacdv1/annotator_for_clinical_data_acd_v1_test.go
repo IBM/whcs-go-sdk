@@ -233,9 +233,6 @@ var _ = Describe(`AnnotatorForClinicalDataAcdV1`, func() {
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).ToNot(BeNil())
-				for profileId, _ := range result.Profiles {
-					Expect(profileId).ToNot(BeNil())
-				}
 			})
 			It(`Invoke GetProfiles with error: Operation request error`, func() {
 				testService, testServiceErr := annotatorforclinicaldataacdv1.NewAnnotatorForClinicalDataAcdV1(&annotatorforclinicaldataacdv1.AnnotatorForClinicalDataAcdV1Options{
@@ -885,9 +882,6 @@ var _ = Describe(`AnnotatorForClinicalDataAcdV1`, func() {
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).ToNot(BeNil())
-				for flowId, _ := range result.Flows {
-					Expect(flowId).ToNot(BeNil())
-				}
 			})
 			It(`Invoke GetFlows with error: Operation request error`, func() {
 				testService, testServiceErr := annotatorforclinicaldataacdv1.NewAnnotatorForClinicalDataAcdV1(&annotatorforclinicaldataacdv1.AnnotatorForClinicalDataAcdV1Options{
@@ -2007,10 +2001,6 @@ var _ = Describe(`AnnotatorForClinicalDataAcdV1`, func() {
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).ToNot(BeNil())
-				for annotatorId, _ := range result.Annotators {
-					Expect(annotatorId).ToNot(BeNil())
-				}
-
 			})
 			It(`Invoke GetAnnotators with error: Operation request error`, func() {
 				testService, testServiceErr := annotatorforclinicaldataacdv1.NewAnnotatorForClinicalDataAcdV1(&annotatorforclinicaldataacdv1.AnnotatorForClinicalDataAcdV1Options{
