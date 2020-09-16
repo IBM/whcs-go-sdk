@@ -1,3 +1,12 @@
+## [0.1.1](https://github.com/IBM/whcs-go-sdk/compare/v0.1.0...v0.1.1) (2020-09-16)
+
+
+### Bug Fixes
+
+* ContainerAnnotation field definition ([43d4dc1](https://github.com/IBM/whcs-go-sdk/commit/43d4dc10eb0a2b74b3bd0a08b68d8dc196327ef5))
+* Example GetProfiles ([a0f41cb](https://github.com/IBM/whcs-go-sdk/commit/a0f41cb3fc7d2ed0312052ea55de47679f011964))
+* runPipelineWithFlow support Json request ([1aba13c](https://github.com/IBM/whcs-go-sdk/commit/1aba13ce7b7a346fd4a1297f95681bd7a5589829))
+
 # [0.1.0](https://github.com/IBM/whcs-go-sdk/compare/v0.0.3...v0.1.0) (2020-09-09)
 
 
