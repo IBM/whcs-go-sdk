@@ -968,14 +968,12 @@ func (annotatorForClinicalDataAcd *AnnotatorForClinicalDataAcdV1) RunPipelineWit
 	}
 
 	if (runPipelineWithFlowOptions.AnalyticFlowBeanInput != nil && runPipelineWithFlowOptions.AnalyticFlowBeanInput.Unstructured != nil) {
+		contentType := "application/json"
 		if runPipelineWithFlowOptions.ContentType != nil {
-			builder.AddHeader("Content-Type", fmt.Sprint(*runPipelineWithFlowOptions.ContentType))
-		} else {
-			builder.AddHeader("Content-Type", fmt.Sprint("application/json"))
+			contentType = *runPipelineWithFlowOptions.ContentType
 		}
-		body := make(map[string]interface{})
-		body["unstructured"] = runPipelineWithFlowOptions.AnalyticFlowBeanInput.Unstructured
-		_, err = builder.SetBodyContentJSON(body)
+		builder.AddHeader("Content-Type", fmt.Sprint(contentType))
+		_, err = builder.SetBodyContentJSON(runPipelineWithFlowOptions.AnalyticFlowBeanInput)
 		if err != nil {
 			return
 		}
@@ -990,7 +988,7 @@ func (annotatorForClinicalDataAcd *AnnotatorForClinicalDataAcdV1) RunPipelineWit
 			return
 		}
 	} else {
-		err = fmt.Errorf("Text to be analyzed must be supplied")
+		err = fmt.Errorf("Text must be supplied to be analyzed")
 		return
 	}
 
@@ -1746,12 +1744,6 @@ func (*AnnotatorForClinicalDataAcdV1) NewAnalyticFlowBeanInput() *AnalyticFlowBe
 // SetUnstructured : Allow user to set Unstructured
 func (input *AnalyticFlowBeanInput) SetUnstructured(unstructuredContainer []UnstructuredContainer) {
 	input.Unstructured = unstructuredContainer
-	return
-}
-
-// SetText : sets the container text
-func (container *UnstructuredContainer) SetText(text string) {
-	container.Text = core.StringPtr(text)
 	return
 }
 
@@ -5242,6 +5234,18 @@ func UnmarshalUnstructuredContainer(m map[string]json.RawMessage, result interfa
 	return
 }
 
+// SetText : sets the container text
+func (container *UnstructuredContainer) SetText(text string) {
+	container.Text = core.StringPtr(text)
+	return
+}
+
+// SetData : sets the container data
+func (container *UnstructuredContainer) SetData(data *ContainerAnnotation) {
+	container.Data = data
+	return
+}
+
 // ContainerAnnotation : ContainerAnnotation struct
 type ContainerAnnotation struct {
 
@@ -5267,15 +5271,15 @@ type ContainerAnnotation struct {
 
 	MedicationInd []MedicationAnnotation `json:"MedicationInd,omitempty"`
 
-	EmailAddressInd []Annotation `json:EmailAddressInd,omitempty"`
+	EmailAddressInd []Annotation `json:"EmailAddressInd,omitempty"`
 
-	PersonInd []Annotation `json:PersonInd,omitempty"`
+	PersonInd []Annotation `json:"PersonInd,omitempty"`
 
-	US_PhoneNumberInd []Annotation `json:US_PhoneNumberInd,omitempty"`
+	US_PhoneNumberInd []Annotation `json:"US_PhoneNumberInd,omitempty"`
 
-	MedicalInstitutionInd []Annotation `json:MedicalInstitutionInd,omitempty"`
+	MedicalInstitutionInd []Annotation `json:"MedicalInstitutionInd,omitempty"`
 
-	OrganizationInd []Annotation `json:OrganizationInd,omitempty"`
+	OrganizationInd []Annotation `json:"OrganizationInd,omitempty"`
 
 	NegatedSpans []NegatedSpan `json:"negatedSpans,omitempty"`
 
@@ -5299,7 +5303,12 @@ type ContainerAnnotation struct {
 
 	SpellingCorrections []SpellingCorrection `json:"spellingCorrections,omitempty"`
 
-	SpellCorrectedText []SpellCorrectedText `json:spellCorrectedText,omitempty"`
+	SpellCorrectedText []SpellCorrectedText `json:"spellCorrectedText,omitempty"`
+}
+
+// NewContainerAnnotation : Instantiate ContainerAnnotation
+func (*AnnotatorForClinicalDataAcdV1) NewContainerAnnotation() *ContainerAnnotation {
+	return &ContainerAnnotation{}
 }
 
 // UnmarshalContainerAnnotation unmarshals an instance of ContainerAnnotation from the specified map of raw messages.
