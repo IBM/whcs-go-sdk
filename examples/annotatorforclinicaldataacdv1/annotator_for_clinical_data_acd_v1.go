@@ -38,7 +38,7 @@ func main() {
 	// Print specific feature from Get Profiles result
 	if getProfilesResult != nil {
 		fmt.Println("List of Profiles by ID")
-		for profileId, _ := range getProfilesResult.Profiles {
+		for profileId, _ := range getProfilesResult {
 			fmt.Println("Profile ID: ", profileId)
 
 			// Call the Get Profile By ID method
