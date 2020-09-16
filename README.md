@@ -1,4 +1,4 @@
-# IBM Watson Health Cognitive Services Go SDK Version 0.1.0
+# IBM Watson Health Cognitive Services Go SDK Version 0.1.1
 
 ## Overview
 
@@ -20,7 +20,7 @@ NOTE: You must be signed into IBM Cloud to see the docs.
 * Go version 1.12 or above.
 
 ## Installation
-The current version of this SDK: 0.1.0
+The current version of this SDK: 0.1.1
 
 There are a few different ways to download and install the MySDK Go SDK project for use by your
 Go application:
@@ -53,7 +53,7 @@ to your `Gopkg.toml` file.  Here is an example:
 ```
 [[constraint]]
   name = "github.com/IBM/whcs-go-sdk"
-  version = "0.1.0"
+  version = "0.1.1"
 
 ```
 
