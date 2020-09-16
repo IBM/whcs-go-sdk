@@ -122,7 +122,7 @@ func (annotatorForClinicalDataAcd *AnnotatorForClinicalDataAcdV1) SetServiceURL(
 
 // GetProfiles : Get list of available persisted profiles
 // Returns a summary including ID and description of the available persisted profiles.
-func (annotatorForClinicalDataAcd *AnnotatorForClinicalDataAcdV1) GetProfiles(getProfilesOptions *GetProfilesOptions) (result *ListAcdProfiles, response *core.DetailedResponse, err error) {
+func (annotatorForClinicalDataAcd *AnnotatorForClinicalDataAcdV1) GetProfiles(getProfilesOptions *GetProfilesOptions) (result map[string] AcdProfile, response *core.DetailedResponse, err error) {
 	err = core.ValidateStruct(getProfilesOptions, "getProfilesOptions")
 	if err != nil {
 		return
@@ -160,7 +160,7 @@ func (annotatorForClinicalDataAcd *AnnotatorForClinicalDataAcdV1) GetProfiles(ge
 		return
 	}
 
-	err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalListAcdProfiles)
+	err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalAcdProfile)
 	if err != nil {
 		return
 	}
@@ -255,7 +255,18 @@ func (annotatorForClinicalDataAcd *AnnotatorForClinicalDataAcdV1) CreateProfile(
 		return
 	}
 
-	response, err = annotatorForClinicalDataAcd.Service.Request(request, nil)
+  var rawResponse map[string]json.RawMessage
+	response, err = annotatorForClinicalDataAcd.Service.Request(request, &rawResponse)
+	if err != nil {
+		return
+	}
+
+	var result *AcdProfile
+	err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalAcdProfile)
+	if err != nil {
+		return
+	}
+	response.Result = result
 
 	return
 }
@@ -381,7 +392,18 @@ func (annotatorForClinicalDataAcd *AnnotatorForClinicalDataAcdV1) UpdateProfile(
 		return
 	}
 
-	response, err = annotatorForClinicalDataAcd.Service.Request(request, nil)
+  var rawResponse map[string]json.RawMessage
+	response, err = annotatorForClinicalDataAcd.Service.Request(request, &rawResponse)
+	if err != nil {
+		return
+	}
+
+	var result *AcdProfile
+	err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalAcdProfile)
+	if err != nil {
+		return
+	}
+	response.Result = result
 
 	return
 }
@@ -423,14 +445,25 @@ func (annotatorForClinicalDataAcd *AnnotatorForClinicalDataAcdV1) DeleteProfile(
 		return
 	}
 
-	response, err = annotatorForClinicalDataAcd.Service.Request(request, nil)
+  var rawResponse map[string]json.RawMessage
+	response, err = annotatorForClinicalDataAcd.Service.Request(request, &rawResponse)
+	if err != nil {
+		return
+	}
+
+	var result *AcdProfile
+	err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalAcdProfile)
+	if err != nil {
+		return
+	}
+	response.Result = result
 
 	return
 }
 
 // GetFlows : Get list of available persisted flows
 // Returns a summary including ID and description of the available persisted flows.
-func (annotatorForClinicalDataAcd *AnnotatorForClinicalDataAcdV1) GetFlows(getFlowsOptions *GetFlowsOptions) (result *ListAcdFlows, response *core.DetailedResponse, err error) {
+func (annotatorForClinicalDataAcd *AnnotatorForClinicalDataAcdV1) GetFlows(getFlowsOptions *GetFlowsOptions) (result map[string]AcdFlow, response *core.DetailedResponse, err error) {
 	err = core.ValidateStruct(getFlowsOptions, "getFlowsOptions")
 	if err != nil {
 		return
@@ -468,7 +501,7 @@ func (annotatorForClinicalDataAcd *AnnotatorForClinicalDataAcdV1) GetFlows(getFl
 		return
 	}
 
-	err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalListAcdFlows)
+	err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalAcdFlow)
 	if err != nil {
 		return
 	}
@@ -568,7 +601,18 @@ func (annotatorForClinicalDataAcd *AnnotatorForClinicalDataAcdV1) CreateFlows(cr
 		return
 	}
 
-	response, err = annotatorForClinicalDataAcd.Service.Request(request, nil)
+  var rawResponse map[string]json.RawMessage
+	response, err = annotatorForClinicalDataAcd.Service.Request(request, &rawResponse)
+	if err != nil {
+		return
+	}
+
+	var result *AcdFlow
+	err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalAcdFlow)
+	if err != nil {
+		return
+	}
+	response.Result = result
 
 	return
 }
@@ -694,7 +738,18 @@ func (annotatorForClinicalDataAcd *AnnotatorForClinicalDataAcdV1) UpdateFlows(up
 		return
 	}
 
-	response, err = annotatorForClinicalDataAcd.Service.Request(request, nil)
+  var rawResponse map[string]json.RawMessage
+	response, err = annotatorForClinicalDataAcd.Service.Request(request, &rawResponse)
+	if err != nil {
+		return
+	}
+
+	var result *AcdFlow
+	err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalAcdFlow)
+	if err != nil {
+		return
+	}
+	response.Result = result
 
 	return
 }
@@ -736,7 +791,18 @@ func (annotatorForClinicalDataAcd *AnnotatorForClinicalDataAcdV1) DeleteFlows(de
 		return
 	}
 
-	response, err = annotatorForClinicalDataAcd.Service.Request(request, nil)
+  var rawResponse map[string]json.RawMessage
+	response, err = annotatorForClinicalDataAcd.Service.Request(request, &rawResponse)
+	if err != nil {
+		return
+	}
+
+	var result *AcdFlow
+	err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalAcdFlow)
+	if err != nil {
+		return
+	}
+	response.Result = result
 
 	return
 }
@@ -844,6 +910,7 @@ func (annotatorForClinicalDataAcd *AnnotatorForClinicalDataAcdV1) RunPipeline(ru
 	if err != nil {
 		return
 	}
+
 	err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalAnalyticFlowBeanInput)
 	if err != nil {
 		return
@@ -891,9 +958,7 @@ func (annotatorForClinicalDataAcd *AnnotatorForClinicalDataAcdV1) RunPipelineWit
 	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
-	if runPipelineWithFlowOptions.ContentType != nil {
-		builder.AddHeader("Content-Type", fmt.Sprint(*runPipelineWithFlowOptions.ContentType))
-	}
+
 	builder.AddHeader("Accept", "application/json")
 
 	builder.AddQuery("version", fmt.Sprint(*annotatorForClinicalDataAcd.Version))
@@ -902,21 +967,29 @@ func (annotatorForClinicalDataAcd *AnnotatorForClinicalDataAcdV1) RunPipelineWit
 		builder.AddQuery("debug_text_restore", fmt.Sprint(*runPipelineWithFlowOptions.DebugTextRestore))
 	}
 
-  if (*runPipelineWithFlowOptions.ContentType == "text/plain") {
-		_, err = builder.SetBodyContent(*runPipelineWithFlowOptions.ContentType, nil, nil, runPipelineWithFlowOptions.Body)
+	if (runPipelineWithFlowOptions.AnalyticFlowBeanInput != nil && runPipelineWithFlowOptions.AnalyticFlowBeanInput.Unstructured != nil) {
+		contentType := "application/json"
+		if runPipelineWithFlowOptions.ContentType != nil {
+			contentType = *runPipelineWithFlowOptions.ContentType
+		}
+		builder.AddHeader("Content-Type", fmt.Sprint(contentType))
+		_, err = builder.SetBodyContentJSON(runPipelineWithFlowOptions.AnalyticFlowBeanInput)
 		if err != nil {
 			return
 		}
-	}
-	if (*runPipelineWithFlowOptions.ContentType != "text/plain") {
-		body := make(map[string]interface{})
-		if (runPipelineWithFlowOptions.AnalyticFlowBeanInput != nil && runPipelineWithFlowOptions.AnalyticFlowBeanInput.Unstructured != nil) {
-			body["unstructured"] = runPipelineWithFlowOptions.AnalyticFlowBeanInput.Unstructured
-			_, err = builder.SetBodyContentJSON(body)
-			if err != nil {
-				return
-			}
+	} else if (runPipelineWithFlowOptions.Body != nil) {
+		contentType := "text/plain"
+		if runPipelineWithFlowOptions.ContentType != nil {
+			contentType = *runPipelineWithFlowOptions.ContentType
 		}
+		builder.AddHeader("Content-Type", fmt.Sprint(contentType))
+		_, err = builder.SetBodyContent(contentType, nil, nil, runPipelineWithFlowOptions.Body)
+		if err != nil {
+			return
+		}
+	} else {
+		err = fmt.Errorf("Text must be supplied to be analyzed")
+		return
 	}
 
 	request, err := builder.Build()
@@ -942,7 +1015,7 @@ func (annotatorForClinicalDataAcd *AnnotatorForClinicalDataAcdV1) RunPipelineWit
 // GetAnnotators : Get list of available annotators
 // Get list of available annotators that can be leveraged to detect information from unstructured data. One or more
 // annnotators can be leveraged within a single request to the service.
-func (annotatorForClinicalDataAcd *AnnotatorForClinicalDataAcdV1) GetAnnotators(getAnnotatorsOptions *GetAnnotatorsOptions) (result *ListAnnotatorDescription, response *core.DetailedResponse, err error) {
+func (annotatorForClinicalDataAcd *AnnotatorForClinicalDataAcdV1) GetAnnotators(getAnnotatorsOptions *GetAnnotatorsOptions) (result map[string]AnnotatorDescription, response *core.DetailedResponse, err error) {
 	err = core.ValidateStruct(getAnnotatorsOptions, "getAnnotatorsOptions")
 	if err != nil {
 		return
@@ -979,7 +1052,7 @@ func (annotatorForClinicalDataAcd *AnnotatorForClinicalDataAcdV1) GetAnnotators(
 		return
 	}
 
-	err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalListAnnotatorDescription)
+	err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalAnnotatorDescription)
 	if err != nil {
 		return
 	}
@@ -1139,7 +1212,7 @@ func (annotatorForClinicalDataAcd *AnnotatorForClinicalDataAcdV1) CartridgesPost
 		return
 	}
 	if cartridgesPostMultipartOptions.ArchiveFile == nil {
-		err = fmt.Errorf("at least one of  or archiveFile must be supplied")
+		err = fmt.Errorf("Archive File must be supplied")
 		return
 	}
 
@@ -1178,6 +1251,7 @@ func (annotatorForClinicalDataAcd *AnnotatorForClinicalDataAcdV1) CartridgesPost
 	if err != nil {
 		return
 	}
+
 	err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalDeployCartridgeResponse)
 	if err != nil {
 		return
@@ -1199,7 +1273,7 @@ func (annotatorForClinicalDataAcd *AnnotatorForClinicalDataAcdV1) CartridgesPutM
 		return
 	}
 	if cartridgesPutMultipartOptions.ArchiveFile == nil {
-		err = fmt.Errorf("at least one of  or archiveFile must be supplied")
+		err = fmt.Errorf("Archive File must be supplied")
 		return
 	}
 
@@ -1312,7 +1386,7 @@ func (annotatorForClinicalDataAcd *AnnotatorForClinicalDataAcdV1) DeployCartridg
 		return
 	}
 	if deployCartridgeOptions.ArchiveFile == nil {
-		err = fmt.Errorf("at least one of  or archiveFile must be supplied")
+		err = fmt.Errorf("Archive File must be supplied")
 		return
 	}
 
@@ -1569,22 +1643,6 @@ func UnmarshalAcdFlow(m map[string]json.RawMessage, result interface{}) (err err
 	return
 }
 
-// ListAcdFlows : List AcdFlows struct
-type ListAcdFlows struct {
-	Flows map[string]AcdFlow `json:"-"`
-}
-
-// UnmarshalListAcdFlows unmarshals an instance of ListAcdFlows from the specified map of raw messages.
-func UnmarshalListAcdFlows(m map[string]json.RawMessage, result interface{}) (err error) {
-	obj := new(ListAcdFlows)
-	err = core.UnmarshalModel(m, "", &obj.Flows, UnmarshalAcdFlow)
-	if err != nil {
-		return
-	}
-	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
-	return
-}
-
 // AcdProfile : AcdProfile struct
 type AcdProfile struct {
 	ID *string `json:"id,omitempty"`
@@ -1643,22 +1701,6 @@ func UnmarshalAcdProfile(m map[string]json.RawMessage, result interface{}) (err 
 	return
 }
 
-// ListAcdProfiles : List AcdProfiles struct
-type ListAcdProfiles struct {
-	Profiles map[string]AcdProfile `json:"-"`
-}
-
-// UnmarshalListAcdProfiles unmarshals an instance of ListAcdProfiles from the specified map of raw messages.
-func UnmarshalListAcdProfiles(m map[string]json.RawMessage, result interface{}) (err error) {
-	obj := new(ListAcdProfiles)
-	err = core.UnmarshalModel(m, "", &obj.Profiles, UnmarshalAcdProfile)
-	if err != nil {
-		return
-	}
-	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
-	return
-}
-
 // AdverseEvent : AdverseEvent insight model struct
 type AdverseEvent struct {
 	Score *float64 `json:"score,omitempty"`
@@ -1702,12 +1744,6 @@ func (*AnnotatorForClinicalDataAcdV1) NewAnalyticFlowBeanInput() *AnalyticFlowBe
 // SetUnstructured : Allow user to set Unstructured
 func (input *AnalyticFlowBeanInput) SetUnstructured(unstructuredContainer []UnstructuredContainer) {
 	input.Unstructured = unstructuredContainer
-	return
-}
-
-// SetText : sets the container text
-func (container *UnstructuredContainer) SetText(text string) {
-	container.Text = core.StringPtr(text)
 	return
 }
 
@@ -1836,23 +1872,6 @@ func UnmarshalAnnotatorDescription(m map[string]json.RawMessage, result interfac
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
 	return
 }
-
-// ListAnnotatorDescription : List AnnotatorDescription struct
-type ListAnnotatorDescription struct {
-	Annotators map[string]AnnotatorDescription `json:"-"`
-}
-
-// UnmarshalListAnnotatorDescription unmarshals an instance of ListAnnotatorDescription from the specified map of raw messages.
-func UnmarshalListAnnotatorDescription(m map[string]json.RawMessage, result interface{}) (err error) {
-	obj := new(ListAnnotatorDescription)
-	err = core.UnmarshalModel(m, "", &obj.Annotators, UnmarshalAnnotatorDescription)
-	if err != nil {
-		return
-	}
-	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
-	return
-}
-
 
 // AnnotatorFlow : AnnotatorFlow struct
 type AnnotatorFlow struct {
@@ -3114,9 +3133,50 @@ func (options *DeployCartridgeOptions) SetHeaders(param map[string]string) *Depl
 
 // DeployCartridgeResponse : DeployCartridgeResponse struct
 type DeployCartridgeResponse struct {
+  // Deploy cartridge HTTP code
 	Code *int64 `json:"code,omitempty"`
 
+  // Error response body
 	ArtifactResponse []ServiceError `json:"artifactResponse,omitempty"`
+
+  // Deploy cartridge response code
+	ArtifactResponseCode *int64 `json:"artifactResponseCode,omitempty"`
+
+	// Deploy cartridge correlation ID
+  CorrelationId *string `json:"correlationId,omitempty"`
+
+	// Description
+  Description *string `json:"description,omitempty"`
+
+  // List of flow IDs
+	Flows []string `json:"flows,omitempty"`
+
+	// List of profile IDs
+	Profiles []string `json:"profiles,omitempty"`
+
+	// ID of cartridge
+  ID *string `json:"id,omitempty"`
+
+	// Name of cartridge
+  Name *string `json:"name,omitempty"`
+
+	// Publish date
+  PublishDate *string `json:"publishDate,omitempty"`
+
+	// Start time
+	StartTime *string `json:"publishDate,omitempty"`
+
+	// Status of deployed cartridge
+  Status *string `json:"publishDate,omitempty"`
+
+	// HTTP status code
+	StatusCode *int64 `json:"statusCode,omitempty"`
+
+	// Location
+  StatusLocation *string `json:"statusLocation,omitempty"`
+
+	// Version
+  Version *string `json:"version,omitempty"`
 }
 
 // UnmarshalDeployCartridgeResponse unmarshals an instance of DeployCartridgeResponse from the specified map of raw messages.
@@ -3127,6 +3187,50 @@ func UnmarshalDeployCartridgeResponse(m map[string]json.RawMessage, result inter
 		return
 	}
 	err = core.UnmarshalModel(m, "artifactResponse", &obj.ArtifactResponse, UnmarshalServiceError)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "artifactResponseCode", &obj.ArtifactResponseCode)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "correlationId", &obj.CorrelationId)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "description", &obj.Description)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "flows", &obj.Flows)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "profiles", &obj.Profiles)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "id", &obj.ID)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "name", &obj.Name)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "publishDate", &obj.PublishDate)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "statusCode", &obj.StatusCode)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "statusLocation", &obj.StatusLocation)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "version", &obj.Version)
 	if err != nil {
 		return
 	}
@@ -5130,6 +5234,18 @@ func UnmarshalUnstructuredContainer(m map[string]json.RawMessage, result interfa
 	return
 }
 
+// SetText : sets the container text
+func (container *UnstructuredContainer) SetText(text string) {
+	container.Text = core.StringPtr(text)
+	return
+}
+
+// SetData : sets the container data
+func (container *UnstructuredContainer) SetData(data *ContainerAnnotation) {
+	container.Data = data
+	return
+}
+
 // ContainerAnnotation : ContainerAnnotation struct
 type ContainerAnnotation struct {
 
@@ -5155,15 +5271,15 @@ type ContainerAnnotation struct {
 
 	MedicationInd []MedicationAnnotation `json:"MedicationInd,omitempty"`
 
-	EmailAddressInd []Annotation `json:EmailAddressInd,omitempty"`
+	EmailAddressInd []Annotation `json:"EmailAddressInd,omitempty"`
 
-	PersonInd []Annotation `json:PersonInd,omitempty"`
+	PersonInd []Annotation `json:"PersonInd,omitempty"`
 
-	US_PhoneNumberInd []Annotation `json:US_PhoneNumberInd,omitempty"`
+	US_PhoneNumberInd []Annotation `json:"US_PhoneNumberInd,omitempty"`
 
-	MedicalInstitutionInd []Annotation `json:MedicalInstitutionInd,omitempty"`
+	MedicalInstitutionInd []Annotation `json:"MedicalInstitutionInd,omitempty"`
 
-	OrganizationInd []Annotation `json:OrganizationInd,omitempty"`
+	OrganizationInd []Annotation `json:"OrganizationInd,omitempty"`
 
 	NegatedSpans []NegatedSpan `json:"negatedSpans,omitempty"`
 
@@ -5187,7 +5303,12 @@ type ContainerAnnotation struct {
 
 	SpellingCorrections []SpellingCorrection `json:"spellingCorrections,omitempty"`
 
-	SpellCorrectedText []SpellCorrectedText `json:spellCorrectedText,omitempty"`
+	SpellCorrectedText []SpellCorrectedText `json:"spellCorrectedText,omitempty"`
+}
+
+// NewContainerAnnotation : Instantiate ContainerAnnotation
+func (*AnnotatorForClinicalDataAcdV1) NewContainerAnnotation() *ContainerAnnotation {
+	return &ContainerAnnotation{}
 }
 
 // UnmarshalContainerAnnotation unmarshals an instance of ContainerAnnotation from the specified map of raw messages.
