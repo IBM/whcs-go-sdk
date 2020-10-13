@@ -22,7 +22,6 @@ import (
 	"os"
 	"github.com/IBM/go-sdk-core/v4/core"
 	"github.com/IBM/whcs-go-sdk/annotatorforclinicaldataacdv1"
-	"github.com/joho/godotenv"
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"
 )
@@ -38,6 +37,7 @@ var (
 	iamUrl       string
 	apikey       string
 	disableSsl   bool   = false
+	config       map[string]string
 	analyzeText  string = "The patient has cancer and patient is currently taking 400 ml sisplatin chemotherapy.  Aspirin from once daily to twice daily.\nHISTORY:  Patient is allergic to latex.  Patient cannot walk and needs help bathing and getting around.  The lab values were: white blood cell count 4.6, hemoglobin 12.2.  Echocardiogram demonstrated ejection fraction of approx 60%.  Patient cannot dress or feed without help as the patient can not see.  Patient may die soon but has not died yet.  Patient smoked for 20 years.  Patient can not clean up after defacating in toilet.  Jone Doe was seen at Baylor Hospitall in Austin, TX.  Johndoe@testaddress.com - (555) 555-5555.  The patient started on metformin because his blood sugar was too high."
 
 
@@ -51,13 +51,21 @@ func shouldSkipTest() {
 
 var _ = Describe(`AnnotatorForClinicalDataAcdV1`, func() {
 	It("Successfully load the configuration", func() {
-		err = godotenv.Load(configFile)
-		if err == nil {
-			serviceUrl = os.Getenv("URL")
-			apikey = os.Getenv("APIKEY")
-			version = os.Getenv("VERSION")
-			configLoaded = true
+		_, err = os.Stat(configFile)
+		if err != nil {
+			Skip("External configuration not found, skipping....")
 		}
+
+		os.Setenv("IBM_CREDENTIALS_FILE", configFile)
+		config, err = core.GetServiceProperties("ACD_SERVICE")
+		if err != nil {
+			Skip("External configuration not found, skipping....")
+		}
+
+		serviceUrl = config["URL"]
+		apikey = config["APIKEY"]
+		version = config["VERSION"]
+		configLoaded = true
 
 		if !configLoaded {
 			Skip("External configuration not found, skipping....")
@@ -738,7 +746,7 @@ var _ = Describe(`AnnotatorForClinicalDataAcdV1`, func() {
 		It(`Successfully start a cartridge archive deployment`, func() {
 			cartridgesPostMultipartOptions := ACD.NewCartridgesPostMultipartOptions()
 			cartridgesPostMultipartOptions.SetArchiveFileContentType("application/octet-stream")
-			archiveFile, err := os.Open(os.Getenv("ARCHIVE"))
+			archiveFile, err := os.Open(config["ARCHIVE"])
 			cartridgesPostMultipartOptions.SetArchiveFile(archiveFile)
 			result, detailedResponse, err := ACD.CartridgesPostMultipart(cartridgesPostMultipartOptions)
 			if (err != nil) {
@@ -758,7 +766,7 @@ var _ = Describe(`AnnotatorForClinicalDataAcdV1`, func() {
 		It(`Successfully start a cartridge archive deployment`, func() {
 			cartridgesPutMultipartOptions := ACD.NewCartridgesPutMultipartOptions()
 			cartridgesPutMultipartOptions.SetArchiveFileContentType("application/octet-stream")
-			archiveFile, err := os.Open(os.Getenv("ARCHIVE"))
+			archiveFile, err := os.Open(config["ARCHIVE"])
 			cartridgesPutMultipartOptions.SetArchiveFile(archiveFile)
 			result, detailedResponse, err := ACD.CartridgesPutMultipart(cartridgesPutMultipartOptions)
 			if (err != nil) {
@@ -778,7 +786,7 @@ var _ = Describe(`AnnotatorForClinicalDataAcdV1`, func() {
 		It(`Successfully start a cartridge archive deployment`, func() {
 			deployCartridgeOptions := ACD.NewDeployCartridgeOptions()
 			deployCartridgeOptions.SetArchiveFileContentType("application/octet-stream")
-			archiveFile, err := os.Open(os.Getenv("ARCHIVE"))
+			archiveFile, err := os.Open(config["ARCHIVE"])
 			deployCartridgeOptions.SetArchiveFile(archiveFile)
 			deployCartridgeOptions.SetUpdate(true)
 			result, detailedResponse, err := ACD.DeployCartridge(deployCartridgeOptions)
