@@ -26,7 +26,7 @@ import (
 	. "github.com/onsi/gomega"
 )
 
-const configFile = "acd-service.env"
+const configFile = "ibm-credentials.env"
 
 var (
 	ACD          *annotatorforclinicaldataacdv1.AnnotatorForClinicalDataAcdV1
