@@ -2097,6 +2097,8 @@ type AttributeValueAnnotation struct {
 	RuleId *string `json:"ruleId,omitempty"`
 
 	DerivedFrom []Concept `json:"derivedFrom,omitempty"`
+
+	Temporal []Temporal `json:"temporal,omitempty"`
 }
 
 // UnmarshalAttributeValueAnnotation unmarshals an instance of AttributeValueAnnotation from the specified map of raw messages.
@@ -2223,6 +2225,10 @@ func UnmarshalAttributeValueAnnotation(m map[string]json.RawMessage, result inte
 		return
 	}
 	err = core.UnmarshalModel(m, "derivedFrom", &obj.DerivedFrom, UnmarshalConcept)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalModel(m, "temporal", &obj.Temporal, UnmarshalTemporal)
 	if err != nil {
 		return
 	}
@@ -2550,6 +2556,8 @@ type Concept struct {
 	RuleId *string `json:"ruleId,omitempty"`
 
 	DerivedFrom []Concept `json:"derivedFrom,omitempty"`
+
+	Temporal []Temporal `json:"temporal,omitempty"`
 }
 
 // UnmarshalConcept unmarshals an instance of Concept from the specified map of raw messages.
@@ -2668,6 +2676,10 @@ func UnmarshalConcept(m map[string]json.RawMessage, result interface{}) (err err
 		return
 	}
 	err = core.UnmarshalModel(m, "derivedFrom", &obj.DerivedFrom, UnmarshalConcept)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalModel(m, "temporal", &obj.Temporal, UnmarshalTemporal)
 	if err != nil {
 		return
 	}
@@ -3938,6 +3950,8 @@ type MedicationAnnotation struct {
 	SectionSurfaceForm *string `json:"sectionSurfaceForm,omitempty"`
 
 	InsightModelData *InsightModel `json:"insightModelData,omitempty"`
+
+	Temporal []Temporal `json:"temporal,omitempty"`
 }
 
 // UnmarshalMedicationAnnotation unmarshals an instance of MedicationAnnotation from the specified map of raw messages.
@@ -3988,6 +4002,10 @@ func UnmarshalMedicationAnnotation(m map[string]json.RawMessage, result interfac
 		return
 	}
 	err = core.UnmarshalModel(m, "insightModelData", &obj.InsightModelData, UnmarshalInsightModel)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalModel(m, "temporal", &obj.Temporal, UnmarshalTemporal)
 	if err != nil {
 		return
 	}
@@ -4290,6 +4308,8 @@ type ProcedureAnnotation struct {
 	SnomedConceptId *string `json:"snomedConceptId,omitempty"`
 
 	InsightModelData *InsightModel `json:"insightModelData,omitempty"`
+
+	Temporal []Temporal `json:"temporal,omitempty"`
 }
 
 // UnmarshalProcedcureAnnotation unmarshals an instance of ProcedureAnnotation from the specified map of raw messages.
@@ -4356,6 +4376,10 @@ func UnmarshalProcedureAnnotation(m map[string]json.RawMessage, result interface
 		return
 	}
 	err = core.UnmarshalModel(m, "insightModelData", &obj.InsightModelData, UnmarshalInsightModel)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalModel(m, "temporal", &obj.Temporal, UnmarshalTemporal)
 	if err != nil {
 		return
 	}
@@ -5006,6 +5030,8 @@ type SymptomDiseaseAnnotation struct {
 	SectionSurfaceForm *string `json:"sectionSurfaceForm,omitempty"`
 
 	InsightModelData *InsightModel `json:"insightModelData,omitempty"`
+
+	Temporal []Temporal `json:"temporal,omitempty"`
 }
 
 // UnmarshalSymptomDiseaseAnnotation unmarshals an instance of SymptomDiseaseAnnotaiton from the specified map of raw messages.
@@ -5099,6 +5125,10 @@ func UnmarshalSymptomDiseaseAnnotation(m map[string]json.RawMessage, result inte
 	if err != nil {
 		return
 	}
+	err = core.UnmarshalModel(m, "temporal", &obj.Temporal, UnmarshalTemporal)
+	if err != nil {
+		return
+	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
 	return
 }
@@ -5136,6 +5166,46 @@ func UnmarshalTask(m map[string]json.RawMessage, result interface{}) (err error)
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "clinicalAssessmentScore", &obj.ClinicalAssessmenttScore)
+	if err != nil {
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// Temporal : Temporal struct
+type Temporal struct {
+	Begin *int64 `json:"begin,omitempty"`
+
+	End *int64 `json:"end,omitempty"`
+
+	CoveredText *string `json:"coveredText,omitempty"`
+
+	TemporalType map[string]float64 `json:"temporalType,omitempty"`
+
+	RelationTypes map[string]float64 `json:"relationTypes,omitempty"`
+}
+
+// UnmarshalTemporal unmarshals an instance of Temporal from the specified map of raw messages.
+func UnmarshalTemporal(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(Temporal)
+	err = core.UnmarshalPrimitive(m, "begin", &obj.Begin)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "end", &obj.End)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "coveredText", &obj.CoveredText)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "temporalType", &obj.TemporalType)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "relationTypes", &obj.RelationTypes)
 	if err != nil {
 		return
 	}
@@ -5304,6 +5374,8 @@ type ContainerAnnotation struct {
 	SpellingCorrections []SpellingCorrection `json:"spellingCorrections,omitempty"`
 
 	SpellCorrectedText []SpellCorrectedText `json:"spellCorrectedText,omitempty"`
+
+	TemporalSpans []Temporal `json:"temporalSpans,omitempty"`
 }
 
 // NewContainerAnnotation : Instantiate ContainerAnnotation
@@ -5423,6 +5495,10 @@ func UnmarshalContainerAnnotation(m map[string]json.RawMessage, result interface
 		return
 	}
 	err = core.UnmarshalModel(m, "spellCorrectedText", &obj.SpellCorrectedText, UnmarshalSpellCorrectedText)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalModel(m, "temporalSpans", &obj.TemporalSpans, UnmarshalTemporal)
 	if err != nil {
 		return
 	}
