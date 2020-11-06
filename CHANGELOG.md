@@ -1,3 +1,11 @@
+# [0.2.0](https://github.com/IBM/whcs-go-sdk/compare/v0.1.1...v0.2.0) (2020-11-06)
+
+
+### Features
+
+* WHS-687 support temporal ([49388a4](https://github.com/IBM/whcs-go-sdk/commit/49388a4367199c74a89637933bf4ccc954b5b797))
+* WHS-687 temporal support ([a59a6d6](https://github.com/IBM/whcs-go-sdk/commit/a59a6d63e4aebd3afe19617359a05560fd17286c))
+
 ## [0.1.1](https://github.com/IBM/whcs-go-sdk/compare/v0.1.0...v0.1.1) (2020-09-16)
 
 
