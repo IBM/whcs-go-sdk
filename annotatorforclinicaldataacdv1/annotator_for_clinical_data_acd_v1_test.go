@@ -47,6 +47,7 @@ var _ = Describe(`AnnotatorForClinicalDataAcdV1`, func() {
 		It(`Instantiate service client with error: Invalid URL`, func() {
 			testService, testServiceErr := annotatorforclinicaldataacdv1.NewAnnotatorForClinicalDataAcdV1(&annotatorforclinicaldataacdv1.AnnotatorForClinicalDataAcdV1Options{
 				URL:     "{BAD_URL_STRING",
+                                Authenticator: &core.NoAuthAuthenticator{},
 				Version: core.StringPtr(version),
 			})
 			Expect(testService).To(BeNil())
@@ -72,6 +73,7 @@ var _ = Describe(`AnnotatorForClinicalDataAcdV1`, func() {
 	})
 	Describe(`Service constructor tests using external config`, func() {
 		version := "testString"
+                serviceName := "ANNOTATOR_FOR_CLINICAL_DATA_ACD"
 		Context(`Using external config, construct service client instances`, func() {
 			// Map containing environment variables used in testing.
 			var testEnvironment = map[string]string{
@@ -83,6 +85,7 @@ var _ = Describe(`AnnotatorForClinicalDataAcdV1`, func() {
 				SetTestEnvironment(testEnvironment)
 				testService, testServiceErr := annotatorforclinicaldataacdv1.NewAnnotatorForClinicalDataAcdV1UsingExternalConfig(&annotatorforclinicaldataacdv1.AnnotatorForClinicalDataAcdV1Options{
 					Version: core.StringPtr(version),
+                                        ServiceName: serviceName,
 				})
 				Expect(testService).ToNot(BeNil())
 				Expect(testServiceErr).To(BeNil())
@@ -93,6 +96,7 @@ var _ = Describe(`AnnotatorForClinicalDataAcdV1`, func() {
 				testService, testServiceErr := annotatorforclinicaldataacdv1.NewAnnotatorForClinicalDataAcdV1UsingExternalConfig(&annotatorforclinicaldataacdv1.AnnotatorForClinicalDataAcdV1Options{
 					URL:     "https://testService/api",
 					Version: core.StringPtr(version),
+                                        ServiceName: serviceName,
 				})
 				Expect(testService).ToNot(BeNil())
 				Expect(testServiceErr).To(BeNil())
@@ -103,6 +107,7 @@ var _ = Describe(`AnnotatorForClinicalDataAcdV1`, func() {
 				SetTestEnvironment(testEnvironment)
 				testService, testServiceErr := annotatorforclinicaldataacdv1.NewAnnotatorForClinicalDataAcdV1UsingExternalConfig(&annotatorforclinicaldataacdv1.AnnotatorForClinicalDataAcdV1Options{
 					Version: core.StringPtr(version),
+                                        ServiceName: serviceName,
 				})
 				err := testService.SetServiceURL("https://testService/api")
 				Expect(err).To(BeNil())
@@ -122,6 +127,7 @@ var _ = Describe(`AnnotatorForClinicalDataAcdV1`, func() {
 			SetTestEnvironment(testEnvironment)
 			testService, testServiceErr := annotatorforclinicaldataacdv1.NewAnnotatorForClinicalDataAcdV1UsingExternalConfig(&annotatorforclinicaldataacdv1.AnnotatorForClinicalDataAcdV1Options{
 				Version: core.StringPtr(version),
+                                ServiceName: serviceName,
 			})
 
 			It(`Instantiate service client with error`, func() {
@@ -139,7 +145,9 @@ var _ = Describe(`AnnotatorForClinicalDataAcdV1`, func() {
 			SetTestEnvironment(testEnvironment)
 			testService, testServiceErr := annotatorforclinicaldataacdv1.NewAnnotatorForClinicalDataAcdV1UsingExternalConfig(&annotatorforclinicaldataacdv1.AnnotatorForClinicalDataAcdV1Options{
 				URL:     "{BAD_URL_STRING",
+                                Authenticator: &core.NoAuthAuthenticator{},
 				Version: core.StringPtr(version),
+                                ServiceName: serviceName,
 			})
 
 			It(`Instantiate service client with error`, func() {
@@ -721,6 +729,7 @@ var _ = Describe(`AnnotatorForClinicalDataAcdV1`, func() {
 	})
 	Describe(`Service constructor tests using external config`, func() {
 		version := "testString"
+                serviceName := "ANNOTATOR_FOR_CLINICAL_DATA_ACD"
 		Context(`Using external config, construct service client instances`, func() {
 			// Map containing environment variables used in testing.
 			var testEnvironment = map[string]string{
@@ -732,6 +741,7 @@ var _ = Describe(`AnnotatorForClinicalDataAcdV1`, func() {
 				SetTestEnvironment(testEnvironment)
 				testService, testServiceErr := annotatorforclinicaldataacdv1.NewAnnotatorForClinicalDataAcdV1UsingExternalConfig(&annotatorforclinicaldataacdv1.AnnotatorForClinicalDataAcdV1Options{
 					Version: core.StringPtr(version),
+                                        ServiceName: serviceName,
 				})
 				Expect(testService).ToNot(BeNil())
 				Expect(testServiceErr).To(BeNil())
@@ -742,6 +752,7 @@ var _ = Describe(`AnnotatorForClinicalDataAcdV1`, func() {
 				testService, testServiceErr := annotatorforclinicaldataacdv1.NewAnnotatorForClinicalDataAcdV1UsingExternalConfig(&annotatorforclinicaldataacdv1.AnnotatorForClinicalDataAcdV1Options{
 					URL:     "https://testService/api",
 					Version: core.StringPtr(version),
+                                        ServiceName: serviceName,
 				})
 				Expect(testService).ToNot(BeNil())
 				Expect(testServiceErr).To(BeNil())
@@ -752,6 +763,7 @@ var _ = Describe(`AnnotatorForClinicalDataAcdV1`, func() {
 				SetTestEnvironment(testEnvironment)
 				testService, testServiceErr := annotatorforclinicaldataacdv1.NewAnnotatorForClinicalDataAcdV1UsingExternalConfig(&annotatorforclinicaldataacdv1.AnnotatorForClinicalDataAcdV1Options{
 					Version: core.StringPtr(version),
+                                        ServiceName: serviceName,
 				})
 				err := testService.SetServiceURL("https://testService/api")
 				Expect(err).To(BeNil())
@@ -771,6 +783,7 @@ var _ = Describe(`AnnotatorForClinicalDataAcdV1`, func() {
 			SetTestEnvironment(testEnvironment)
 			testService, testServiceErr := annotatorforclinicaldataacdv1.NewAnnotatorForClinicalDataAcdV1UsingExternalConfig(&annotatorforclinicaldataacdv1.AnnotatorForClinicalDataAcdV1Options{
 				Version: core.StringPtr(version),
+                                ServiceName: serviceName,
 			})
 
 			It(`Instantiate service client with error`, func() {
@@ -789,6 +802,8 @@ var _ = Describe(`AnnotatorForClinicalDataAcdV1`, func() {
 			testService, testServiceErr := annotatorforclinicaldataacdv1.NewAnnotatorForClinicalDataAcdV1UsingExternalConfig(&annotatorforclinicaldataacdv1.AnnotatorForClinicalDataAcdV1Options{
 				URL:     "{BAD_URL_STRING",
 				Version: core.StringPtr(version),
+                                Authenticator: &core.NoAuthAuthenticator{},
+                                ServiceName: serviceName,
 			})
 
 			It(`Instantiate service client with error`, func() {
@@ -1422,6 +1437,7 @@ var _ = Describe(`AnnotatorForClinicalDataAcdV1`, func() {
 	})
 	Describe(`Service constructor tests using external config`, func() {
 		version := "testString"
+                serviceName := "ANNOTATOR_FOR_CLINICAL_DATA_ACD"
 		Context(`Using external config, construct service client instances`, func() {
 			// Map containing environment variables used in testing.
 			var testEnvironment = map[string]string{
@@ -1433,6 +1449,7 @@ var _ = Describe(`AnnotatorForClinicalDataAcdV1`, func() {
 				SetTestEnvironment(testEnvironment)
 				testService, testServiceErr := annotatorforclinicaldataacdv1.NewAnnotatorForClinicalDataAcdV1UsingExternalConfig(&annotatorforclinicaldataacdv1.AnnotatorForClinicalDataAcdV1Options{
 					Version: core.StringPtr(version),
+                                        ServiceName: serviceName,
 				})
 				Expect(testService).ToNot(BeNil())
 				Expect(testServiceErr).To(BeNil())
@@ -1443,6 +1460,7 @@ var _ = Describe(`AnnotatorForClinicalDataAcdV1`, func() {
 				testService, testServiceErr := annotatorforclinicaldataacdv1.NewAnnotatorForClinicalDataAcdV1UsingExternalConfig(&annotatorforclinicaldataacdv1.AnnotatorForClinicalDataAcdV1Options{
 					URL:     "https://testService/api",
 					Version: core.StringPtr(version),
+                                        ServiceName: serviceName,
 				})
 				Expect(testService).ToNot(BeNil())
 				Expect(testServiceErr).To(BeNil())
@@ -1453,6 +1471,7 @@ var _ = Describe(`AnnotatorForClinicalDataAcdV1`, func() {
 				SetTestEnvironment(testEnvironment)
 				testService, testServiceErr := annotatorforclinicaldataacdv1.NewAnnotatorForClinicalDataAcdV1UsingExternalConfig(&annotatorforclinicaldataacdv1.AnnotatorForClinicalDataAcdV1Options{
 					Version: core.StringPtr(version),
+                                        ServiceName: serviceName,
 				})
 				err := testService.SetServiceURL("https://testService/api")
 				Expect(err).To(BeNil())
@@ -1472,6 +1491,7 @@ var _ = Describe(`AnnotatorForClinicalDataAcdV1`, func() {
 			SetTestEnvironment(testEnvironment)
 			testService, testServiceErr := annotatorforclinicaldataacdv1.NewAnnotatorForClinicalDataAcdV1UsingExternalConfig(&annotatorforclinicaldataacdv1.AnnotatorForClinicalDataAcdV1Options{
 				Version: core.StringPtr(version),
+                                ServiceName: serviceName,
 			})
 
 			It(`Instantiate service client with error`, func() {
@@ -1490,6 +1510,8 @@ var _ = Describe(`AnnotatorForClinicalDataAcdV1`, func() {
 			testService, testServiceErr := annotatorforclinicaldataacdv1.NewAnnotatorForClinicalDataAcdV1UsingExternalConfig(&annotatorforclinicaldataacdv1.AnnotatorForClinicalDataAcdV1Options{
 				URL:     "{BAD_URL_STRING",
 				Version: core.StringPtr(version),
+                                Authenticator: &core.NoAuthAuthenticator{},
+                                ServiceName: serviceName,
 			})
 
 			It(`Instantiate service client with error`, func() {
@@ -2256,6 +2278,7 @@ var _ = Describe(`AnnotatorForClinicalDataAcdV1`, func() {
 	})
 	Describe(`Service constructor tests using external config`, func() {
 		version := "testString"
+                serviceName := "ANNOTATOR_FOR_CLINICAL_DATA_ACD"
 		Context(`Using external config, construct service client instances`, func() {
 			// Map containing environment variables used in testing.
 			var testEnvironment = map[string]string{
@@ -2267,6 +2290,7 @@ var _ = Describe(`AnnotatorForClinicalDataAcdV1`, func() {
 				SetTestEnvironment(testEnvironment)
 				testService, testServiceErr := annotatorforclinicaldataacdv1.NewAnnotatorForClinicalDataAcdV1UsingExternalConfig(&annotatorforclinicaldataacdv1.AnnotatorForClinicalDataAcdV1Options{
 					Version: core.StringPtr(version),
+                                        ServiceName: serviceName,
 				})
 				Expect(testService).ToNot(BeNil())
 				Expect(testServiceErr).To(BeNil())
@@ -2277,6 +2301,7 @@ var _ = Describe(`AnnotatorForClinicalDataAcdV1`, func() {
 				testService, testServiceErr := annotatorforclinicaldataacdv1.NewAnnotatorForClinicalDataAcdV1UsingExternalConfig(&annotatorforclinicaldataacdv1.AnnotatorForClinicalDataAcdV1Options{
 					URL:     "https://testService/api",
 					Version: core.StringPtr(version),
+                                        ServiceName: serviceName,
 				})
 				Expect(testService).ToNot(BeNil())
 				Expect(testServiceErr).To(BeNil())
@@ -2287,6 +2312,7 @@ var _ = Describe(`AnnotatorForClinicalDataAcdV1`, func() {
 				SetTestEnvironment(testEnvironment)
 				testService, testServiceErr := annotatorforclinicaldataacdv1.NewAnnotatorForClinicalDataAcdV1UsingExternalConfig(&annotatorforclinicaldataacdv1.AnnotatorForClinicalDataAcdV1Options{
 					Version: core.StringPtr(version),
+                                        ServiceName: serviceName,
 				})
 				err := testService.SetServiceURL("https://testService/api")
 				Expect(err).To(BeNil())
@@ -2306,6 +2332,7 @@ var _ = Describe(`AnnotatorForClinicalDataAcdV1`, func() {
 			SetTestEnvironment(testEnvironment)
 			testService, testServiceErr := annotatorforclinicaldataacdv1.NewAnnotatorForClinicalDataAcdV1UsingExternalConfig(&annotatorforclinicaldataacdv1.AnnotatorForClinicalDataAcdV1Options{
 				Version: core.StringPtr(version),
+                                ServiceName: serviceName,
 			})
 
 			It(`Instantiate service client with error`, func() {
@@ -2324,6 +2351,8 @@ var _ = Describe(`AnnotatorForClinicalDataAcdV1`, func() {
 			testService, testServiceErr := annotatorforclinicaldataacdv1.NewAnnotatorForClinicalDataAcdV1UsingExternalConfig(&annotatorforclinicaldataacdv1.AnnotatorForClinicalDataAcdV1Options{
 				URL:     "{BAD_URL_STRING",
 				Version: core.StringPtr(version),
+                                Authenticator: &core.NoAuthAuthenticator{},
+                                ServiceName: serviceName,
 			})
 
 			It(`Instantiate service client with error`, func() {
@@ -3013,6 +3042,7 @@ var _ = Describe(`AnnotatorForClinicalDataAcdV1`, func() {
 	})
 	Describe(`Service constructor tests using external config`, func() {
 		version := "testString"
+                serviceName := "ANNOTATOR_FOR_CLINICAL_DATA_ACD"
 		Context(`Using external config, construct service client instances`, func() {
 			// Map containing environment variables used in testing.
 			var testEnvironment = map[string]string{
@@ -3024,6 +3054,7 @@ var _ = Describe(`AnnotatorForClinicalDataAcdV1`, func() {
 				SetTestEnvironment(testEnvironment)
 				testService, testServiceErr := annotatorforclinicaldataacdv1.NewAnnotatorForClinicalDataAcdV1UsingExternalConfig(&annotatorforclinicaldataacdv1.AnnotatorForClinicalDataAcdV1Options{
 					Version: core.StringPtr(version),
+                                        ServiceName: serviceName,
 				})
 				Expect(testService).ToNot(BeNil())
 				Expect(testServiceErr).To(BeNil())
@@ -3034,6 +3065,7 @@ var _ = Describe(`AnnotatorForClinicalDataAcdV1`, func() {
 				testService, testServiceErr := annotatorforclinicaldataacdv1.NewAnnotatorForClinicalDataAcdV1UsingExternalConfig(&annotatorforclinicaldataacdv1.AnnotatorForClinicalDataAcdV1Options{
 					URL:     "https://testService/api",
 					Version: core.StringPtr(version),
+                                        ServiceName: serviceName,
 				})
 				Expect(testService).ToNot(BeNil())
 				Expect(testServiceErr).To(BeNil())
@@ -3044,6 +3076,7 @@ var _ = Describe(`AnnotatorForClinicalDataAcdV1`, func() {
 				SetTestEnvironment(testEnvironment)
 				testService, testServiceErr := annotatorforclinicaldataacdv1.NewAnnotatorForClinicalDataAcdV1UsingExternalConfig(&annotatorforclinicaldataacdv1.AnnotatorForClinicalDataAcdV1Options{
 					Version: core.StringPtr(version),
+                                        ServiceName: serviceName,
 				})
 				err := testService.SetServiceURL("https://testService/api")
 				Expect(err).To(BeNil())
@@ -3063,6 +3096,7 @@ var _ = Describe(`AnnotatorForClinicalDataAcdV1`, func() {
 			SetTestEnvironment(testEnvironment)
 			testService, testServiceErr := annotatorforclinicaldataacdv1.NewAnnotatorForClinicalDataAcdV1UsingExternalConfig(&annotatorforclinicaldataacdv1.AnnotatorForClinicalDataAcdV1Options{
 				Version: core.StringPtr(version),
+                                ServiceName: serviceName,
 			})
 
 			It(`Instantiate service client with error`, func() {
@@ -3081,6 +3115,8 @@ var _ = Describe(`AnnotatorForClinicalDataAcdV1`, func() {
 			testService, testServiceErr := annotatorforclinicaldataacdv1.NewAnnotatorForClinicalDataAcdV1UsingExternalConfig(&annotatorforclinicaldataacdv1.AnnotatorForClinicalDataAcdV1Options{
 				URL:     "{BAD_URL_STRING",
 				Version: core.StringPtr(version),
+                                Authenticator: &core.NoAuthAuthenticator{},
+                                ServiceName: serviceName,
 			})
 
 			It(`Instantiate service client with error`, func() {
