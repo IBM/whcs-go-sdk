@@ -42,7 +42,8 @@ type AnnotatorForClinicalDataAcdV1 struct {
 const DefaultServiceURL = "https://annotator-for-clinical-data-acd.cloud.ibm.com/services/clinical_data_annotator/api"
 
 // DefaultServiceName is the default key used to find external configuration information.
-const DefaultServiceName = "annotator_for_clinical_data_acd"
+const DefaultServiceName = "ACD_SERVICE"
+
 
 // AnnotatorForClinicalDataAcdV1Options : Service options
 type AnnotatorForClinicalDataAcdV1Options struct {
