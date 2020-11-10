@@ -1,3 +1,10 @@
+## [0.2.1](https://github.com/IBM/whcs-go-sdk/compare/v0.2.0...v0.2.1) (2020-11-10)
+
+
+### Bug Fixes
+
+* default service name ([0734ae9](https://github.com/IBM/whcs-go-sdk/commit/0734ae9a48a2b7fb17e021714a84824be1b1b5e7))
+
 # [0.2.0](https://github.com/IBM/whcs-go-sdk/compare/v0.1.1...v0.2.0) (2020-11-06)
 
 
