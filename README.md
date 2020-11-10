@@ -30,7 +30,7 @@ Use this command to download and install the SDK to allow your Go application to
 use it:
 
 ```
-go get -u github.com/IBM/whcs-go-sdk@v0.2.0
+go get -u github.com/IBM/whcs-go-sdk@v0.2.1
 ```
 
 #### Go modules  
