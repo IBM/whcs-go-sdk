@@ -59,12 +59,6 @@ to your `Gopkg.toml` file.  Here is an example:
 then run `dep ensure`.
 
 ## Using the SDK
-The ability to store client configuration information in an external credentials file is supported.  The credentials file contains environment variables including authentication data.  Create a credentials file called `ibm-credentials.env`.  Refer to the Prerequisites section for instructions of how to obtain the credentials for your service instance, e.g. URL and API Key.  Define the environment variables in the credentials file as follows:
-```
-ACD_SERVICE_URL=<service_instance_url, e.g. https://us-south.wh-acd.cloud.ibm.com/wh-acd/api>
-ACD_SERVICE_APIKEY=<service_instance_apikey>
-ACD_SERVICE_VERSION=<YYYY-MM-DD>
-```
 
 For general SDK usage information, please see [this link](https://github.com/IBM/ibm-cloud-sdk-common/blob/master/README.md).
 
