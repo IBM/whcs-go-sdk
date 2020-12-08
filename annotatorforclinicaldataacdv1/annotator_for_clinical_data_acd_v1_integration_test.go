@@ -499,6 +499,12 @@ var _ = Describe(`AnnotatorForClinicalDataAcdV1`, func() {
 					for _, attributeValueEntry := range attributeValue.Values {
 						Expect(attributeValueEntry.Value).ToNot(BeNil())
           }
+					if (attributeValue.Temporal != nil) {
+						for _, element := range attributeValue.Temporal {
+							Expect(element.Begin).ToNot(BeNil())
+							Expect(element.End).ToNot(BeNil())
+							Expect(element.CoveredText).ToNot(BeNil())
+						}
 				}
 				Expect(containerAnno.MedicationInd).ToNot(BeNil())
 				for _, medIndEntry := range containerAnno.MedicationInd {
