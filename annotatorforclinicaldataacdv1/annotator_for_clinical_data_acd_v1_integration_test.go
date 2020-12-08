@@ -505,6 +505,7 @@ var _ = Describe(`AnnotatorForClinicalDataAcdV1`, func() {
 							Expect(element.End).ToNot(BeNil())
 							Expect(element.CoveredText).ToNot(BeNil())
 						}
+					}
 				}
 				Expect(containerAnno.MedicationInd).ToNot(BeNil())
 				for _, medIndEntry := range containerAnno.MedicationInd {
