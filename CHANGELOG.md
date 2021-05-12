@@ -1,3 +1,10 @@
+## [0.2.2](https://github.com/IBM/whcs-go-sdk/compare/v0.2.1...v0.2.2) (2021-05-12)
+
+
+### Bug Fixes
+
+* upgrade to lodash ([b523712](https://github.com/IBM/whcs-go-sdk/commit/b52371230d8e6345fb6263dacc12c0b652989347))
+
 ## [0.2.1](https://github.com/IBM/whcs-go-sdk/compare/v0.2.0...v0.2.1) (2020-11-10)
 
 
