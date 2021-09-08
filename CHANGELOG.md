@@ -1,3 +1,11 @@
+## [0.2.3](https://github.com/IBM/whcs-go-sdk/compare/v0.2.2...v0.2.3) (2021-09-08)
+
+
+### Bug Fixes
+
+* add back build integration tag ([0e4230d](https://github.com/IBM/whcs-go-sdk/commit/0e4230d658e440fb42998aa4a6f3ae02539ad65a))
+* selection label and evidence spans features ([8193b56](https://github.com/IBM/whcs-go-sdk/commit/8193b5634ec19f71737d044e0635efb4c484c60d))
+
 ## [0.2.2](https://github.com/IBM/whcs-go-sdk/compare/v0.2.1...v0.2.2) (2021-05-12)
 
 
