@@ -1,5 +1,5 @@
 /**
- * (C) Copyright IBM Corp. 2020.
+ * (C) Copyright IBM Corp. 2021.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -2100,6 +2100,8 @@ type AttributeValueAnnotation struct {
 	DerivedFrom []Concept `json:"derivedFrom,omitempty"`
 
 	Temporal []Temporal `json:"temporal,omitempty"`
+
+        EvidenceSpans []Reference `json:"evidenceSpans,omitempty"`
 }
 
 // UnmarshalAttributeValueAnnotation unmarshals an instance of AttributeValueAnnotation from the specified map of raw messages.
@@ -2233,6 +2235,10 @@ func UnmarshalAttributeValueAnnotation(m map[string]json.RawMessage, result inte
 	if err != nil {
 		return
 	}
+        err = core.UnmarshalModel(m, "evidenceSpans", &obj.EvidenceSpans, UnmarshalReference)
+        if err != nil {
+                return
+        }
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
 	return
 }
@@ -2559,6 +2565,10 @@ type Concept struct {
 	DerivedFrom []Concept `json:"derivedFrom,omitempty"`
 
 	Temporal []Temporal `json:"temporal,omitempty"`
+
+        SelectionLabel *string `json:"selectionLabel,omitempty"`
+
+        ValueIndex *int64 `json:"valueIndex,omitempty"`
 }
 
 // UnmarshalConcept unmarshals an instance of Concept from the specified map of raw messages.
@@ -2684,6 +2694,14 @@ func UnmarshalConcept(m map[string]json.RawMessage, result interface{}) (err err
 	if err != nil {
 		return
 	}
+        err = core.UnmarshalPrimitive(m, "selectionLabel", &obj.SelectionLabel)
+        if err != nil {
+                return
+        }
+        err = core.UnmarshalPrimitive(m, "valueIndex", &obj.ValueIndex)
+        if err != nil {
+                return
+        }
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
 	return
 }
@@ -4444,6 +4462,34 @@ func UnmarshalProcedureModifier(m map[string]json.RawMessage, result interface{}
 	return
 }
 
+// Reference : Reference struct.
+type Reference struct {
+        UID *int64 `json:"uid,omitempty"`
+
+        SelectionLabel *string `json:"selectionLabel,omitempty"`
+
+        ValueIndex *int64 `json:"valueIndex,omitempty"`
+}
+
+// UnmarshalReference unmarshal an instance of Reference from the specified raw message.
+func UnmarshalReference(m map[string]json.RawMessage, result interface{}) (err error) {
+        obj := new(Reference)
+        err = core.UnmarshalPrimitive(m, "uid", &obj.UID)
+        if err != nil {
+                return
+        }
+        err = core.UnmarshalPrimitive(m, "selectionLabel", &obj.SelectionLabel)
+        if err != nil {
+                return
+        }
+        err = core.UnmarshalPrimitive(m, "valueIndex", &obj.ValueIndex)
+        if err != nil {
+                return
+        }
+        reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+        return
+}
+
 // Relations : Relations struct.
 type Relations struct {
 	Source *string `json:"source,omitempty"`
@@ -5377,6 +5423,12 @@ type ContainerAnnotation struct {
 	SpellCorrectedText []SpellCorrectedText `json:"spellCorrectedText,omitempty"`
 
 	TemporalSpans []Temporal `json:"temporalSpans,omitempty"`
+
+        Lines []Annotation `json:"lines,omitempty"`
+
+        Sentences []Annotation `json:"sentences,omitempty"`
+
+        Paragraphs []Annotation `json:"paragraphs,omitempty"`
 }
 
 // NewContainerAnnotation : Instantiate ContainerAnnotation
@@ -5503,6 +5555,18 @@ func UnmarshalContainerAnnotation(m map[string]json.RawMessage, result interface
 	if err != nil {
 		return
 	}
+        err = core.UnmarshalModel(m, "Lines", &obj.Lines, UnmarshalAnnotation)
+        if err != nil {
+                return
+        }
+        err = core.UnmarshalModel(m, "Sentences", &obj.Sentences, UnmarshalAnnotation)
+        if err != nil {
+                return
+        }
+        err = core.UnmarshalModel(m, "Paragraphs", &obj.Paragraphs, UnmarshalAnnotation)
+        if err != nil {
+                return
+        }
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
 	return
 }
