@@ -1,7 +1,5 @@
-// +build integration
-
 /**
- * (C) Copyright IBM Corp. 2020.
+ * (C) Copyright IBM Corp. 2021.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -546,14 +544,26 @@ var _ = Describe(`AnnotatorForClinicalDataAcdV1`, func() {
 					Expect(attributeValue.Begin).ToNot(BeNil())
 					Expect(attributeValue.End).ToNot(BeNil())
 					Expect(attributeValue.CoveredText).ToNot(BeNil())
-					Expect(attributeValue.DisambiguationData).ToNot(BeNil())
+                                        if (attributeValue.DisambiguationData != nil) {
+					        Expect(attributeValue.DisambiguationData.Validity).ToNot(BeNil())
+                                        }
 					Expect(attributeValue.PreferredName).ToNot(BeNil())
 					Expect(attributeValue.Negated).ToNot(BeNil())
+                                        if (attributeValue.DerivedFrom != nil) {
+                                                for _, derivedFrom := range attributeValue.DerivedFrom {
+                                                        Expect(derivedFrom.UID).ToNot(BeNil())
+                                                }
+                                        }
+                                        if (attributeValue.EvidenceSpans != nil) {
+                                                for _, evidenceSpan := range attributeValue.EvidenceSpans {
+                                                        Expect(evidenceSpan.UID).ToNot(BeNil())
+                                                }
+                                        }
 					Expect(attributeValue.Values).ToNot(BeNil())
 					for _, attributeValueEntry := range attributeValue.Values {
 						Expect(attributeValueEntry.Value).ToNot(BeNil())
+                                        }
           }
-        }
 				Expect(containerAnno.MedicationInd).ToNot(BeNil())
 				for _, medIndEntry := range containerAnno.MedicationInd {
 					Expect(medIndEntry.Begin).ToNot(BeNil())
@@ -576,7 +586,25 @@ var _ = Describe(`AnnotatorForClinicalDataAcdV1`, func() {
 					Expect(spellCorrectedEntry.CorrectedText).ToNot(BeNil())
 					Expect(spellCorrectedEntry.DebugText).ToNot(BeNil())
 				}
-      }
+                                if (containerAnno.Lines != nil) {
+                                        for _, linesEntry := range containerAnno.Lines {
+                                                Expect(linesEntry.Begin).ToNot(BeNil())
+                                                Expect(linesEntry.End).ToNot(BeNil())
+                                        }
+          }
+                                if (containerAnno.Sentences != nil) {
+                                        for _, sentencesEntry := range containerAnno.Sentences {
+                                                Expect(sentencesEntry.Begin).ToNot(BeNil())
+                                                Expect(sentencesEntry.End).ToNot(BeNil())
+                                        }
+          }
+                                if (containerAnno.Paragraphs != nil) {
+                                        for _, paragraphsEntry := range containerAnno.Paragraphs {
+                                                Expect(paragraphsEntry.Begin).ToNot(BeNil())
+                                                Expect(paragraphsEntry.End).ToNot(BeNil())
+                                        }
+          }
+        }
 		})
 	})
 
@@ -616,7 +644,9 @@ var _ = Describe(`AnnotatorForClinicalDataAcdV1`, func() {
 					Expect(attributeValue.Begin).ToNot(BeNil())
 					Expect(attributeValue.End).ToNot(BeNil())
 					Expect(attributeValue.CoveredText).ToNot(BeNil())
-					Expect(attributeValue.DisambiguationData).ToNot(BeNil())
+                                        if (attributeValue.DisambiguationData != nil) {
+                                                Expect(attributeValue.DisambiguationData.Validity).ToNot(BeNil())
+                                        }
 					Expect(attributeValue.PreferredName).ToNot(BeNil())
 					Expect(attributeValue.Negated).ToNot(BeNil())
 					Expect(attributeValue.Values).ToNot(BeNil())
