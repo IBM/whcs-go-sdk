@@ -20,7 +20,7 @@ import (
 	"bytes"
 	"fmt"
 	"github.com/IBM/whcs-go-sdk/annotatorforclinicaldataacdv1"
-	"github.com/IBM/go-sdk-core/v4/core"
+	"github.com/IBM/go-sdk-core/v5/core"
 	"github.com/go-openapi/strfmt"
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"
@@ -2446,7 +2446,6 @@ var _ = Describe(`AnnotatorForClinicalDataAcdV1`, func() {
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).ToNot(BeNil())
-				Expect(result.Cartridges).ToNot(BeNil())
 			})
 			It(`Invoke CartridgesGet with error: Operation request error`, func() {
 				testService, testServiceErr := annotatorforclinicaldataacdv1.NewAnnotatorForClinicalDataAcdV1(&annotatorforclinicaldataacdv1.AnnotatorForClinicalDataAcdV1Options{

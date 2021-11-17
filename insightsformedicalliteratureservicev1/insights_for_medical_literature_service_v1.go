@@ -21,7 +21,7 @@ import (
 	"encoding/json"
 	"fmt"
 	common "github.com/IBM/whcs-go-sdk/common"
-	"github.com/IBM/go-sdk-core/v4/core"
+	"github.com/IBM/go-sdk-core/v5/core"
 	"reflect"
 	"strings"
 )
@@ -163,11 +163,14 @@ func (insightsForMedicalLiteratureService *InsightsForMedicalLiteratureServiceV1
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalCorpusInfoModel)
-	if err != nil {
-		return
-	}
-	response.Result = result
+
+        if rawResponse != nil {
+	        err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalCorpusInfoModel)
+	        if err != nil {
+		        return
+	        }
+	        response.Result = result
+        }
 
 	return
 }
@@ -300,11 +303,14 @@ func (insightsForMedicalLiteratureService *InsightsForMedicalLiteratureServiceV1
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalCorpusInfoModel)
-	if err != nil {
-		return
-	}
-	response.Result = result
+
+        if rawResponse != nil {
+	        err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalCorpusInfoModel)
+	        if err != nil {
+		        return
+	        }
+	        response.Result = result
+        }
 
 	return
 }
@@ -423,11 +429,14 @@ func (insightsForMedicalLiteratureService *InsightsForMedicalLiteratureServiceV1
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalCategoriesModel)
-	if err != nil {
-		return
-	}
-	response.Result = result
+
+        if rawResponse != nil {
+	        err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalCategoriesModel)
+	        if err != nil {
+		        return
+	        }
+	        response.Result = result
+        }
 
 	return
 }
@@ -523,11 +532,14 @@ func (insightsForMedicalLiteratureService *InsightsForMedicalLiteratureServiceV1
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalCategoriesModel)
-	if err != nil {
-		return
-	}
-	response.Result = result
+
+        if rawResponse != nil {
+	        err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalCategoriesModel)
+	        if err != nil {
+		        return
+	        }
+	        response.Result = result
+        }
 
 	return
 }
@@ -627,11 +639,14 @@ func (insightsForMedicalLiteratureService *InsightsForMedicalLiteratureServiceV1
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalSearchMatchesModel)
-	if err != nil {
-		return
-	}
-	response.Result = result
+
+        if rawResponse != nil {
+	        err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalSearchMatchesModel)
+	        if err != nil {
+		        return
+	        }
+	        response.Result = result
+        }
 
 	return
 }
@@ -678,11 +693,14 @@ func (insightsForMedicalLiteratureService *InsightsForMedicalLiteratureServiceV1
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalCorporaConfig)
-	if err != nil {
-		return
-	}
-	response.Result = result
+
+        if rawResponse != nil {
+	        err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalCorporaConfig)
+	        if err != nil {
+		        return
+	        }
+	        response.Result = result
+        }
 
 	return
 }
@@ -770,11 +788,14 @@ func (insightsForMedicalLiteratureService *InsightsForMedicalLiteratureServiceV1
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalCorporaConfig)
-	if err != nil {
-		return
-	}
-	response.Result = result
+
+        if rawResponse != nil {
+	        err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalCorporaConfig)
+	        if err != nil {
+		        return
+	        }
+	        response.Result = result
+        }
 
 	return
 }
@@ -823,11 +844,14 @@ func (insightsForMedicalLiteratureService *InsightsForMedicalLiteratureServiceV1
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalCorporaConfig)
-	if err != nil {
-		return
-	}
-	response.Result = result
+
+        if rawResponse != nil {
+	        err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalCorporaConfig)
+	        if err != nil {
+		        return
+	        } 
+	        response.Result = result
+        }
 
 	return
 }
@@ -897,11 +921,14 @@ func (insightsForMedicalLiteratureService *InsightsForMedicalLiteratureServiceV1
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalCorporaConfig)
-	if err != nil {
-		return
-	}
-	response.Result = result
+
+        if rawResponse != nil {
+	        err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalCorporaConfig)
+	        if err != nil {
+		        return
+	        }
+	        response.Result = result
+        }
 
 	return
 }
@@ -1037,11 +1064,14 @@ func (insightsForMedicalLiteratureService *InsightsForMedicalLiteratureServiceV1
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalCorporaConfig)
-	if err != nil {
-		return
-	}
-	response.Result = result
+
+        if rawResponse != nil {
+	        err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalCorporaConfig)
+	        if err != nil {
+		        return
+	        }
+	        response.Result = result
+        }
 
 	return
 }
@@ -1091,11 +1121,14 @@ func (insightsForMedicalLiteratureService *InsightsForMedicalLiteratureServiceV1
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalServiceStatus)
-	if err != nil {
-		return
-	}
-	response.Result = result
+
+        if rawResponse != nil {
+	        err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalServiceStatus)
+	        if err != nil {
+		        return
+	        }
+	        response.Result = result
+        }
 
 	return
 }
@@ -1162,12 +1195,14 @@ func (insightsForMedicalLiteratureService *InsightsForMedicalLiteratureServiceV1
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalSearchModel)
-	if err != nil {
-		return
-	}
-	response.Result = result
 
+        if rawResponse != nil {
+	        err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalSearchModel)
+	        if err != nil {
+		        return
+	        }
+	        response.Result = result
+        }
 	return
 }
 
@@ -1214,11 +1249,14 @@ func (insightsForMedicalLiteratureService *InsightsForMedicalLiteratureServiceV1
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalMetadataModel)
-	if err != nil {
-		return
-	}
-	response.Result = result
+
+        if rawResponse != nil {
+	        err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalMetadataModel)
+	        if err != nil {
+		        return
+	        }
+	        response.Result = result
+        }
 
 	return
 }
@@ -1290,11 +1328,14 @@ func (insightsForMedicalLiteratureService *InsightsForMedicalLiteratureServiceV1
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalConceptListModel)
-	if err != nil {
-		return
-	}
-	response.Result = result
+
+        if rawResponse != nil {
+	        err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalConceptListModel)
+	        if err != nil {
+		        return
+	        }
+	        response.Result = result
+        }
 
 	return
 }
@@ -1364,11 +1405,14 @@ func (insightsForMedicalLiteratureService *InsightsForMedicalLiteratureServiceV1
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalConceptListModel)
-	if err != nil {
-		return
-	}
-	response.Result = result
+
+        if rawResponse != nil {
+	        err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalConceptListModel)
+	        if err != nil {
+		        return
+	        }
+	        response.Result = result
+        }
 
 	return
 }
@@ -1482,11 +1526,14 @@ func (insightsForMedicalLiteratureService *InsightsForMedicalLiteratureServiceV1
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalConceptInfoModel)
-	if err != nil {
-		return
-	}
-	response.Result = result
+
+        if rawResponse != nil {
+	        err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalConceptInfoModel)
+	        if err != nil {
+		        return
+	        }
+	        response.Result = result
+        }
 
 	return
 }
@@ -1537,11 +1584,14 @@ func (insightsForMedicalLiteratureService *InsightsForMedicalLiteratureServiceV1
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalHitCount)
-	if err != nil {
-		return
-	}
-	response.Result = result
+
+        if rawResponse != nil {
+	        err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalHitCount)
+	        if err != nil {
+		        return
+	        }
+	        response.Result = result
+        }
 
 	return
 }
@@ -1614,11 +1664,14 @@ func (insightsForMedicalLiteratureService *InsightsForMedicalLiteratureServiceV1
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalRelatedConceptsModel)
-	if err != nil {
-		return
-	}
-	response.Result = result
+
+        if rawResponse != nil {
+	        err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalRelatedConceptsModel)
+	        if err != nil {
+		        return
+	        }
+	        response.Result = result
+        }
 
 	return
 }
@@ -1674,11 +1727,14 @@ func (insightsForMedicalLiteratureService *InsightsForMedicalLiteratureServiceV1
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalConceptListModel)
-	if err != nil {
-		return
-	}
-	response.Result = result
+
+        if rawResponse != nil {
+	        err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalConceptListModel)
+	        if err != nil {
+		        return
+	        }
+	        response.Result = result
+        }
 
 	return
 }
