@@ -16,48 +16,32 @@ NOTE: You must be signed into IBM Cloud to see the docs.
 
 * An [IBM Cloud][ibm-cloud-onboarding] account.
 * An IAM API key to allow the SDK to access your service instance. For instructions about copying the credentials of an existing service instance, or creating a new service instance, refer to Getting Started [here](https://cloud.ibm.com/docs/wh-acd?topic=wh-acd-getting-started).
-* Go version 1.12 or above.
+* Go version 1.14 or above.
 
 ## Installation
 The current version of this SDK: 0.2.4
 
-There are a few different ways to download and install the WHCS Go SDK project for use by your
-Go application:
+#### Go modules
+If your application uses Go modules for dependency management (recommended), just add an import to your
+Go application.
+Here is an example:
+
+```go
+import (
+        "github.com/IBM/whcs-go-sdk/annotatorforclinicaldataacdv1"
+)
+```
+
+Next, run `go build` or `go mod tidy` to download and install the new dependency and update your application's
+`go.mod` file.
 
 #### `go get` command  
-Use this command to download and install the SDK to allow your Go application to
+Alternatively, you can use the `go get` command to download and install the package to allow your application to
 use it:
 
 ```
 go get -u github.com/IBM/whcs-go-sdk@v0.2.4
 ```
-
-#### Go modules  
-If your application is using Go modules, you can add a suitable import to your
-Go application, like this:
-
-```go
-import (
-	"github.com/IBM/whcs-go-sdk/annotatorforclinicaldataacdv1"
-)
-```
-
-then run `go mod tidy` to download and install the new dependency and update your Go application's
-`go.mod` file.
-
-#### `dep` dependency manager  
-If your application is using the `dep` dependency management tool, you can add a dependency
-to your `Gopkg.toml` file.  Here is an example:
-
-```
-[[constraint]]
-  name = "github.com/IBM/whcs-go-sdk"
-  version = "0.2.4"
-
-```
-
-then run `dep ensure`.
-
 ## Using the SDK
 
 For general SDK usage information, please see [this link](https://github.com/IBM/ibm-cloud-sdk-common/blob/master/README.md).
