@@ -5803,7 +5803,7 @@ func UnmarshalRelationModel(m map[string]json.RawMessage, result interface{}) (e
 // ReturnsModel : Object defining desired search results.
 type ReturnsModel struct {
 	// Aggreations of field values
-	Aggregations map[string]Aggregations `json:"aggregations,omityempty"`
+	Aggregations map[string]Aggregations `json:"aggregations,omitempty"`
 
 	// Attributes
 	Attributes *Attributes `json:"attributes,omitempty"`
@@ -5821,7 +5821,7 @@ type ReturnsModel struct {
 	Types *Types `json:"types,omitempty"`
 	
 	// Typeahead
-	Typeahead *Typeahead `json:"types,omitempty"`
+	Typeahead *Typeahead `json:"typeahead,omitempty"`
 }
 
 // NewReturnsModel instantiates new instance of ReturnsModel

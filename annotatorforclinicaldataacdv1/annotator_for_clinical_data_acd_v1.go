@@ -1790,7 +1790,6 @@ func (*AnnotatorForClinicalDataAcdV1) NewAnalyticFlowBeanInput() *AnalyticFlowBe
 // SetUnstructured : Allow user to set Unstructured
 func (input *AnalyticFlowBeanInput) SetUnstructured(unstructuredContainer []UnstructuredContainer) {
 	input.Unstructured = unstructuredContainer
-	return
 }
 
 // UnmarshalAnalyticFlowBeanInput unmarshals an instance of AnalyticFlowBeanInput from the specified map of raw messages.
@@ -2132,7 +2131,7 @@ type AttributeValueAnnotation struct {
 
 	Values []AttributeValueEntry `json:"values,omitempty"`
 
-	Vocabs *string `json:"vocabs,omitempty`
+	Vocabs *string `json:"vocabs,omitempty"`
 
 	InsightModelData *InsightModel `json:"insightModelData,omitempty"`
 
@@ -3240,10 +3239,10 @@ type DeployCartridgeResponse struct {
   PublishDate *string `json:"publishDate,omitempty"`
 
 	// Start time
-	StartTime *string `json:"publishDate,omitempty"`
+	StartTime *string `json:"startTime,omitempty"`
 
 	// Status of deployed cartridge
-  Status *string `json:"publishDate,omitempty"`
+  Status *string `json:"status,omitempty"`
 
 	// HTTP status code
 	StatusCode *int64 `json:"statusCode,omitempty"`
@@ -4933,9 +4932,9 @@ func UnmarshalSmokingAnnotation(m map[string]json.RawMessage, result interface{}
 
 // SpellCorrectedText : SpellCorrectedText struct
 type SpellCorrectedText struct {
-	CorrectedText string `json:"correctedText,omitenpty`
+	CorrectedText string `json:"correctedText,omitempty"`
 
-	DebugText string `json:"debugText,omitempty`
+	DebugText string `json:"debugText,omitempty"`
 }
 
 // UnmarshalSpellCorrectedText unmarshals an instance of SpellCorrectedText from the specified map of raw messages.
@@ -5399,13 +5398,11 @@ func UnmarshalUnstructuredContainer(m map[string]json.RawMessage, result interfa
 // SetText : sets the container text
 func (container *UnstructuredContainer) SetText(text string) {
 	container.Text = core.StringPtr(text)
-	return
 }
 
 // SetData : sets the container data
 func (container *UnstructuredContainer) SetData(data *ContainerAnnotation) {
 	container.Data = data
-	return
 }
 
 // ContainerAnnotation : ContainerAnnotation struct
