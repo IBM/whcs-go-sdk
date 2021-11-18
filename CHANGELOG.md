@@ -1,3 +1,11 @@
+## [0.2.4](https://github.com/IBM/whcs-go-sdk/compare/v0.2.3...v0.2.4) (2021-11-18)
+
+
+### Bug Fixes
+
+* **build:** fix linter errors ([a67be96](https://github.com/IBM/whcs-go-sdk/commit/a67be96c370f0a7a0e2a86bb882b1e14b7d39e8a))
+* update sdk core to v5.8.0 ([ea70c51](https://github.com/IBM/whcs-go-sdk/commit/ea70c519db294807feb1bc6c26c9a86d524fc484))
+
 ## [0.2.3](https://github.com/IBM/whcs-go-sdk/compare/v0.2.2...v0.2.3) (2021-09-08)
 
 
