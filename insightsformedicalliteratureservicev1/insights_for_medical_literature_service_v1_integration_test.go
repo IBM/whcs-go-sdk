@@ -18,9 +18,8 @@
 package insightsformedicalliteratureservicev1_test
 
 import (
-	"github.com/IBM/go-sdk-core/v4/core"
+	"github.com/IBM/go-sdk-core/v5/core"
 	insightsformedicalliteratureservicev1 "github.com/IBM/whcs-go-sdk/insightsformedicalliteratureservicev1"
-	"github.com/joho/godotenv"
 	"os"
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"
@@ -47,13 +46,21 @@ func shouldSkipTest() {
 
 var _ = Describe(`InsightsForMedicalLiteratureServiceV1`, func() {
 	It("Successfully load the configuration", func() {
-		err = godotenv.Load(configFile)
-		if err == nil {
-			serviceUrl = os.Getenv("URL")
-			apikey = os.Getenv("APIKEY")
-			version = os.Getenv("VERSION")
-			configLoaded = true
-		}
+                _, err = os.Stat(configFile)
+                if err != nil {
+                        Skip("External configuration not found, skipping....")
+                }
+
+                os.Setenv("IBM_CREDENTIALS_FILE", configFile)
+                config, err = core.GetServiceProperties("IML_SERVICE")
+                if err != nil {
+                        Skip("External configuration not found, skipping....")
+                }
+
+                serviceUrl = config["URL"]
+                apikey = config["APIKEY"]
+                version = config["VERSION"]
+                configLoaded = true
 
 		if !configLoaded {
 			Skip("External configuration not found, skipping....")

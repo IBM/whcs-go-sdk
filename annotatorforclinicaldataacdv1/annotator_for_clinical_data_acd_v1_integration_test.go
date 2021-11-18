@@ -20,7 +20,7 @@ package annotatorforclinicaldataacdv1_test
 
 import (
 	"os"
-	"github.com/IBM/go-sdk-core/v4/core"
+	"github.com/IBM/go-sdk-core/v5/core"
 	"github.com/IBM/whcs-go-sdk/annotatorforclinicaldataacdv1"
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"
@@ -586,7 +586,6 @@ var _ = Describe(`AnnotatorForClinicalDataAcdV1`, func() {
 				Expect(containerAnno.SpellCorrectedText).ToNot(BeNil())
 				for _, spellCorrectedEntry := range containerAnno.SpellCorrectedText {
 					Expect(spellCorrectedEntry.CorrectedText).ToNot(BeNil())
-					Expect(spellCorrectedEntry.DebugText).ToNot(BeNil())
 				}
                                 if (containerAnno.Lines != nil) {
                                         for _, linesEntry := range containerAnno.Lines {
@@ -614,7 +613,7 @@ var _ = Describe(`AnnotatorForClinicalDataAcdV1`, func() {
 		It(`Successfully run analyze pipeline`, func() {
 			pipelineOptions := ACD.NewRunPipelineWithFlowOptions("wh_acd.ibm_clinical_insights_v1.0_standard_flow", false)
 			container := ACD.NewUnstructuredContainer()
-			container.SetText("The CT scan showed a tumor in the left lung.")
+			container.SetText("The CT scan showed a tumor in the left lung. He was prescibed Keytrda.")
 			concept := new(annotatorforclinicaldataacdv1.Concept)
 			concept.Begin = core.Int64Ptr(int64(4))
 			concept.End = core.Int64Ptr(int64(11))
@@ -715,7 +714,6 @@ var _ = Describe(`AnnotatorForClinicalDataAcdV1`, func() {
 				Expect(containerAnno.SpellCorrectedText).ToNot(BeNil())
 				for _, spellCorrectedEntry := range containerAnno.SpellCorrectedText {
 					Expect(spellCorrectedEntry.CorrectedText).ToNot(BeNil())
-					Expect(spellCorrectedEntry.DebugText).ToNot(BeNil())
 				}
       }
 		})
