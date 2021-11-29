@@ -1,3 +1,10 @@
+# [0.3.0](https://github.com/IBM/whcs-go-sdk/compare/v0.2.5...v0.3.0) (2021-11-29)
+
+
+### Features
+
+* Support SDoH v1 features ([e5ea497](https://github.com/IBM/whcs-go-sdk/commit/e5ea497515b63932ffd939634b2dc20407b550cc))
+
 ## [0.2.5](https://github.com/IBM/whcs-go-sdk/compare/v0.2.4...v0.2.5) (2021-11-18)
 
 
