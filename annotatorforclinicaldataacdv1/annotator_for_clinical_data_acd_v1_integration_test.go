@@ -38,7 +38,7 @@ var (
 	apikey       string
 	disableSsl   bool   = false
 	config       map[string]string
-	analyzeText  string = "The patient has cancer and patient is currently taking 400 ml sisplatin chemotherapy.  Aspirin from once daily to twice daily.\nHISTORY:  Patient is allergic to latex.  Patient cannot walk and needs help bathing and getting around.  The lab values were: white blood cell count 4.6, hemoglobin 12.2.  Echocardiogram demonstrated ejection fraction of approx 60%.  Patient cannot dress or feed without help as the patient can not see.  Patient may die soon but has not died yet.  Patient smoked for 20 years.  Patient can not clean up after defacating in toilet.  Jone Doe was seen at Baylor Hospitall in Austin, TX.  Johndoe@testaddress.com - (555) 555-5555.  The patient started on metformin because his blood sugar was too high.  She had gallbladder removal September 19 2020"
+	analyzeText  string = "The patient has cancer and patient is currently taking 400 ml sisplatin chemotherapy.  Aspirin from once daily to twice daily.\nHISTORY:  Patient is allergic to latex.  Patient cannot walk and needs help bathing and getting around.  The lab values were: white blood cell count 4.6, hemoglobin 12.2.  Echocardiogram demonstrated ejection fraction of approx 60%.  Patient cannot dress or feed without help as the patient can not see.  Patient may die soon but has not died yet.  Patient smoked for 20 years.  Patient can not clean up after defacating in toilet.  Jone Doe was seen at Baylor Hospitall in Austin, TX.  Johndoe@testaddress.com - (555) 555-5555.  The patient started on metformin because his blood sugar was too high.  She had gallbladder removal September 19 2020.  CT scan showed a tumor in his left lung. Her father had lung cancer.  Her other had asthma and diabetes.  Past addictions history:  by report, pt with history of ETOH abuse; BAL 147.  Patient abuses vodka and smokes cigarettes and marijuana.  Patiet attends monthly AA meetings."
 
 
 )
@@ -506,6 +506,17 @@ var _ = Describe(`AnnotatorForClinicalDataAcdV1`, func() {
 							Expect(element.CoveredText).ToNot(BeNil())
 						}
 					}
+                                        if (attributeValue.InsightModelData != nil) {
+                                                imd := attributeValue.InsightModelData
+                                                if (imd.Tobacco != nil) {
+                                                    tobacco := imd.Tobacco
+                                                    Expect(tobacco.ExposureScore).ToNot(BeNil())
+                                                    Expect(tobacco.Usage).ToNot(BeNil())
+                                                    Expect(tobacco.UseStatus).ToNot(BeNil())
+                                                    Expect(tobacco.NonPatientScore).ToNot(BeNil())
+                                                    Expect(tobacco.TreatmentScore).ToNot(BeNil())
+                                                }
+                                        }
 				}
 				Expect(containerAnno.MedicationInd).ToNot(BeNil())
 				for _, medIndEntry := range containerAnno.MedicationInd {

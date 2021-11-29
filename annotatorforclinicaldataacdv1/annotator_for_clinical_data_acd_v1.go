@@ -3854,6 +3854,476 @@ func (options *GetProfilesOptions) SetHeaders(param map[string]string) *GetProfi
 	return options
 }
 
+// InsightModelAlcoholUsage : InsightModel Alcohol Usage struct
+type InsightModelAlcoholUsage struct {
+        UseScore *float64 `json:"useScore,omitempty"`
+
+        NoneScore *float64 `json:"noneScore,omitempty"`
+
+        UnknownScore *float64 `json:"unknownScore,omitempty"`
+
+        DiscussedScore *float64 `json:"discussedScore,omitempty"`
+}
+
+// UnmarshalInsightModelAlcoholUsage unmarshals an instance of InsightModelAlcoholUsage from the specified raw message.
+func UnmarshalInsightModelAlcoholUsage(m map[string]json.RawMessage, result interface{}) (err error) {
+        obj := new(InsightModelAlcoholUsage)
+        err = core.UnmarshalPrimitive(m, "useScore", &obj.UseScore)
+        if err != nil {
+                return
+        }
+        err = core.UnmarshalPrimitive(m, "noneScore", &obj.NoneScore)
+        if err != nil {
+                return
+        }
+        err = core.UnmarshalPrimitive(m, "unknownScore", &obj.UnknownScore)
+        if err != nil {
+                return
+        }
+        err = core.UnmarshalPrimitive(m, "discussedScore", &obj.DiscussedScore)
+        if err != nil {
+                return
+        }
+        reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+        return
+}
+
+// InsightModelAlcoholUseQualifier : InsightModel Alcohol Use Qualifier struct
+type InsightModelAlcoholUseQualifier struct {
+        LightScore *float64 `json:"lightScore,omitempty"`
+
+        ModerateScore *float64 `json:"moderateScore,omitempty"`
+
+        HeavyScore *float64 `json:"heavyScore,omitempty"`
+
+        AbuseScore *float64 `json:"abuseScore,omitempty"`
+}
+
+// UnmarshalInsightModelAlcoholUseQualifier unmarshals an instance of InsightModelAlcoholUseQualifier from the specified raw message.
+func UnmarshalInsightModelAlcoholUseQualifier(m map[string]json.RawMessage, result interface{}) (err error) {
+        obj := new(InsightModelAlcoholUseQualifier)
+        err = core.UnmarshalPrimitive(m, "lightScore", &obj.LightScore)
+        if err != nil {
+                return
+        }
+        err = core.UnmarshalPrimitive(m, "moderateScore", &obj.ModerateScore)
+        if err != nil {
+                return
+        }
+        err = core.UnmarshalPrimitive(m, "heavyScore", &obj.HeavyScore)
+        if err != nil {
+                return
+        }
+        err = core.UnmarshalPrimitive(m, "abuseScore", &obj.AbuseScore)
+        if err != nil {
+                return
+        }
+        reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+        return
+}
+
+// InsightModelAlcoholUseStatus : InsightModel Alcohol Use Status struct
+type InsightModelAlcoholUseStatus struct {
+        StoppedScore *float64 `json:"stoppedScore,omitempty"`
+
+        NeverScore *float64 `json:"neverScore,omitempty"`
+}
+
+// UnmarshalInsightModelAlcoholUseStatus unmarshals an instance of InsightModelAlcoholUseStatus from the specified raw message.
+func UnmarshalInsightModelAlcoholUseStatus(m map[string]json.RawMessage, result interface{}) (err error) {
+        obj := new(InsightModelAlcoholUseStatus)
+        err = core.UnmarshalPrimitive(m, "stoppedScore", &obj.StoppedScore)
+        if err != nil {
+                return
+        }
+        err = core.UnmarshalPrimitive(m, "neverScore", &obj.NeverScore)
+        if err != nil {
+                return
+        }
+        reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+        return
+}
+
+// InsightModelAlcohol : InsightModel Alcohol struct
+type InsightModelAlcohol struct {
+        Usage *InsightModelAlcoholUsage `json:"usage,omitempty"`
+
+        UseStatus *InsightModelAlcoholUseStatus `json:"useStatus,omitempty"`
+
+        UseQualifier *InsightModelAlcoholUseQualifier `json:"useQualifier,omitempty"`
+
+        ExposureScore *float64 `json:"exposureScore,omitempty"`
+
+        NonPatientScore *float64 `json:"nonPatientScore,omitempty"`
+
+        TreatmentScore *float64 `json:"treatmentScore,omitempty"`
+}
+
+// UnmarshalInsightModelAlcohol unmarshals an instance of InsightModelAlcohol from the specified raw message.
+func UnmarshalInsightModelAlcohol(m map[string]json.RawMessage, result interface{}) (err error) {
+        obj := new(InsightModelAlcohol)
+        err = core.UnmarshalModel(m, "usage", &obj.Usage, UnmarshalInsightModelAlcoholUsage)
+        if err != nil {
+                return
+        }
+        err = core.UnmarshalModel(m, "useStatus", &obj.UseStatus, UnmarshalInsightModelAlcoholUseStatus)
+        if err != nil {
+                return
+        }
+        err = core.UnmarshalModel(m, "useQualifier", &obj.UseQualifier, UnmarshalInsightModelAlcoholUseQualifier)
+        if err != nil {
+                return
+        }
+        err = core.UnmarshalPrimitive(m, "exposureScore", &obj.ExposureScore)
+        if err != nil {
+                return
+        }
+        err = core.UnmarshalPrimitive(m, "nonPatientScore", &obj.NonPatientScore)
+        if err != nil {
+                return
+        }
+        err = core.UnmarshalPrimitive(m, "treatmentScore", &obj.TreatmentScore)
+        if err != nil {
+                return
+        }
+        reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+        return
+}
+
+// InsightModelIllicitDrugUseStatus : InsightModel Illicit Drug Use Status struct
+type InsightModelIllicitDrugUseStatus struct {
+        CurrentScore *float64 `json:"currentScore,omitempty"`
+       
+        StoppedScore *float64 `json:"stoppedScore,omitempty"`
+
+        NeverScore *float64 `json:"neverScore,omitempty"`
+
+        ComplianceScore *float64 `json:"complianceScore,omitempty"`
+}
+
+// UnmarshalInsightModelIllicitDrugUseStatus unmarshals an instance of InsightModelIllicitDrugUseStatus from the specified raw message.
+func UnmarshalInsightModelIllicitDrugUseStatus(m map[string]json.RawMessage, result interface{}) (err error) {
+        obj := new(InsightModelIllicitDrugUseStatus)
+        err = core.UnmarshalPrimitive(m, "currentScore", &obj.CurrentScore)
+        if err != nil {
+                return
+        }
+        err = core.UnmarshalPrimitive(m, "stoppedScore", &obj.StoppedScore)
+        if err != nil {
+                return
+        }
+        err = core.UnmarshalPrimitive(m, "neverScore", &obj.NeverScore)
+        if err != nil {
+                return
+        }
+        err = core.UnmarshalPrimitive(m, "complianceScore", &obj.ComplianceScore)
+        if err != nil {
+                return
+        }
+        reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+        return
+}
+
+// InsightModelIllicitDrugUseQualifier : InsightModel Illicit Drug Use Qualifier struct
+type InsightModelIllicitDrugUseQualifier struct {
+        LightScore *float64 `json:"lightScore,omitempty"`
+
+        ModerateScore *float64 `json:"moderateScore,omitempty"`
+
+        HeavyScore *float64 `json:"heavyScore,omitempty"`
+}
+
+// UnmarshalInsightModelIllicitDrugUseQualifier unmarshals an instance of InsightModelIllicitDrugUseQualifier from the specified raw message.
+func UnmarshalInsightModelIllicitDrugUseQualifier(m map[string]json.RawMessage, result interface{}) (err error) {
+        obj := new(InsightModelIllicitDrugUseQualifier)
+        err = core.UnmarshalPrimitive(m, "lightScore", &obj.LightScore)
+        if err != nil {
+                return
+        }
+        err = core.UnmarshalPrimitive(m, "moderateScore", &obj.ModerateScore)
+        if err != nil {
+                return
+        }
+        err = core.UnmarshalPrimitive(m, "heavyScore", &obj.HeavyScore)
+        if err != nil {
+                return
+        }
+        reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+        return
+}
+
+// InsightModelIllicitDrugUseDimension : InsightModel Illicit Drug Use Dimension struct
+type InsightModelIllicitDrugUseDimension struct {
+        AbuseScore *float64 `json:"abuseScore,omitempty"`
+
+        MedicalScore *float64 `json:"medicalScore,omitempty"`
+}
+
+// UnmarshalInsightModelIllicitDrugUseDimension unmarshals an instance of InsightModelIllicitDrugUseDimension from the specified raw message.
+func UnmarshalInsightModelIllicitDrugUseDimension(m map[string]json.RawMessage, result interface{}) (err error) {
+        obj := new(InsightModelIllicitDrugUseDimension)
+        err = core.UnmarshalPrimitive(m, "abuseScore", &obj.AbuseScore)
+        if err != nil {
+                return
+        }
+        err = core.UnmarshalPrimitive(m, "medicalScore", &obj.MedicalScore)
+        if err != nil {
+                return
+        }
+        reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+        return
+}
+
+// InsightModelIllicitDrugUsage : InsightModel Illicit Drug Usage struct
+type InsightModelIllicitDrugUsage struct {
+        UseScore *float64 `json:"useScore,omitempty"`
+        
+        NoneScore *float64 `json:"noneScore,omitempty"`
+        
+        UnknownScore *float64 `json:"unknownScore,omitempty"`
+        
+        DiscussedScore *float64 `json:"discussedScore,omitempty"`
+
+        TreatmentScore *float64 `json:"treatmentScore,omitempty"`
+}
+
+// UnmarshalInsightModelIllicitDrugUsage unmarshals an instance of InsightModelIllicitDrugUsage from the specified raw message.
+func UnmarshalInsightModelIllicitDrugUsage(m map[string]json.RawMessage, result interface{}) (err error) {
+        obj := new(InsightModelIllicitDrugUsage)
+        err = core.UnmarshalPrimitive(m, "useScore", &obj.UseScore)
+        if err != nil {
+                return
+        }
+        err = core.UnmarshalPrimitive(m, "noneScore", &obj.NoneScore)
+        if err != nil {
+                return
+        }
+        err = core.UnmarshalPrimitive(m, "unknownScore", &obj.UnknownScore)
+        if err != nil {
+                return
+        }
+        err = core.UnmarshalPrimitive(m, "discussedScore", &obj.DiscussedScore)
+        if err != nil {
+                return
+        }
+        err = core.UnmarshalPrimitive(m, "treatmentScore", &obj.TreatmentScore)
+        if err != nil {
+                return
+        }
+        reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+        return
+}
+
+// InsightModelIllicitDrug : InsightModel Illicit Drug struct
+type InsightModelIllicitDrug struct {
+        Usage *InsightModelIllicitDrugUsage `json:"usage,omitempty"`
+
+        UseStatus *InsightModelIllicitDrugUseStatus `json:"useStatus,omitempty"`
+
+        UseQualifier *InsightModelIllicitDrugUseQualifier `json:"useQualifier,omitempty"`
+
+        UseDimension *InsightModelIllicitDrugUseDimension `json:"useDimension,omitempty"`
+
+        ExposureScore *float64 `json:"exposureScore,omitempty"`
+
+        NonPatientScore *float64 `json:"nonPatientScore,omitempty"`
+
+        TreatmentScore *float64 `json:"treatmentScore,omitempty"`
+}
+
+// UnmarshalInsightModelIllicitDrug unmarshals an instance of InsightModelIllicitDrug from the specified raw message.
+func UnmarshalInsightModelIllicitDrug(m map[string]json.RawMessage, result interface{}) (err error) {
+        obj := new(InsightModelIllicitDrug)
+        err = core.UnmarshalModel(m, "usage", &obj.Usage, UnmarshalInsightModelIllicitDrugUsage)
+        if err != nil {
+                return
+        }
+        err = core.UnmarshalModel(m, "useStatus", &obj.UseStatus, UnmarshalInsightModelIllicitDrugUseStatus)
+        if err != nil {
+                return
+        }
+        err = core.UnmarshalModel(m, "useQualifier", &obj.UseQualifier, UnmarshalInsightModelIllicitDrugUseQualifier)
+        if err != nil {
+                return
+        }
+        err = core.UnmarshalModel(m, "useDimension", &obj.UseDimension, UnmarshalInsightModelIllicitDrugUseDimension)
+        if err != nil {
+                return
+        }
+        err = core.UnmarshalPrimitive(m, "exposureScore", &obj.ExposureScore)
+        if err != nil {
+                return
+        }
+        err = core.UnmarshalPrimitive(m, "nonPatientScore", &obj.NonPatientScore)
+        if err != nil {
+                return
+        }
+        err = core.UnmarshalPrimitive(m, "treatmentScore", &obj.TreatmentScore)
+        if err != nil {
+                return
+        }
+        reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+        return
+}
+
+// InsightModelTobaccoUseStatus : InsightModel Tobacco Use Status struct
+type InsightModelTobaccoUseStatus struct {
+        CurrentScore *float64 `json:"currentScore,omitempty"`
+
+        StoppedScore *float64 `json:"stoppedScore,omitempty"`
+
+        NeverScore *float64 `json:"neverScore,omitempty"`
+}
+
+// UnmarshalInsightModelTobaccoUseStatus unmarshals an instance of InsightModelTobaccoUseStatus from the specified raw message.
+func UnmarshalInsightModelTobaccoUseStatus(m map[string]json.RawMessage, result interface{}) (err error) {
+        obj := new(InsightModelTobaccoUseStatus)
+        err = core.UnmarshalPrimitive(m, "currentScore", &obj.CurrentScore)
+        if err != nil {
+                return
+        }
+        err = core.UnmarshalPrimitive(m, "stoppedScore", &obj.StoppedScore)
+        if err != nil {
+                return
+        }
+        err = core.UnmarshalPrimitive(m, "neverScore", &obj.NeverScore)
+        if err != nil {
+                return
+        }
+        reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+        return
+}
+
+// InsightModelTobaccoUsage : InsightModel Tobacco Usage struct
+type InsightModelTobaccoUsage struct {
+        UseScore *float64 `json:"useScore,omitempty"`
+
+        NoneScore *float64 `json:"noneScore,omitempty"`
+
+        UnknownScore *float64 `json:"unknownScore,omitempty"`
+
+        DiscussedScore *float64 `json:"discussedScore,omitempty"`
+}
+
+// UnmarshalInsightModelTobaccoUsage unmarshals an instance of InsightModelTobaccoUsage from the specified raw message.
+func UnmarshalInsightModelTobaccoUsage(m map[string]json.RawMessage, result interface{}) (err error) {
+        obj := new(InsightModelTobaccoUsage)
+        err = core.UnmarshalPrimitive(m, "useScore", &obj.UseScore)
+        if err != nil {
+                return
+        }
+        err = core.UnmarshalPrimitive(m, "noneScore", &obj.NoneScore)
+        if err != nil {
+                return
+        }
+        err = core.UnmarshalPrimitive(m, "unknownScore", &obj.UnknownScore)
+        if err != nil {
+                return
+        }
+        err = core.UnmarshalPrimitive(m, "discussedScore", &obj.DiscussedScore)
+        if err != nil {
+                return
+        }
+        reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+        return
+}
+
+// InsightModelTobacco : InsightModel Tobacco struct
+type InsightModelTobacco struct {
+        Usage *InsightModelTobaccoUsage `json:"usage,omitempty"`
+
+        UseStatus *InsightModelTobaccoUseStatus `json:"useStatus,omitempty"`
+
+        ExposureScore *float64 `json:"exposureScore,omitempty"`
+
+        FamilyHistoryScore *float64 `json:"familyHistoryScore,omitempty"`
+
+        NonPatientScore *float64 `json:"nonPatientScore,omitempty"`
+
+        TreatmentScore *float64 `json:"treatmentScore,omitempty"`
+}
+
+// UnmarshalInsightModelTobacco unmarshals an instance of InsightModelTobacco from the specified raw message.
+func UnmarshalInsightModelTobacco(m map[string]json.RawMessage, result interface{}) (err error) {
+        obj := new(InsightModelTobacco)
+        err = core.UnmarshalModel(m, "usage", &obj.Usage, UnmarshalInsightModelTobaccoUsage)
+        if err != nil {
+                return
+        }
+        err = core.UnmarshalModel(m, "useStatus", &obj.UseStatus, UnmarshalInsightModelTobaccoUseStatus)
+        if err != nil {
+                return
+        }
+        err = core.UnmarshalPrimitive(m, "exposureScore", &obj.ExposureScore)
+        if err != nil {
+                return
+        }
+        err = core.UnmarshalPrimitive(m, "familyHistoryScore", &obj.ExposureScore)
+        if err != nil {
+                return
+        }
+        err = core.UnmarshalPrimitive(m, "nonPatientScore", &obj.NonPatientScore)
+        if err != nil {
+                return
+        }
+        err = core.UnmarshalPrimitive(m, "treatmentScore", &obj.TreatmentScore)
+        if err != nil {
+                return
+        }
+        reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+        return
+}
+
+// InsightModelSubstanceAbuseTreatment : InsightModel Substance Abuse Treatment struct
+type InsightModelSubstanceAbuseTreatment struct {
+        DiscussedScore *float64 `json:"discussedScore,omitempty"`
+
+        ComplianceScore *float64 `json:"complianceScore,omitempty"`
+}
+
+// UnmarshalInsightModelSubstanceAbuseTreatment unmarshals an instance of InsightModelSubstanceAbuseTreatment from the specified raw message.
+func UnmarshalInsightModelSubstanceAbuseTreatment(m map[string]json.RawMessage, result interface{}) (err error) {
+        obj := new(InsightModelSubstanceAbuseTreatment)
+        err = core.UnmarshalPrimitive(m, "discussedScore", &obj.DiscussedScore)
+        if err != nil {
+                return
+        }
+        err = core.UnmarshalPrimitive(m, "complianceScore", &obj.ComplianceScore)
+        if err != nil {
+                return
+        }
+        reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+        return
+}
+
+// InsightModelSubstanceAbuse : InsightModel Substance Abuse struct
+type InsightModelSubstanceAbuse struct {
+        TreatmentScore *float64 `json:"treatmentScore,omitempty"`
+
+        NonPatientScore *float64 `json:"nonPatientScore,omitempty"`
+
+        Treatment *InsightModelSubstanceAbuseTreatment `json:"treatment,omitempty"`
+}
+
+// UnmarshalInsightModelSubstanceAbuse unmarshals an instance of InsightModelSubstanceAbuse from the specified raw message.
+func UnmarshalInsightModelSubstanceAbuse(m map[string]json.RawMessage, result interface{}) (err error) {
+        obj := new(InsightModelSubstanceAbuse)
+        err = core.UnmarshalPrimitive(m, "treatmentScore", &obj.TreatmentScore)
+        if err != nil {
+                return
+        }
+        err = core.UnmarshalPrimitive(m, "nonPatientScore", &obj.NonPatientScore)
+        if err != nil {
+                return
+        }
+        err = core.UnmarshalModel(m, "treatment", &obj.Treatment, UnmarshalInsightModelSubstanceAbuseTreatment)
+        if err != nil {
+                return
+        }
+        reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+        return
+}
+
 // InsightModel : InsightModel struct
 type InsightModel struct {
 	Procedure *ProcedureInsight `json:"procedure,omitempty"`
@@ -3863,6 +4333,14 @@ type InsightModel struct {
 	Medication *MedicationInsight `json:"medication,omitempty"`
 
 	Normality *NormalityInsight `json:"normality,omitempty"`
+
+        Tobacco *InsightModelTobacco `json:"tobacco,omitempty"`
+
+        Alcohol *InsightModelAlcohol `json:"alcohol,omitempty"`
+
+        IllicitDrug *InsightModelIllicitDrug `json:"illicitDrug,omitempty"`
+
+        SubstanceAbuse *InsightModelSubstanceAbuse `json:"substance,omitempty"`
 }
 
 // UnmarshalInsightModel unmarshals an instance of InsightModel from the specified raw message.
@@ -3884,6 +4362,26 @@ func UnmarshalInsightModel(m map[string]json.RawMessage, result interface{}) (er
 	if err != nil {
 		return
 	}
+        err = core.UnmarshalModel(m, "tobacco", &obj.Tobacco, UnmarshalInsightModelTobacco)
+        if err != nil {
+                return
+        }
+        err = core.UnmarshalModel(m, "alcohol", &obj.Alcohol, UnmarshalInsightModelAlcohol)
+        if err != nil {
+                return
+        }
+        err = core.UnmarshalModel(m, "tobacco", &obj.Tobacco, UnmarshalInsightModelTobacco)
+        if err != nil {
+                return
+        }
+        err = core.UnmarshalModel(m, "illicitDrug", &obj.IllicitDrug, UnmarshalInsightModelIllicitDrug)
+        if err != nil {
+                return
+        }
+        err = core.UnmarshalModel(m, "substance", &obj.SubstanceAbuse, UnmarshalInsightModelSubstanceAbuse)
+        if err != nil {
+                return
+        }
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
 	return
 }
@@ -4015,6 +4513,8 @@ type MedicationAnnotation struct {
 	InsightModelData *InsightModel `json:"insightModelData,omitempty"`
 
 	Temporal []Temporal `json:"temporal,omitempty"`
+
+        DisambiguationData *Disambiguation `json:"disambiguationData,omitempty"`
 }
 
 // UnmarshalMedicationAnnotation unmarshals an instance of MedicationAnnotation from the specified map of raw messages.
@@ -4072,6 +4572,10 @@ func UnmarshalMedicationAnnotation(m map[string]json.RawMessage, result interfac
 	if err != nil {
 		return
 	}
+        err = core.UnmarshalModel(m, "disambiguationData", &obj.DisambiguationData, UnmarshalDisambiguation)
+        if err != nil {
+                return
+        }
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
 	return
 }
@@ -4414,7 +4918,7 @@ func UnmarshalProcedureAnnotation(m map[string]json.RawMessage, result interface
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalModel(m, "labValue", &obj.DisambiguationData, UnmarshalDisambiguation)
+	err = core.UnmarshalModel(m, "disambiguationData", &obj.DisambiguationData, UnmarshalDisambiguation)
 	if err != nil {
 		return
 	}
