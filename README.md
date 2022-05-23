@@ -2,6 +2,8 @@
 
 ## Overview
 
+<b>Deprecated:</b>  Consider migrating to [Java](https://github.com/IBM/whcs-java-sdk) or [Python](https://github.com/IBM/whcs-python-sdk).
+
 The IBM Watson Health Cognitive Services (WHCS) Go SDK allows developers to programmatically interact with the following IBM Cloud service:
 
 Service Name | Package name
