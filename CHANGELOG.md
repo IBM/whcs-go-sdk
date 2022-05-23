@@ -1,3 +1,10 @@
+## [0.3.1](https://github.com/IBM/whcs-go-sdk/compare/v0.3.0...v0.3.1) (2022-05-23)
+
+
+### Bug Fixes
+
+* Update README ([4d3cb43](https://github.com/IBM/whcs-go-sdk/commit/4d3cb432f3125b2ccc84dc4d4d4907f75d1e55ea))
+
 # [0.3.0](https://github.com/IBM/whcs-go-sdk/compare/v0.2.5...v0.3.0) (2021-11-29)
 
 
