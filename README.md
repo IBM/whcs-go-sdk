@@ -1,4 +1,4 @@
-# IBM Watson Health Cognitive Services Go SDK Version 0.3.0
+# IBM Watson Health Cognitive Services Go SDK Version 0.3.1
 
 ## Overview
 
@@ -21,7 +21,7 @@ NOTE: You must be signed into IBM Cloud to see the docs.
 * Go version 1.14 or above.
 
 ## Installation
-The current version of this SDK: 0.3.0
+The current version of this SDK: 0.3.1
 
 #### Go modules
 If your application uses Go modules for dependency management (recommended), just add an import to your
@@ -42,7 +42,7 @@ Alternatively, you can use the `go get` command to download and install the pack
 use it:
 
 ```
-go get -u github.com/IBM/whcs-go-sdk@v0.3.0
+go get -u github.com/IBM/whcs-go-sdk@v0.3.1
 ```
 ## Using the SDK
 
